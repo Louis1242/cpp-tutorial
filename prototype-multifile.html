@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="light" />
+<title>多文件运行面板小样（第 9 章 编译与链接）</title>
+<style>
+  :root {
+    --indigo: #4f46e5;
+    --indigo-dark: #312e81;
+    --bg: #f8fafc;
+    --line: #e2e8f0;
+    --ink: #1e293b;
+    --muted: #64748b;
+    --mono: "JetBrains Mono", "Cascadia Code", Consolas, "Courier New", monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif;
+    line-height: 1.65;
+    padding: 20px 16px 48px;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; min-width: 0; }
+
+  header { margin-bottom: 14px; }
+  h1 {
+    font-size: 19px;
+    line-height: 1.4;
+    margin: 0 0 8px;
+    color: var(--indigo-dark);
+  }
+  .intro {
+    margin: 0;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+  .intro strong { color: #334155; }
+
+  /* ---------- 文件标签 ---------- */
+  .tabs {
+    display: flex;
+    gap: 6px;
+    margin: 16px 0 0;
+    padding-bottom: 2px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+  .tabs::-webkit-scrollbar { height: 5px; }
+  .tabs::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
+
+  .tab {
+    flex: 0 0 auto;
+    appearance: none;
+    padding: 7px 14px;
+    border: 1px solid var(--line);
+    border-bottom: 2px solid transparent;
+    border-radius: 8px 8px 0 0;
+    background: #fff;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.2;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color .15s ease, background .15s ease, border-color .15s ease;
+  }
+  .tab:hover { color: #334155; background: #f1f5f9; }
+  .tab[aria-selected="true"] {
+    color: #fff;
+    background: var(--indigo);
+    border-color: var(--indigo);
+    border-bottom-color: var(--indigo);
+    font-weight: 600;
+  }
+
+  /* ---------- 编辑区 ---------- */
+  .editor-shell {
+    border: 1px solid var(--line);
+    border-top: 2px solid var(--indigo);
+    border-radius: 0 10px 0 0;
+    background: #0f172a;
+    overflow: hidden;
+  }
+  .pane[hidden] { display: none; }
+  textarea.editor {
+    display: block;
+    width: 100%;
+    height: 320px;
+    margin: 0;
+    padding: 14px 16px;
+    border: 0;
+    background: #0f172a;
+    color: #e2e8f0;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.75;
+    tab-size: 4;
+    resize: vertical;
+    white-space: pre;
+    overflow: auto;
+  }
+  textarea.editor:focus { outline: 2px solid #818cf8; outline-offset: -2px; }
+
+  .file-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 14px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-top: 0;
+    border-radius: 0 0 10px 10px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .file-meta code { font-family: var(--mono); color: #475569; }
+
+  /* ---------- 操作区 ---------- */
+  .presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 18px 0 0;
+  }
+  .preset {
+    appearance: none;
+    padding: 8px 12px;
+    border: 1px solid #c7d2fe;
+    border-radius: 8px;
+    background: #eef2ff;
+    color: #3730a3;
+    font-size: 12px;
+    line-height: 1.3;
+    text-align: left;
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  .preset:hover { background: #e0e7ff; border-color: #a5b4fc; }
+  .preset small { display: block; margin-top: 2px; color: #6366f1; font-size: 11px; }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .run {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 22px;
+    border: 1px solid #059669;
+    border-radius: 9px;
+    background: #059669;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .15s ease, border-color .15s ease;
+  }
+  .run:hover { background: #047857; border-color: #047857; }
+  .run:disabled { opacity: .6; cursor: wait; }
+  .spinner {
+    width: 13px; height: 13px;
+    border: 2px solid rgba(255,255,255,.4);
+    border-top-color: #fff;
+    border-radius: 999px;
+    animation: spin .8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .run-hint { font-size: 11px; color: #94a3b8; }
+
+  /* ---------- 标准输入 ---------- */
+  .block {
+    margin-top: 16px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: #fff;
+    overflow: hidden;
+  }
+  .block-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 14px;
+    background: #f1f5f9;
+    border-bottom: 1px solid var(--line);
+    font-size: 11.5px;
+    color: #475569;
+  }
+  .block-head b { font-weight: 600; }
+  textarea#stdin {
+    display: block;
+    width: 100%;
+    min-height: 56px;
+    padding: 10px 14px;
+    border: 0;
+    background: #fff;
+    color: var(--ink);
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.6;
+    resize: vertical;
+  }
+  textarea#stdin:focus { outline: 2px solid #a5b4fc; outline-offset: -2px; }
+
+  /* ---------- 输出 ---------- */
+  .status-line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    padding: 9px 14px;
+    background: #f1f5f9;
+    border-bottom: 1px solid var(--line);
+    font-size: 12px;
+  }
+  .badge {
+    padding: 2px 9px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+  .badge.idle { background: #e2e8f0; color: #475569; }
+  .badge.pending { background: #e0e7ff; color: #3730a3; }
+  .badge.ok { background: #d1fae5; color: #047857; }
+  .badge.warn { background: #fef3c7; color: #b45309; }
+  .badge.err { background: #fee2e2; color: #b91c1c; }
+  .field-note { font-family: var(--mono); font-size: 11px; color: #94a3b8; }
+
+  pre#output {
+    margin: 0;
+    padding: 14px 16px;
+    min-height: 110px;
+    max-height: 340px;
+    overflow: auto;
+    background: #0f172a;
+    color: #e2e8f0;
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  pre#output.is-muted { color: #94a3b8; }
+
+  footer {
+    margin-top: 18px;
+    font-size: 11px;
+    color: #94a3b8;
+  }
+  footer code { font-family: var(--mono); }
+
+  @media (max-width: 480px) {
+    body { padding: 14px 12px 40px; }
+    h1 { font-size: 17px; }
+    .intro { font-size: 12.5px; }
+    textarea.editor { height: 250px; font-size: 12px; padding: 12px; }
+    .preset { flex: 1 1 100%; }
+    .run { width: 100%; justify-content: center; }
+    .run-hint { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>多文件运行面板 · 小样</h1>
+    <p class="intro">
+      这个小样只验证一件事：把 <strong>main.cpp / util.h / util.cpp</strong> 三个文件一次性提交给 Wandbox，能不能真的编译、链接并跑出结果。<br />
+      三个预置按钮会分别制造「正常」「头文件漏声明」「源文件漏定义」，下面显示的都是接口真返回的原文，没有写死假报错。
+    </p>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="源文件">
+    <button class="tab" role="tab" data-file="main.cpp" aria-selected="true">main.cpp</button>
+    <button class="tab" role="tab" data-file="util.h" aria-selected="false">util.h</button>
+    <button class="tab" role="tab" data-file="util.cpp" aria-selected="false">util.cpp</button>
+  </div>
+
+  <div class="editor-shell">
+    <div class="pane" data-file="main.cpp">
+      <textarea class="editor" data-file="main.cpp" spellcheck="false" aria-label="main.cpp 内容"></textarea>
+    </div>
+    <div class="pane" data-file="util.h" hidden>
+      <textarea class="editor" data-file="util.h" spellcheck="false" aria-label="util.h 内容"></textarea>
+    </div>
+    <div class="pane" data-file="util.cpp" hidden>
+      <textarea class="editor" data-file="util.cpp" spellcheck="false" aria-label="util.cpp 内容"></textarea>
+    </div>
+  </div>
+  <div class="file-meta">
+    <span>当前文件 <code id="meta-file">main.cpp</code> · 内容自动保存在本机</span>
+    <span id="meta-count">0 行</span>
+  </div>
+
+  <div class="presets">
+    <button class="preset" data-scene="ok">① 正常
+      <small>三文件齐全，应输出 3 + 4 = 7</small>
+    </button>
+    <button class="preset" data-scene="no-decl">② 头文件漏声明
+      <small>util.h 只剩 #pragma once，应报 undeclared</small>
+    </button>
+    <button class="preset" data-scene="no-def">③ 源文件漏定义
+      <small>util.cpp 只 include，应报 undefined reference</small>
+    </button>
+  </div>
+
+  <div class="actions">
+    <button class="run" id="run-btn" type="button">运行</button>
+    <span class="run-hint">一次提交整组文件（约 1～3 秒）</span>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><b>标准输入（stdin）</b><span>本示例不用，留着验证字段能透传</span></div>
+    <textarea id="stdin" spellcheck="false" placeholder="每行一个输入，例如：&#10;3 4"></textarea>
+  </div>
+
+  <div class="block">
+    <div class="status-line">
+      <span class="badge idle" id="status-badge">未运行</span>
+      <span class="field-note" id="status-field"></span>
+    </div>
+    <pre id="output" class="is-muted">点“运行”或任一预置场景按钮，这里会显示接口的真实返回。</pre>
+  </div>
+
+  <footer>
+    编译器固定 <code>gcc-13.2.0</code>，通过 <code>codes[]</code> 传多文件、<code>compiler-option-raw</code> 追加参与编译的源文件。请求直连 wandbox.org。
+  </footer>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var STORAGE_PREFIX = 'cpp-tutorial:file:demo:';
+  var ENDPOINT = 'https://wandbox.org/api/compile.json';
+  var COMPILER = 'gcc-13.2.0';
+  var TIMEOUT_MS = 30000;
+  var FILES = ['main.cpp', 'util.h', 'util.cpp'];
+
+  var DEFAULT_FILES = {
+    'main.cpp':
+      '#include <iostream>\n' +
+      '#include "util.h"\n' +
+      '\n' +
+      'int main() {\n' +
+      '    std::cout << "3 + 4 = " << add(3, 4) << "\\n";\n' +
+      '    return 0;\n' +
+      '}\n',
+    'util.h':
+      '#pragma once\n' +
+      '\n' +
+      'int add(int a, int b);\n',
+    'util.cpp':
+      '#include "util.h"\n' +
+      '\n' +
+      'int add(int a, int b) {\n' +
+      '    return a + b;\n' +
+      '}\n'
+  };
+
+  var SCENES = {
+    'ok': {
+      'main.cpp': DEFAULT_FILES['main.cpp'],
+      'util.h': DEFAULT_FILES['util.h'],
+      'util.cpp': DEFAULT_FILES['util.cpp']
+    },
+    'no-decl': {
+      'main.cpp': DEFAULT_FILES['main.cpp'],
+      'util.h': '#pragma once\n',
+      'util.cpp': DEFAULT_FILES['util.cpp']
+    },
+    'no-def': {
+      'main.cpp': DEFAULT_FILES['main.cpp'],
+      'util.h': DEFAULT_FILES['util.h'],
+      'util.cpp': '#include "util.h"\n'
+    }
+  };
+
+  var editors = {};
+  var panes = {};
+  var tabs = {};
+  var activeFile = 'main.cpp';
+  var running = false;
+  var storageOk = true;
+
+  var badge = document.getElementById('status-badge');
+  var fieldNote = document.getElementById('status-field');
+  var output = document.getElementById('output');
+  var metaFile = document.getElementById('meta-file');
+  var metaCount = document.getElementById('meta-count');
+  var runBtn = document.getElementById('run-btn');
+  var stdinEl = document.getElementById('stdin');
+
+  function keyOf(file) { return STORAGE_PREFIX + file; }
+
+  function load(file) {
+    try {
+      var v = window.localStorage.getItem(keyOf(file));
+      if (v !== null) return v;
+    } catch (e) {
+      storageOk = false;
+    }
+    return DEFAULT_FILES[file];
+  }
+
+  function save(file) {
+    try {
+      window.localStorage.setItem(keyOf(file), editors[file].value);
+    } catch (e) {
+      storageOk = false;
+    }
+  }
+
+  function updateMeta() {
+    var v = editors[activeFile].value;
+    metaFile.textContent = activeFile;
+    metaCount.textContent = (v ? v.split('\n').length : 0) + ' 行' +
+      (storageOk ? '' : ' · 本机存储不可用，改动不会保留');
+  }
+
+  function selectTab(file) {
+    activeFile = file;
+    FILES.forEach(function (f) {
+      var on = (f === file);
+      tabs[f].setAttribute('aria-selected', on ? 'true' : 'false');
+      panes[f].hidden = !on;
+    });
+    updateMeta();
+    var el = editors[file];
+    el.focus();
+    el.setSelectionRange(el.value.length, el.value.length);
+  }
+
+  function setBadge(text, kind) {
+    badge.textContent = text;
+    badge.className = 'badge ' + kind;
+  }
+
+  function setOutput(text, muted) {
+    output.textContent = text;
+    output.className = muted ? 'is-muted' : '';
+  }
+
+  function isLinkError(msg) {
+    return /\/usr\/bin\/ld:|collect2:|undefined reference to|multiple definition of/.test(msg);
+  }
+
+  function render(data) {
+    var status = String(data.status);
+    var cerr = data.compiler_error || '';
+    var cmsg = data.compiler_message || '';
+
+    if (data.program_error) {
+      setBadge('运行期错误', 'err');
+      fieldNote.textContent = 'program_error';
+      setOutput(data.program_error + (data.program_output ? '\n' + data.program_output : ''), false);
+      return;
+    }
+
+    if (status !== '0') {
+      var msg = cerr || cmsg || '（接口没有给出错误信息）';
+      var link = isLinkError(msg);
+      setBadge(link ? '链接错误' : '编译错误', 'err');
+      fieldNote.textContent = (cerr ? 'compiler_error' : 'compiler_message') +
+        ' · status=' + status;
+      setOutput(msg, false);
+      return;
+    }
+
+    if (cerr) {
+      setBadge('运行完成（有警告）', 'warn');
+      fieldNote.textContent = 'compiler_error · status=0';
+      setOutput('编译警告：\n' + cerr + '\n' + (data.program_output || '（程序没有输出）'), false);
+      return;
+    }
+
+    setBadge('运行完成', 'ok');
+    fieldNote.textContent = 'program_output · status=0';
+    setOutput(data.program_output || '（程序没有输出）', !data.program_output);
+  }
+
+  function setRunning(on) {
+    running = on;
+    runBtn.disabled = on;
+    runBtn.innerHTML = on
+      ? '<span class="spinner"></span>运行中'
+      : '运行';
+  }
+
+  async function run() {
+    if (running) return;
+
+    var payload = {
+      compiler: COMPILER,
+      code: '',
+      codes: FILES.map(function (f) {
+        return { file: f, code: editors[f].value };
+      }),
+      options: 'warning,c++17',
+      'compiler-option-raw': 'main.cpp\nutil.cpp',
+      stdin: stdinEl.value
+    };
+
+    setRunning(true);
+    setBadge('提交中…', 'pending');
+    fieldNote.textContent = '';
+    setOutput('正在提交 ' + FILES.length + ' 个文件…', true);
+
+    var controller = new AbortController();
+    var timer = setTimeout(function () { controller.abort(); }, TIMEOUT_MS);
+
+    try {
+      var res = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+        body: JSON.stringify(payload),
+        signal: controller.signal,
+        cache: 'no-store'
+      });
+
+      if (!res.ok) {
+        setBadge('请求失败', 'err');
+        fieldNote.textContent = 'HTTP ' + res.status;
+        setOutput('接口返回 HTTP ' + res.status + (res.status === 429 ? '（请求过于频繁，稍等再试）' : ''), false);
+        return;
+      }
+
+      var data = await res.json();
+      render(data);
+    } catch (err) {
+      if (err && err.name === 'AbortError') {
+        setBadge('超时', 'err');
+        fieldNote.textContent = '无返回';
+        setOutput('请求超过 ' + (TIMEOUT_MS / 1000) + ' 秒没有返回，可能是网络问题或服务繁忙。', false);
+      } else {
+        setBadge('网络错误', 'err');
+        fieldNote.textContent = 'fetch 失败';
+        setOutput('请求没有发出去：' + (err && err.message ? err.message : String(err)), false);
+      }
+    } finally {
+      clearTimeout(timer);
+      setRunning(false);
+    }
+  }
+
+  function applyScene(name) {
+    var files = SCENES[name];
+    if (!files) return;
+    FILES.forEach(function (f) {
+      editors[f].value = files[f];
+      save(f);
+    });
+    selectTab('main.cpp');
+    run();
+  }
+
+  function init() {
+    FILES.forEach(function (f) {
+      var ta = document.querySelector('textarea.editor[data-file="' + f + '"]');
+      editors[f] = ta;
+      panes[f] = document.querySelector('.pane[data-file="' + f + '"]');
+      tabs[f] = document.querySelector('.tab[data-file="' + f + '"]');
+
+      ta.value = load(f);
+
+      var saveTimer = null;
+      ta.addEventListener('input', function () {
+        if (saveTimer) clearTimeout(saveTimer);
+        saveTimer = setTimeout(function () { save(f); }, 400);
+        if (f === activeFile) updateMeta();
+      });
+
+      tabs[f].addEventListener('click', function () { selectTab(f); });
+    });
+
+    runBtn.addEventListener('click', run);
+
+    Array.prototype.forEach.call(document.querySelectorAll('.preset'), function (btn) {
+      btn.addEventListener('click', function () { applyScene(btn.getAttribute('data-scene')); });
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        e.preventDefault();
+        run();
+      }
+    });
+
+    // 浏览器不支持 tab 键缩进时，至少保证 Tab 不把焦点带走
+    FILES.forEach(function (f) {
+      editors[f].addEventListener('keydown', function (e) {
+        if (e.key !== 'Tab') return;
+        e.preventDefault();
+        var el = editors[f];
+        var start = el.selectionStart;
+        var end = el.selectionEnd;
+        el.value = el.value.slice(0, start) + '    ' + el.value.slice(end);
+        el.selectionStart = el.selectionEnd = start + 4;
+        save(f);
+      });
+    });
+
+    selectTab('main.cpp');
+    updateMeta();
+  }
+
+  init();
+})();
+</script>
+</body>
+</html>

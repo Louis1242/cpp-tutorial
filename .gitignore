@@ -1,0 +1,15 @@
+# Python 缓存
+__pycache__/
+*.pyc
+
+# 临时与日志
+*.tmp
+*.log
+*.bak
+
+# 系统文件
+Thumbs.db
+.DS_Store
+
+# 截图调试产物（非教程资产）
+.screenshots/

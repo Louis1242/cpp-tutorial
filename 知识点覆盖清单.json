@@ -1,0 +1,1913 @@
+{
+  "meta": {
+    "title": "C++ 教程知识点覆盖清单",
+    "source": "index.html",
+    "updated": "2026-11-05",
+    "note": "逐知识点登记常见形态与处置；baseline 记录改造前的覆盖情况，disposition 记录改造后的落点。",
+    "disposition_labels": {
+      "body": "正文必讲",
+      "fold": "折叠区讲",
+      "exclude": "明确不讲"
+    }
+  },
+  "knowledge_points": [
+    {
+      "id": "kp-01",
+      "name": "整数类型：有符号、无符号与溢出",
+      "stage": 1,
+      "part": "01-04",
+      "anchor": "p1-04",
+      "scene": "存人数、成绩、开关状态时，先决定用哪种整数、范围够不够。",
+      "baseline": "covered",
+      "gap": "已按清单完成处置：正文补讲、折叠区展开或注明去向。",
+      "forms": [
+        {
+          "form": "有符号整数 int / long long",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "日常计数、金额按“分”存整数；超过 21 亿换 long long。",
+          "note": "类型表与选择表已覆盖"
+        },
+        {
+          "form": "各类型取值范围与位宽推导",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "选类型时先确认能不能装下：8 位、32 位、64 位各有固定范围。",
+          "note": "01-04 新增取值范围表，并用 8 位手算 -2^(n-1)～2^(n-1)-1"
+        },
+        {
+          "form": "long 的跨平台宽度差异",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "把代码从 Windows 搬到 Linux，或照着教程在本地跑 long 时。",
+          "note": "01-04 明确写 Windows 上 4 字节、Linux 64 位上 8 字节，预期输出按 Wandbox"
+        },
+        {
+          "form": "无符号 unsigned",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "人数、下标、位掩码这类只可能非负的量；和 int 混算时要小心。",
+          "note": "补在 01-04 末尾“常见形态”"
+        },
+        {
+          "form": "整数溢出",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "累加很大的数、把两个大 int 相乘时；无符号会回绕，有符号是未定义行为。",
+          "note": "01-04 重写为“无符号按模回绕 / 有符号未定义”两种结局，配 overflow_demo.cpp 与避坑 08"
+        },
+        {
+          "form": "字面量后缀 LL / u / f",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "写超过 21 亿的常量、给 unsigned 变量赋常量、写 float 常量时。",
+          "note": "补在后缀示例旁"
+        },
+        {
+          "form": "隐式转换与截断",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "double 赋给 int、char 当整数算、int 与 double 混合运算时。",
+          "note": "补“截断不是四舍五入”"
+        },
+        {
+          "form": "位运算 & | ^ ~ << >>",
+          "disposition": "exclude",
+          "baseline": "missing",
+          "scene": "读底层代码、写标志位时会遇到。",
+          "note": "明确不讲，留到阶段七补充阅读"
+        }
+      ]
+    },
+    {
+      "id": "kp-02",
+      "name": "浮点类型与精度",
+      "stage": 1,
+      "part": "01-04",
+      "anchor": "p1-04",
+      "scene": "存成绩、价格、身高时，需要知道 double 并不是精确的。",
+      "baseline": "covered",
+      "gap": "已按清单完成处置：正文补讲、折叠区展开或注明去向。",
+      "forms": [
+        {
+          "form": "double 作为默认小数",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "成绩、身高、一般科学计算。",
+          "note": "类型表已覆盖"
+        },
+        {
+          "form": "float 的精度与 f 后缀",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "只需要约 7 位有效数字、想省内存时。",
+          "note": "类型表已覆盖"
+        },
+        {
+          "form": "float / double 的表示范围与有效数字",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "需要存很大或很小的数，同时又要保证精度时。",
+          "note": "01-04 取值范围表与 type_limits.cpp 已覆盖：float 约 ±3.4e38 / 7 位，double 约 ±1.7e308 / 15～16 位"
+        },
+        {
+          "form": "小数比较用容差",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "判断两个价格、两个坐标是否“相等”时。",
+          "note": "四件事第 2 条已覆盖"
+        },
+        {
+          "form": "二进制表示导致 0.1 + 0.2 ≠ 0.3",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "打印金额、做累加时看到 0.30000000000000004。",
+          "note": "放进 01-04 折叠区，只解释原因不展开 IEEE 细节"
+        },
+        {
+          "form": "金额用整数分或专门类型",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "做收银、记账类程序时。",
+          "note": "放进 01-04 折叠区"
+        }
+      ]
+    },
+    {
+      "id": "kp-03",
+      "name": "auto 类型推导",
+      "stage": 1,
+      "part": "01-05",
+      "anchor": "p1-05",
+      "scene": "类型名很长、或右边已经写清类型时，用 auto 少写一遍。",
+      "baseline": "covered",
+      "gap": "已按清单完成处置：正文补讲、折叠区展开或注明去向。",
+      "forms": [
+        {
+          "form": "auto 基本用法",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "从初始化表达式一眼能看出类型时。",
+          "note": "正文已覆盖"
+        },
+        {
+          "form": "auto 默认是拷贝",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "以为 auto 改了原对象、结果只改了副本时。",
+          "note": "正文已覆盖"
+        },
+        {
+          "form": "auto& 与 const auto&",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "想改原对象，或只读地传一个大对象时。",
+          "note": "正文已覆盖"
+        },
+        {
+          "form": "auto 丢失顶层 const",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "const 变量用 auto 接住后，发现副本居然能改。",
+          "note": "放进 01-05 折叠区"
+        },
+        {
+          "form": "数组退化为指针",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "auto 接数组后，sizeof 忽然变小。",
+          "note": "放进 01-05 折叠区"
+        },
+        {
+          "form": "auto 作函数参数",
+          "disposition": "exclude",
+          "baseline": "missing",
+          "scene": "想把参数类型也交给编译器推导时。",
+          "note": "C++17 不支持；等阶段六讲模板时再解释"
+        }
+      ]
+    },
+    {
+      "id": "kp-04",
+      "name": "作用域与遮蔽",
+      "stage": 1,
+      "part": "01-04",
+      "anchor": "c-scope",
+      "scene": "在 {} 里声明变量、同名变量互相遮住、函数返回后局部变量失效时。",
+      "baseline": "covered",
+      "gap": "已按清单完成处置：正文补讲、折叠区展开或注明去向。",
+      "forms": [
+        {
+          "form": "块作用域",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "main 的函数体、if/for 的 {} 都是作用域。",
+          "note": "c-scope 已覆盖"
+        },
+        {
+          "form": "同名变量遮蔽",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "内层又声明一个同名变量时。",
+          "note": "scope_basic.cpp 已演示"
+        },
+        {
+          "form": "作用域与生命周期的区别",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "堆对象明明出了作用域却还活着时。",
+          "note": "放进 05-01 折叠区，与对象生命周期一起讲"
+        }
+      ]
+    },
+    {
+      "id": "kp-05",
+      "name": "表达式与运算符",
+      "stage": 3,
+      "part": "03-00",
+      "anchor": "p3-00",
+      "scene": "写条件、写 for 的更新表达式、看不懂别人写的复合表达式时。",
+      "baseline": "covered",
+      "gap": "已按清单完成处置：正文补讲、折叠区展开或注明去向。",
+      "forms": [
+        {
+          "form": "优先级与括号",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "写 a + b * c、x > 0 && y > 0 时。",
+          "note": "补“不确定就加括号”"
+        },
+        {
+          "form": "自增前后缀 i++ / ++i",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "把 i++ 混进数组下标或其他表达式时。",
+          "note": "3-03 正文提一句，细节放 03-00 折叠区"
+        },
+        {
+          "form": "逗号表达式",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "读 for (i = 0, j = 0; ...) 或别人写的逗号表达式时。",
+          "note": "放进 03-00 折叠区"
+        },
+        {
+          "form": "短路求值",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "用 b != 0 && a / b 防止除零时。",
+          "note": "正文已覆盖"
+        },
+        {
+          "form": "位运算",
+          "disposition": "exclude",
+          "baseline": "missing",
+          "scene": "读底层代码、写标志位时。",
+          "note": "明确不讲，留到阶段七补充阅读"
+        }
+      ]
+    },
+    {
+      "id": "kp-06",
+      "name": "分支 if / else",
+      "stage": 3,
+      "part": "03-01",
+      "anchor": "p3-01",
+      "scene": "按成绩分档、按条件决定走哪段代码时。",
+      "baseline": "covered",
+      "gap": "已按清单完成处置：正文补讲、折叠区展开或注明去向。",
+      "forms": [
+        {
+          "form": "if / else if / else",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "区间判断优先用它。",
+          "note": "正文已覆盖"
+        },
+        {
+          "form": "条件表达式与逻辑运算",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "把多个条件拼起来时。",
+          "note": "03-00 已覆盖"
+        }
+      ]
+    },
+    {
+      "id": "kp-07",
+      "name": "多分支 switch",
+      "stage": 3,
+      "part": "03-02",
+      "anchor": "p3-02",
+      "scene": "做菜单、按固定选项分流时。",
+      "baseline": "covered",
+      "gap": "已按清单完成处置：正文补讲、折叠区展开或注明去向。",
+      "forms": [
+        {
+          "form": "固定值匹配",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "选项是 1/2/3 这类离散值时。",
+          "note": "正文已覆盖"
+        },
+        {
+          "form": "适用类型：整数 / char / 枚举",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "想拿 string 或 double 做 switch 时。",
+          "note": "补“能用什么、不能用什么”"
+        },
+        {
+          "form": "忘写 break 导致贯穿",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "上一个 case 的代码莫名其妙也被执行时。",
+          "note": "补现象、原因、修法"
+        },
+        {
+          "form": "default 兜底",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "处理不在预期内的输入时。",
+          "note": "正文已覆盖"
+        },
+        {
+          "form": "分支很少时改用 if",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "只有两个分支却在写 switch 时。",
+          "note": "放进 03-02 折叠区"
+        }
+      ]
+    },
+    {
+      "id": "kp-08",
+      "name": "循环 for / while / do-while",
+      "stage": 3,
+      "part": "03-03",
+      "anchor": "p3-03",
+      "scene": "遍历数组、读到 -1 为止、菜单至少显示一次时。",
+      "baseline": "covered",
+      "gap": "已按清单完成处置：正文补讲、折叠区展开或注明去向。",
+      "forms": [
+        {
+          "form": "for：次数已知",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "数 1 到 n、遍历数组。",
+          "note": "正文已覆盖"
+        },
+        {
+          "form": "while：先判断后执行",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "次数未知、读到某个值为止。",
+          "note": "正文已覆盖"
+        },
+        {
+          "form": "do-while：至少执行一次",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "输入校验、菜单至少显示一次。",
+          "note": "正文已覆盖"
+        },
+        {
+          "form": "边界 < 与 <=",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "从 0 开始遍历时写成 <= n，多跑一轮。",
+          "note": "补“起点决定比较符”"
+        },
+        {
+          "form": "嵌套循环与 break 的层级",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "九九乘法表、二维表格时。",
+          "note": "03-04 已覆盖"
+        },
+        {
+          "form": "循环变量的作用域",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "出了 for 还想用 i，结果报 not declared。",
+          "note": "放进 03-03 折叠区"
+        }
+      ]
+    },
+    {
+      "id": "kp-09",
+      "name": "函数：声明、栈帧与返回",
+      "stage": 3,
+      "part": "03-05",
+      "anchor": "p3-05",
+      "scene": "把重复逻辑打包、理解参数复制、返回值和栈帧时。",
+      "baseline": "covered",
+      "gap": "已按清单完成处置：正文补讲、折叠区展开或注明去向。",
+      "forms": [
+        {
+          "form": "声明 / 定义 / 调用",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "函数写在 main 后面时，需要先声明。",
+          "note": "正文已覆盖"
+        },
+        {
+          "form": "值传递与栈帧",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "函数里改形参，外面不变时。",
+          "note": "正文已覆盖"
+        },
+        {
+          "form": "局部变量与返回地址",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "想返回局部变量的地址时。",
+          "note": "正文已覆盖"
+        },
+        {
+          "form": "递归",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "阶乘、斐波那契、目录遍历这类“自己调用自己”的问题。",
+          "note": "放进 03-05 折叠区，强调终止条件"
+        },
+        {
+          "form": "返回引用 / 指针",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "想返回数组、返回对象本体、写连续赋值时。",
+          "note": "放进 03-05 折叠区，强调不能返回局部变量"
+        },
+        {
+          "form": "inline 内联",
+          "disposition": "exclude",
+          "baseline": "missing",
+          "scene": "看到 inline 关键字时。",
+          "note": "明确不讲：是否内联由编译器决定，本教程不展开"
+        }
+      ]
+    },
+    {
+      "id": "kp-10",
+      "name": "数组：初始化、遍历与边界",
+      "stage": 2,
+      "part": "02-02",
+      "anchor": "p2-02",
+      "scene": "存一排成绩、按序号访问、统计个数时。",
+      "baseline": "covered",
+      "gap": "已按清单完成处置：正文补讲、折叠区展开或注明去向。",
+      "forms": [
+        {
+          "form": "定义与初始化",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "固定数量的一组数据。",
+          "note": "02-01 已覆盖"
+        },
+        {
+          "form": "遍历与统计",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "求总分、平均分、最大值。",
+          "note": "02-02 已覆盖"
+        },
+        {
+          "form": "sizeof 求元素个数",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "不想手写长度时。",
+          "note": "02-02 已覆盖"
+        },
+        {
+          "form": "下标越界",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "循环条件写成 <= 时。",
+          "note": "02-02 错误示范与避坑已覆盖"
+        },
+        {
+          "form": "多维数组",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "存表格、矩阵、棋盘时。",
+          "note": "放进 02-02 折叠区，只讲声明、访问、按行存放"
+        },
+        {
+          "form": "数组名退化为指针",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "把数组传进函数后，sizeof 突然失效。",
+          "note": "放进 02-02 折叠区"
+        }
+      ]
+    },
+    {
+      "id": "kp-11",
+      "name": "字符串：C 风格与 std::string",
+      "stage": 2,
+      "part": "02-04",
+      "anchor": "p2-04",
+      "scene": "读姓名、拼一句话、比较两个字符串、取长度时。",
+      "baseline": "covered",
+      "gap": "已按清单完成处置：正文补讲、折叠区展开或注明去向。",
+      "forms": [
+        {
+          "form": "C 风格字符串基础",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "读固定长度的字符、理解 '\\0'。",
+          "note": "02-03 已覆盖"
+        },
+        {
+          "form": "std::string 基础",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "日常文本、读整行、自动变长。",
+          "note": "02-04 已覆盖"
+        },
+        {
+          "form": "比较：== 与 strcmp",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "判断两个名字是否相同。",
+          "note": "补“C 风格不能直接用 == 比内容”"
+        },
+        {
+          "form": "拼接：+ 与手动接",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "把姓和名拼成完整姓名。",
+          "note": "补“C 风格没有 +，统一改用 std::string”"
+        },
+        {
+          "form": "长度与容量",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "数组明明 8 格，字符串长度却只有 3。",
+          "note": "放进 02-04 折叠区"
+        },
+        {
+          "form": "c_str() 转换",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "旧接口只收 const char* 时。",
+          "note": "放进 02-04 折叠区，强调临时性"
+        },
+        {
+          "form": "空串与最后一个字符",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "用 s[s.size() - 1] 取末字符时。",
+          "note": "放进 02-04 折叠区"
+        }
+      ]
+    },
+    {
+      "id": "kp-12",
+      "name": "指针基础与动态内存",
+      "stage": 2,
+      "part": "02-05",
+      "anchor": "p2-05",
+      "scene": "按地址读写、按输入人数开数组、用完归还内存时。",
+      "baseline": "covered",
+      "gap": "已按清单完成处置：正文补讲、折叠区展开或注明去向。",
+      "forms": [
+        {
+          "form": "地址、取地址、解引用",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "函数想改外面的变量、要看变量住在哪。",
+          "note": "5.1 已覆盖"
+        },
+        {
+          "form": "指针与数组",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "用指针遍历数组。",
+          "note": "5.2 已覆盖"
+        },
+        {
+          "form": "new / delete 单个对象",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "对象要活到函数返回之后。",
+          "note": "5.3 已覆盖"
+        },
+        {
+          "form": "new[] / delete[] 数组",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "长度来自输入时。",
+          "note": "5.3 已覆盖"
+        },
+        {
+          "form": "悬空指针与野指针",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "delete 之后又解引用。",
+          "note": "02-07 已覆盖，正文补一句"
+        }
+      ]
+    },
+    {
+      "id": "kp-13",
+      "name": "指针的进阶形态",
+      "stage": 2,
+      "part": "02-05",
+      "anchor": "p2-05",
+      "scene": "读别人代码里的 const 指针、二维数组参数、指针的指针时。",
+      "baseline": "covered",
+      "gap": "已按清单完成处置：正文补讲、折叠区展开或注明去向。",
+      "forms": [
+        {
+          "form": "指针运算",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "p + 1 到底加几个字节。",
+          "note": "放进 02-05 折叠区"
+        },
+        {
+          "form": "const 与指针的四种组合",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "看函数参数 const int*、int* const 时。",
+          "note": "放进 02-05 折叠区，配最小片段"
+        },
+        {
+          "form": "指针数组 vs 数组指针",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "int* a[3] 与 int (*p)[3] 分不清时。",
+          "note": "放进 02-05 折叠区"
+        },
+        {
+          "form": "指针的指针",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "函数要修改“指针本身”指向哪里时。",
+          "note": "放进 02-05 折叠区"
+        },
+        {
+          "form": "函数指针",
+          "disposition": "exclude",
+          "baseline": "missing",
+          "scene": "回调、把函数当参数传时。",
+          "note": "明确不讲，留到阶段七与 Lambda、智能指针一起看"
+        }
+      ]
+    },
+    {
+      "id": "kp-14",
+      "name": "内存分区与泄漏",
+      "stage": 2,
+      "part": "02-00",
+      "anchor": "p2-00",
+      "scene": "理解变量住哪、为什么 delete 之后还要置空时。",
+      "baseline": "covered",
+      "gap": "已按清单完成处置：正文补讲、折叠区展开或注明去向。",
+      "forms": [
+        {
+          "form": "栈与堆的区别",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "局部变量与 new 出来的对象住在哪。",
+          "note": "02-00 已覆盖"
+        },
+        {
+          "form": "内存泄漏",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "new 了却忘记 delete。",
+          "note": "02-07 已覆盖"
+        },
+        {
+          "form": "重复释放与释放后使用",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "delete 之后又 delete 或解引用。",
+          "note": "02-07 已覆盖"
+        },
+        {
+          "form": "malloc / free",
+          "disposition": "exclude",
+          "baseline": "missing",
+          "scene": "读 C 风格代码时。",
+          "note": "明确不讲：本教程统一用 new/delete"
+        }
+      ]
+    },
+    {
+      "id": "kp-15",
+      "name": "引用",
+      "stage": 4,
+      "part": "04-01",
+      "anchor": "p4-01",
+      "scene": "函数想改实参、想避免复制大对象时。",
+      "baseline": "covered",
+      "gap": "已按清单完成处置：正文补讲、折叠区展开或注明去向。",
+      "forms": [
+        {
+          "form": "引用参数",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "swap、统计函数要改外面的变量。",
+          "note": "04-01 已覆盖"
+        },
+        {
+          "form": "引用必须初始化且不能改绑",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "以为 r = b 能让 r 改指 b。",
+          "note": "放进 04-01 折叠区"
+        },
+        {
+          "form": "const 引用",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "只读地传大对象、接字面量。",
+          "note": "放进 04-01 折叠区"
+        },
+        {
+          "form": "没有“空引用”",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "参数可能“没有”时，该用指针还是引用。",
+          "note": "放进 04-01 折叠区"
+        }
+      ]
+    },
+    {
+      "id": "kp-16",
+      "name": "函数重载",
+      "stage": 4,
+      "part": "04-02",
+      "anchor": "p4-02",
+      "scene": "一组函数做同一件事、只是参数类型不同时。",
+      "baseline": "covered",
+      "gap": "已按清单完成处置：正文补讲、折叠区展开或注明去向。",
+      "forms": [
+        {
+          "form": "按参数个数 / 类型 / 顺序区分",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "print(int) 与 print(double)。",
+          "note": "04-02 已覆盖"
+        },
+        {
+          "form": "返回类型不参与重载",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "只想改返回值时编译报重复定义。",
+          "note": "04-02 已覆盖"
+        },
+        {
+          "form": "const 成员函数重载",
+          "disposition": "exclude",
+          "baseline": "missing",
+          "scene": "同一个成员函数要提供只读版和可写版。",
+          "note": "04-05 讲完 const 成员函数后作为扩展阅读，不在 04-02 展开"
+        },
+        {
+          "form": "隐式转换导致的二义",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "传 float 时 int 与 double 版本都能接。",
+          "note": "放进 04-02 折叠区"
+        },
+        {
+          "form": "重载与重写的区别",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "把 override 当成重载时。",
+          "note": "放进 04-02 折叠区"
+        }
+      ]
+    },
+    {
+      "id": "kp-17",
+      "name": "默认参数",
+      "stage": 4,
+      "part": "04-03",
+      "anchor": "p4-03",
+      "scene": "常用参数固定、调用时只想写变化部分时。",
+      "baseline": "covered",
+      "gap": "已按清单完成处置：正文补讲、折叠区展开或注明去向。",
+      "forms": [
+        {
+          "form": "基本默认值",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "打印宽度、填充字符。",
+          "note": "04-03 已覆盖"
+        },
+        {
+          "form": "默认值从右往左",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "想只省略中间参数时。",
+          "note": "04-03 已覆盖"
+        },
+        {
+          "form": "声明与定义只写一次",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "函数声明和定义分开时。",
+          "note": "04-03 已覆盖"
+        },
+        {
+          "form": "与重载交互产生二义",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "f(int) 与 f(int, int = 0) 同时存在时。",
+          "note": "04-03 错误示例已覆盖"
+        },
+        {
+          "form": "默认值表达式何时求值",
+          "disposition": "exclude",
+          "baseline": "missing",
+          "scene": "默认值写成函数调用时。",
+          "note": "明确不讲：属于编译期细节，本教程不展开"
+        }
+      ]
+    },
+    {
+      "id": "kp-18",
+      "name": "类、对象与 static 成员",
+      "stage": 4,
+      "part": "04-04",
+      "anchor": "p4-04",
+      "scene": "把数据和操作打包、控制访问权限、统计对象个数时。",
+      "baseline": "covered",
+      "gap": "已按清单完成处置：正文补讲、折叠区展开或注明去向。",
+      "forms": [
+        {
+          "form": "成员变量与成员函数",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "一个学生有学号、成绩和打印方法。",
+          "note": "04-04 已覆盖"
+        },
+        {
+          "form": "public / private 访问权限",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "数据藏起来、接口露出来。",
+          "note": "04-04、04-05 已覆盖"
+        },
+        {
+          "form": "struct 与 class 的差别",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "读别人的 struct 代码时。",
+          "note": "04-04 已覆盖"
+        },
+        {
+          "form": "static 成员变量与函数",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "统计一共创建了多少个对象。",
+          "note": "放进 04-04 折叠区"
+        },
+        {
+          "form": "对象内存布局与对齐",
+          "disposition": "exclude",
+          "baseline": "missing",
+          "scene": "想知道一个对象占几个字节时。",
+          "note": "明确不讲，留到阶段七"
+        }
+      ]
+    },
+    {
+      "id": "kp-19",
+      "name": "构造函数与初始化",
+      "stage": 4,
+      "part": "04-05",
+      "anchor": "p4-05",
+      "scene": "对象出生时要备好数据、成员是 const 或引用、要建一组对象时。",
+      "baseline": "covered",
+      "gap": "已按清单完成处置：正文补讲、折叠区展开或注明去向。",
+      "forms": [
+        {
+          "form": "默认构造",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "直接写 Student s1; 时。",
+          "note": "04-04 示例已覆盖"
+        },
+        {
+          "form": "带参构造",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "写 BankAccount account(100)。",
+          "note": "04-05 已覆盖"
+        },
+        {
+          "form": "拷贝构造",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "用一个对象创建另一个对象。",
+          "note": "阶段五 02 完整讲解"
+        },
+        {
+          "form": "成员初始化列表",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "成员是 const、引用，或没有默认构造时。",
+          "note": "正文补一句必要性，细节放折叠区"
+        },
+        {
+          "form": "对象数组",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "Student list[3]; 时每个元素都要构造。",
+          "note": "放进 04-05 折叠区"
+        },
+        {
+          "form": "委托构造",
+          "disposition": "exclude",
+          "baseline": "missing",
+          "scene": "多个构造函数重复初始化逻辑时。",
+          "note": "明确不讲，留到阶段六"
+        }
+      ]
+    },
+    {
+      "id": "kp-20",
+      "name": "析构函数与对象生命周期",
+      "stage": 5,
+      "part": "05-01",
+      "anchor": "p5-01",
+      "scene": "对象里申请了内存、文件、连接，需要在销毁时归还时。",
+      "baseline": "covered",
+      "gap": "已按清单完成处置：正文补讲、折叠区展开或注明去向。",
+      "forms": [
+        {
+          "form": "析构时机",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "栈对象出 {}、堆对象 delete。",
+          "note": "05-01 已覆盖"
+        },
+        {
+          "form": "析构顺序",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "同一作用域多个对象、派生类与基类。",
+          "note": "05-01、05-04 已覆盖"
+        },
+        {
+          "form": "析构函数里不要抛异常",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "析构时关闭文件失败、想报错。",
+          "note": "放进 05-01 折叠区"
+        },
+        {
+          "form": "作用域 ≠ 生命周期",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "堆对象出了作用域仍然活着。",
+          "note": "放进 05-01 折叠区，回查阶段一 04"
+        },
+        {
+          "form": "全局 / 静态对象何时析构",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "程序结束时才销毁的对象。",
+          "note": "放进 05-01 折叠区"
+        },
+        {
+          "form": "虚析构",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "通过基类指针 delete 派生类对象。",
+          "note": "05-05 已覆盖"
+        }
+      ]
+    },
+    {
+      "id": "kp-21",
+      "name": "拷贝构造、赋值与深浅拷贝",
+      "stage": 5,
+      "part": "05-02",
+      "anchor": "p5-02",
+      "scene": "对象里有指针成员、按值传参、写 a = b 时。",
+      "baseline": "covered",
+      "gap": "已按清单完成处置：正文补讲、折叠区展开或注明去向。",
+      "forms": [
+        {
+          "form": "默认逐成员拷贝",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "类里只有 int、double 时。",
+          "note": "05-02 已覆盖"
+        },
+        {
+          "form": "浅拷贝",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "两个对象共用同一块堆内存。",
+          "note": "05-02 已覆盖"
+        },
+        {
+          "form": "深拷贝",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "每个对象各有一份数据。",
+          "note": "05-02 已覆盖"
+        },
+        {
+          "form": "自赋值保护",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "a = a 时。",
+          "note": "05-02 已覆盖"
+        },
+        {
+          "form": "三件套一起写",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "手动管理指针成员的类。",
+          "note": "05-02 已覆盖"
+        },
+        {
+          "form": "移动语义",
+          "disposition": "exclude",
+          "baseline": "missing",
+          "scene": "想把资源直接搬走、避免复制时。",
+          "note": "明确不讲，留到阶段七"
+        }
+      ]
+    },
+    {
+      "id": "kp-22",
+      "name": "运算符重载",
+      "stage": 5,
+      "part": "05-03",
+      "anchor": "p5-03",
+      "scene": "让自定义对象支持 +、<<、== 时。",
+      "baseline": "covered",
+      "gap": "已按清单完成处置：正文补讲、折叠区展开或注明去向。",
+      "forms": [
+        {
+          "form": "成员函数形式",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "a + b 里左边是对象。",
+          "note": "05-03 已覆盖"
+        },
+        {
+          "form": "友元 / 全局函数形式",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "cout << obj 左边不是对象。",
+          "note": "05-03 已覆盖"
+        },
+        {
+          "form": "返回引用支持连续运算",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "a = b = c、cout << a << b。",
+          "note": "05-02、05-03 已覆盖"
+        }
+      ]
+    },
+    {
+      "id": "kp-23",
+      "name": "继承与派生",
+      "stage": 5,
+      "part": "05-04",
+      "anchor": "p5-04",
+      "scene": "新类和旧类大部分相同、只差一小部分时。",
+      "baseline": "covered",
+      "gap": "已按清单完成处置：正文补讲、折叠区展开或注明去向。",
+      "forms": [
+        {
+          "form": "public 继承",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "“派生类是一种基类”的日常继承。",
+          "note": "05-04 已覆盖"
+        },
+        {
+          "form": "protected 成员",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "基类数据要给派生类用、又不给外人看。",
+          "note": "05-04 已覆盖"
+        },
+        {
+          "form": "构造 / 析构顺序",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "派生类对象出生和销毁时。",
+          "note": "05-04 已覆盖"
+        },
+        {
+          "form": "protected / private 继承",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "看到 class D : private B 时。",
+          "note": "放进 05-04 折叠区"
+        },
+        {
+          "form": "名字隐藏",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "派生类同名函数遮住基类所有重载。",
+          "note": "放进 05-04 折叠区"
+        },
+        {
+          "form": "多继承与虚继承",
+          "disposition": "exclude",
+          "baseline": "missing",
+          "scene": "菱形继承、多个基类时。",
+          "note": "明确不讲，留到阶段七"
+        }
+      ]
+    },
+    {
+      "id": "kp-24",
+      "name": "多态与虚函数",
+      "stage": 5,
+      "part": "05-05",
+      "anchor": "p5-05",
+      "scene": "同一句调用，基类指针指向不同派生类对象时表现不同。",
+      "baseline": "covered",
+      "gap": "已按清单完成处置：正文补讲、折叠区展开或注明去向。",
+      "forms": [
+        {
+          "form": "virtual / override",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "基类指针调用 speak()。",
+          "note": "05-05 已覆盖"
+        },
+        {
+          "form": "虚析构的必要性",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "通过基类指针 delete。",
+          "note": "05-05 已覆盖"
+        },
+        {
+          "form": "纯虚函数与抽象类",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "只想定义接口、不想让基类被创建。",
+          "note": "放进 05-05 折叠区"
+        },
+        {
+          "form": "对象切片",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "用基类对象接收派生类对象，虚函数失效。",
+          "note": "正文补一句，细节放折叠区"
+        },
+        {
+          "form": "虚函数表原理",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "想知道“运行时怎么找到正确函数”。",
+          "note": "放进 05-05 折叠区，只建立概念"
+        }
+      ]
+    },
+    {
+      "id": "kp-25",
+      "name": "函数模板与类型推导",
+      "stage": 6,
+      "part": "06-01",
+      "anchor": "p6-01",
+      "scene": "同一段比较、交换、求和逻辑要用于 int、double、std::string 时，不想复制三份。",
+      "baseline": "covered",
+      "gap": "阶段六新写：声明行拆读、类型推导、实例化与常见写错都落在正文。",
+      "questions": {
+        "problem": "同一逻辑按类型重复写，改一处要改很多份",
+        "minimal": "template <typename T> T larger(T a, T b) { return a > b ? a : b; }",
+        "forms": "单类型参数、显式指定、多类型参数（折叠区）",
+        "errors": "两个实参类型不同导致 T 推导冲突；模板定义放错文件导致链接错误"
+      },
+      "forms": [
+        {
+          "form": "函数模板声明与调用",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "写一次 larger，就能比较整数、小数和字符串。",
+          "note": "Part 01 正文逐段拆读 template <typename T> 这一行"
+        },
+        {
+          "form": "类型推导",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "调用时不写 <int>，让编译器从实参反推 T。",
+          "note": "正文用三种实参演示同一模板生成三份代码"
+        },
+        {
+          "form": "多类型参数与非类型模板参数",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "两个参数类型不同，或想用整数常量当模板参数。",
+          "note": "放进 Part 01 折叠区，给 3 条形态与取舍"
+        },
+        {
+          "form": "模板定义放错位置",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "把模板定义写进 .cpp、头文件只留声明时出现链接错误。",
+          "note": "Part 07 避坑第 1 条讲现象、原因、修复"
+        },
+        {
+          "form": "模板特化",
+          "disposition": "exclude",
+          "baseline": "missing",
+          "scene": "某一种类型需要完全不同的实现时。",
+          "note": "明确不讲，留到后续阅读；正文只说明存在这种写法"
+        }
+      ]
+    },
+    {
+      "id": "kp-26",
+      "name": "类模板与显式实参",
+      "stage": 6,
+      "part": "06-02",
+      "anchor": "p6-02",
+      "scene": "同一个盒子既要装整数、又要装字符串时，不必写两个类。",
+      "baseline": "covered",
+      "gap": "阶段六新写：类模板定义、Box<int> 的读法与创建对象。",
+      "questions": {
+        "problem": "数据成员类型不同，类要重复定义",
+        "minimal": "template <typename T> class Box { T item; }; 使用时写 Box<int>",
+        "forms": "成员函数写在类内、类外定义（折叠区）",
+        "errors": "创建对象时漏写 <具体类型>，编译器不知道用哪份类"
+      },
+      "forms": [
+        {
+          "form": "类模板定义",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "成员变量、构造参数、返回值都要跟着 T 变时。",
+          "note": "Part 02 正文给出最小类模板并逐行解释"
+        },
+        {
+          "form": "显式实参 Box<int>",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "创建对象、声明变量时必须写具体类型。",
+          "note": "正文对比 Box<int> 与漏写的编译错误"
+        },
+        {
+          "form": "类外定义成员函数",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "类变长、想把函数体挪到类外时。",
+          "note": "放进 Part 02 折叠区，讲 template 头要重复写"
+        },
+        {
+          "form": "默认模板实参",
+          "disposition": "exclude",
+          "baseline": "missing",
+          "scene": "不写类型也想用默认类型时。",
+          "note": "明确不讲，留到后续阅读"
+        }
+      ]
+    },
+    {
+      "id": "kp-27",
+      "name": "异常的抛出与捕获",
+      "stage": 6,
+      "part": "06-03",
+      "anchor": "p6-03",
+      "scene": "取款金额超过余额、下标越界时，函数没法返回一个“正常值”表示失败。",
+      "baseline": "covered",
+      "gap": "阶段六新写：throw / try / catch 三块的写法、异常对象与栈展开。",
+      "questions": {
+        "problem": "错误码要逐层检查，忘检查就继续用错数据",
+        "minimal": "throw std::runtime_error(\"余额不足\"); 外层 try { ... } catch (std::runtime_error e) { ... }",
+        "forms": "抛出标准异常、按值捕获、未捕获终止",
+        "errors": "throws 后没人接、catch 类型写错、异常路径漏释放"
+      },
+      "forms": [
+        {
+          "form": "throw 抛出异常",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "函数内部发现无法继续，需要立刻停下并通知调用方。",
+          "note": "Part 03 逐段讲 throw 后面跟什么、分号在哪"
+        },
+        {
+          "form": "try / catch 配对",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "把可能失败的几步包在一起，统一处理。",
+          "note": "正文讲 try 花括号与 catch 必须紧跟"
+        },
+        {
+          "form": "异常对象与 what()",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "想知道到底哪一步失败、失败说明是什么。",
+          "note": "正文先讲 std::runtime_error 与 what() 再给代码"
+        },
+        {
+          "form": "未捕获异常终止程序",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "异常一路传到 main 外，没人接。",
+          "note": "错误示例演示程序直接终止"
+        },
+        {
+          "form": "栈展开",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "异常跨过好几层函数向上传时。",
+          "note": "正文用调用链说明逐层退出、局部对象被销毁"
+        }
+      ]
+    },
+    {
+      "id": "kp-28",
+      "name": "多 catch 顺序与按引用捕获",
+      "stage": 6,
+      "part": "06-04",
+      "anchor": "p6-04",
+      "scene": "一个 try 里可能抛出好几种异常，需要分别处理。",
+      "baseline": "covered",
+      "gap": "阶段六新写：匹配顺序、const 引用、catch(...) 与 noexcept 一句话。",
+      "questions": {
+        "problem": "宽泛类型放前面会把具体异常吃掉",
+        "minimal": "catch (const std::runtime_error& e) { ... } catch (const std::exception& e) { ... }",
+        "forms": "具体在前、宽泛在后、catch(...) 兜底（折叠区）",
+        "errors": "按值捕获切片、宽泛 catch 写在前面、析构里抛异常"
+      },
+      "forms": [
+        {
+          "form": "多 catch 匹配顺序",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "同时处理 runtime_error 与其它标准异常。",
+          "note": "Part 04 正文先讲顺序规则，再给三段 catch"
+        },
+        {
+          "form": "catch (const X& e)",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "不想复制异常对象，也不想丢失派生类型。",
+          "note": "正文拆读 const、&、变量名三部分"
+        },
+        {
+          "form": "catch (...)",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "最后兜底，防止漏网异常终止程序。",
+          "note": "正文说明只能放最后，并给一句用途"
+        },
+        {
+          "form": "noexcept",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "函数承诺不抛异常，或析构函数默认不抛。",
+          "note": "只讲一句，不展开细节"
+        },
+        {
+          "form": "自定义异常与重抛",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "想给异常加自己的类型，或处理一半再交给上层。",
+          "note": "放进 Part 04 折叠区，用阶段五的继承与虚函数"
+        }
+      ]
+    },
+    {
+      "id": "kp-29",
+      "name": "RAII 与异常路径释放",
+      "stage": 6,
+      "part": "06-05",
+      "anchor": "p6-05",
+      "scene": "函数中途 throw，后面的 delete 永远走不到。",
+      "baseline": "covered",
+      "gap": "阶段六新写：构造申请、析构释放、异常展开时的析构时机。",
+      "questions": {
+        "problem": "手动 delete 在异常路径上被跳过，资源泄漏",
+        "minimal": "构造里 new，析构里 delete；资源对象放栈上",
+        "forms": "单个资源守卫、数组资源、拷贝所有权（折叠区）",
+        "errors": "忘记 delete、异常路径漏 delete、析构里抛异常"
+      },
+      "forms": [
+        {
+          "form": "构造申请、析构释放",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "用 new[] 申请一块数组，函数结束必须还回去。",
+          "note": "Part 05 正文给 Buffer 类并逐行解释"
+        },
+        {
+          "form": "异常路径的析构",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "对象在 try 里创建，函数中途抛出。",
+          "note": "正文用输出顺序证明先释放、再进 catch"
+        },
+        {
+          "form": "手动 delete 的对照",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "想看清不写守卫时哪一行被跳过。",
+          "note": "错误示例标出泄漏点"
+        },
+        {
+          "form": "拷贝与资源所有权",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "两个对象同时指向一块 new[] 内存。",
+          "note": "放进 Part 05 折叠区，回指阶段五深拷贝"
+        },
+        {
+          "form": "文件、锁等系统资源",
+          "disposition": "exclude",
+          "baseline": "missing",
+          "scene": "以后写文件、多线程时。",
+          "note": "明确不讲，留到阶段七之后的实践阅读"
+        }
+      ]
+    },
+    {
+      "id": "kp-30",
+      "name": "模板、异常与 RAII 综合",
+      "stage": 6,
+      "part": "06-06",
+      "anchor": "p6-06",
+      "scene": "写一个能装任意类型、下标越界会报错、异常时仍释放内存的安全数组。",
+      "baseline": "covered",
+      "gap": "阶段六新写：类模板 + 深拷贝 + 下标检查 + 析构释放的完整程序。",
+      "questions": {
+        "problem": "普通数组越界不报错，动态数组还要自己管释放",
+        "minimal": "SafeArray<T>::at 做边界检查并 throw，析构 delete[]",
+        "forms": "带边界检查的访问、深拷贝、异常路径释放",
+        "errors": "拷贝后两个对象指向同一块内存，析构时重复释放"
+      },
+      "forms": [
+        {
+          "form": "类模板 + RAII 组合",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "数组元素类型不确定，又要自动释放。",
+          "note": "Part 06 完整程序，逐段标出模板、检查、释放"
+        },
+        {
+          "form": "深拷贝",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "把一个 SafeArray 赋给另一个对象时。",
+          "note": "沿用阶段五深拷贝，拷贝构造与赋值都重新申请内存"
+        },
+        {
+          "form": "异常安全",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "at 抛出后，两个对象都要正常释放。",
+          "note": "预期输出里能看到两次释放再进 catch"
+        }
+      ]
+    },
+    {
+      "id": "kp-31",
+      "name": "练习：模板版求最大值与求和",
+      "stage": 6,
+      "part": "06-08",
+      "anchor": "p6-08",
+      "scene": "给定 n 个整数，求最大值与总和，两个函数都用模板写。",
+      "baseline": "covered",
+      "gap": "阶段六新写：练习初始代码可编译，答案给出完整模板函数。",
+      "questions": {
+        "problem": "重复写 int 版本和 double 版本的最大值、求和函数",
+        "minimal": "template <typename T> T myMax(T a, T b)；mySum 同理",
+        "forms": "单类型参数模板、循环里反复调用",
+        "errors": "返回类型写成 int、忘了处理第一个数"
+      },
+      "forms": [
+        {
+          "form": "模板函数补全",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "把 myMax 与 mySum 的 TODO 补成真正的比较与相加。",
+          "note": "初始代码保留 TODO，答案给实现与思路"
+        },
+        {
+          "form": "循环与初值",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "第一个数先当最大值和总和的起点。",
+          "note": "题面说明 n 至少为 1"
+        },
+        {
+          "form": "输出格式",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "与页面预期输出逐行对齐。",
+          "note": "答案与默认输入一起给出"
+        }
+      ]
+    },
+    {
+      "id": "kp-32",
+      "name": "练习：RAII 资源守卫",
+      "stage": 6,
+      "part": "06-08",
+      "anchor": "p6-08",
+      "scene": "给 Guard 类补析构函数，验证异常路径也能释放 new[] 内存。",
+      "baseline": "covered",
+      "gap": "阶段六新写：练习初始代码可编译，答案补 delete[] 并打印释放信息。",
+      "questions": {
+        "problem": "越界抛出后，析构函数没写 delete[]，内存回不去",
+        "minimal": "~Guard() { delete[] data; }",
+        "forms": "构造申请、析构释放、异常路径验证",
+        "errors": "析构为空、释放后继续使用、忘记 delete[] 写成 delete"
+      },
+      "forms": [
+        {
+          "form": "析构释放",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "Guard 对象离开作用域时归还数组。",
+          "note": "初始代码留 TODO，答案补 delete[]"
+        },
+        {
+          "form": "异常路径验证",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "set(n, 2) 故意越界，观察释放是否发生。",
+          "note": "答案输出先释放、再进 catch"
+        },
+        {
+          "form": "标准输入",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "输入元素个数，决定申请多大的数组。",
+          "note": "默认输入 3，输入区常显"
+        }
+      ]
+    },
+    {
+      "id": "kp-33",
+      "name": "ASCII 编码对照表",
+      "stage": 1,
+      "part": "01-04",
+      "anchor": "p1-04",
+      "scene": "想知道字符为什么能和整数互相转换、大小写为什么差 32 时。",
+      "baseline": "form",
+      "gap": "改造前只写了“'A' 是 65”，没有可打印字符区间与规律。",
+      "baseline_note": "审计判定为 B（仅提名）。",
+      "questions": {
+        "problem": "把字符当整数用、做大写转小写时，读者不知道背后的编号规律",
+        "minimal": "int code = 'A';  // 得到 65",
+        "forms": "可打印区间速查表 + 大小写差 32 / 数字字符差 48 两条规律",
+        "errors": "把字符编号和数值混为一谈；用 0～31 的控制字符做可见输出"
+      },
+      "forms": [
+        {
+          "form": "常用可打印字符区间表（32～126）",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "查某个字符大概落在哪一段、算偏移量时。",
+          "note": "01-04 新增 #c-ascii，按区间给出举例，不逐字符罗列"
+        },
+        {
+          "form": "大小写与数字字符的偏移规律",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "手写大小写转换、字符转数字时。",
+          "note": "表下补两条规律，并用 ascii_demo.cpp 实跑验证"
+        },
+        {
+          "form": "控制字符为什么不可见",
+          "disposition": "fold",
+          "baseline": "missing",
+          "scene": "看到 '\\n' 的编号是 10、想不通 0～31 为什么打印不出来时。",
+          "note": "01-04 新增折叠区，说明控制字符是设备指令"
+        }
+      ]
+    },
+    {
+      "id": "kp-34",
+      "name": "显式类型转换与四种 cast",
+      "stage": 1,
+      "part": "01-04",
+      "anchor": "p1-04",
+      "scene": "需要明确截断小数、把整数除法变成小数除法、把字符当编号看时。",
+      "baseline": "closure",
+      "gap": "改造前 static_cast 零命中，隐式转换之外没有显式写法。",
+      "baseline_note": "审计判定为 A（完全遗漏）。",
+      "questions": {
+        "problem": "隐式转换悄悄发生，读者想“明确地转一次”时没有写法",
+        "minimal": "static_cast<int>(price)",
+        "forms": "截断、整数除法转小数、字符转编号；四种 cast 的用途边界",
+        "errors": "继续用 C 风格 (int)price；初学就用 dynamic_cast / reinterpret_cast"
+      },
+      "forms": [
+        {
+          "form": "static_cast 的三种日常用途",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "截断小数、只把除法一边变成 double、字符转编号。",
+          "note": "01-04 新增 #c-static-cast + cast_demo.cpp，与隐式转换对照"
+        },
+        {
+          "form": "四种 cast 的用途表",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "读别人代码看到 dynamic_cast / const_cast 时知道它们大致管什么。",
+          "note": "表中明确写“初学只该用 static_cast，其余留到阶段五以后”"
+        },
+        {
+          "form": "C 风格圆括号转换",
+          "disposition": "exclude",
+          "baseline": "missing",
+          "scene": "在老代码里见到 (int)price。",
+          "note": "明确写“能编过但不区分四种转换，新代码统一用 static_cast”"
+        }
+      ]
+    },
+    {
+      "id": "kp-35",
+      "name": "struct：把数据打包",
+      "stage": 4,
+      "part": "04-04",
+      "anchor": "p4-04",
+      "scene": "只想把坐标、学号与成绩等几个数据捆在一起，不需要封装时。",
+      "baseline": "form",
+      "gap": "改造前只在阶段五一句“和 class 几乎一样，不展开”。",
+      "baseline_note": "审计判定为 B；落点从阶段二调整到阶段四，因为 class 与访问权限此时才讲完。",
+      "questions": {
+        "problem": "每次为纯数据打包都写 class + public: 太啰嗦",
+        "minimal": "struct Point { int x; int y; };  Point p = {3, 4};",
+        "forms": "花括号按顺序初始化、先声明后逐个赋值、与 class 的默认权限对照",
+        "errors": "定义结尾漏分号；以为 struct 不能有成员函数；套用 class 的默认 private"
+      },
+      "forms": [
+        {
+          "form": "定义、花括号初始化与点号访问",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "表示坐标、区间、学生记录这类天然成组的数据。",
+          "note": "04-04 新增 #c-struct + struct_basic.cpp，含预期输出"
+        },
+        {
+          "form": "与 class 的默认访问权限对照",
+          "disposition": "body",
+          "baseline": "partial",
+          "scene": "选 struct 还是 class 时。",
+          "note": "新增对照表：struct 默认 public，class 默认 private，其余能力相同"
+        },
+        {
+          "form": "阶段五继承前置里的回查",
+          "disposition": "body",
+          "baseline": "partial",
+          "scene": "阶段五读到“struct 和 class 几乎一样”时。",
+          "note": "原来那句“不单独展开”改为指向 #c-struct"
+        }
+      ]
+    },
+    {
+      "id": "kp-36",
+      "name": "std::array 标准数组",
+      "stage": 2,
+      "part": "02-01",
+      "anchor": "p2-01",
+      "scene": "长度固定，但想要整体赋值、不想在传参时丢掉长度时。",
+      "baseline": "closure",
+      "gap": "改造前 std::array 零命中。",
+      "baseline_note": "审计判定为 A；落点从“阶段二 07 避坑”调整到 02-01 数组正文，避坑区不塞知识点。",
+      "questions": {
+        "problem": "C 数组不能整体赋值、传参丢长度、没有统一的长度接口",
+        "minimal": "#include <array>  std::array<int, 5> scores = {88, 92, 76, 95, 84};",
+        "forms": "与 C 数组逐项对照；长度必须是编译期常量；越界同样不检查",
+        "errors": "忘记 #include <array>；长度写变量；以为它自带越界检查"
+      },
+      "forms": [
+        {
+          "form": "int a[5] 与 std::array<int, 5> 对照",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "同一份成绩要不要换成标准数组时。",
+          "note": "02-01 新增 #c-std-array + std_array_demo.cpp，重点讲整体赋值、不退化、.size()"
+        },
+        {
+          "form": "尖括号里写类型与长度",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "第一次见到 std::array<int, 5> 这种写法。",
+          "note": "就地一句话解释；模板机制明确留到阶段六 Part 02，并在制作标准补例外条款"
+        },
+        {
+          "form": "长度运行时才确定的场景",
+          "disposition": "exclude",
+          "baseline": "covered",
+          "scene": "先读入 n 再决定数组多大。",
+          "note": "明确写“阶段七会给出另一种容器”，本节不展开"
+        }
+      ]
+    },
+    {
+      "id": "kp-37",
+      "name": "数组与指针传参",
+      "stage": 3,
+      "part": "03-05",
+      "anchor": "p3-05",
+      "scene": "把一整排成绩交给函数处理，需要在函数里循环访问每个元素时。",
+      "baseline": "form",
+      "gap": "改造前只有一条“会退化”的 bullet，没有参数写法与长度说明。",
+      "baseline_note": "审计判定为 B；落点从阶段二 02 调整到阶段三 05，因为函数与形参此时才正式讲。",
+      "questions": {
+        "problem": "函数只拿到首地址，不知道后面还有几个元素",
+        "minimal": "void printAll(int* a, int n);  printAll(scores, 5);",
+        "forms": "int a[] / int* a + n / int (&a)[5] 三种写法与选择依据",
+        "errors": "函数里用 sizeof 求长度得到 2；漏传 n 导致越界；以为 int a[5] 能把 5 带进去"
+      },
+      "forms": [
+        {
+          "form": "三种数组参数写法对照",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "读旧代码见到 int a[]，或想固定长度时。",
+          "note": "03-05 新增 #c-array-param，给出片段与三行对照表，日常推荐 int* a + int n"
+        },
+        {
+          "form": "为什么长度必须另传",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "在函数里写循环条件时。",
+          "note": "用 array_param.cpp 实跑，brokenSize 输出 2 作为反例"
+        },
+        {
+          "form": "阶段六模板练习的 const T data[]",
+          "disposition": "body",
+          "baseline": "partial",
+          "scene": "阶段六写 maxOf / sumOf 模板函数时。",
+          "note": "改为已讲的 const T* data + int n，并回查 #c-array-param"
+        }
+      ]
+    },
+    {
+      "id": "kp-38",
+      "name": "基于范围的 for",
+      "stage": 3,
+      "part": "03-03",
+      "anchor": "p3-03",
+      "scene": "只想把数组从头到尾处理一遍，不需要下标时。",
+      "baseline": "closure",
+      "gap": "改造前 for (x : arr) 零命中。",
+      "baseline_note": "审计判定为 A。",
+      "questions": {
+        "problem": "下标 for 要自己维护 i，容易写错边界",
+        "minimal": "for (int score : scores) { std::cout << score; }",
+        "forms": "只读遍历用副本；要改元素用 int&；需要下标时改回普通 for",
+        "errors": "写 int score 却想改原数组；在循环里找下标；试图改变数组长度"
+      },
+      "forms": [
+        {
+          "form": "与下标 for 的对照",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "打印、求和、找最大值这类整体遍历。",
+          "note": "03-03 新增 #c-range-for + range_for.cpp，两行输出逐字对照"
+        },
+        {
+          "form": "要改元素得写 int&",
+          "disposition": "fold",
+          "baseline": "missing",
+          "scene": "给每个成绩加 2 分时。",
+          "note": "折叠区给片段并说明副本与别名的区别"
+        },
+        {
+          "form": "不提供下标、不能边遍历边改长度",
+          "disposition": "fold",
+          "baseline": "missing",
+          "scene": "需要打印“第几名”，或想动态增删元素时。",
+          "note": "折叠区说明改用下标 for；可变长度容器留到阶段七"
+        }
+      ]
+    },
+    {
+      "id": "kp-39",
+      "name": "switch 内变量定义与 case 块",
+      "stage": 3,
+      "part": "03-02",
+      "anchor": "p3-02",
+      "scene": "想在某个 case 里临时定义一个变量并初始化时。",
+      "baseline": "closure",
+      "gap": "改造前零命中。",
+      "baseline_note": "审计判定为 A。",
+      "questions": {
+        "problem": "在 case 里定义变量后，后面的 case 跳转跨过初始化，编译失败",
+        "minimal": "case 1: { int bonus = 10; ... break; }",
+        "forms": "给 case 加 {}；或把变量提到 switch 之前",
+        "errors": "直接写 case 1: int bonus = 10; 触发 jump to case label / crosses initialization"
+      },
+      "forms": [
+        {
+          "form": "错误示例与报错读法",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "编译器报 jump to case label 时。",
+          "note": "03-02 新增 #c-switch-case-scope，错误片段 data-no-run，解释 crosses initialization"
+        },
+        {
+          "form": "给 case 加花括号的修法",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "两个分支各自需要一个同名临时变量时。",
+          "note": "switch_scope.cpp 完整示例，输入 1 输出“奖励分：10”"
+        },
+        {
+          "form": "变量提到 switch 之前",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "多个分支要共用同一个变量时。",
+          "note": "正文用一句话给出第二种修法与适用条件"
+        }
+      ]
+    },
+    {
+      "id": "kp-40",
+      "name": "iostream 族类关系",
+      "stage": 1,
+      "part": "01-03",
+      "anchor": "p1-03",
+      "scene": "想理解 cin 和 cout 为什么用法相似、文件流又从哪里来。",
+      "baseline": "form",
+      "gap": "改造前只有 endl 刷新与缓冲区说明，没有类型关系。",
+      "baseline_note": "审计判定为 B。",
+      "questions": {
+        "problem": "cout、cin、文件流看起来各讲各的，读者不知道它们同源",
+        "minimal": "记住 cin 是 istream 的对象、cout 是 ostream 的对象，二者共享 ios_base",
+        "forms": "关系图 + 四行小表；文件流只标阶段八",
+        "errors": "把 cin 当成“输入函数”；以为 cout 和 cin 是两套无关机制"
+      },
+      "forms": [
+        {
+          "form": "ios_base → istream / ostream → cin / cout",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "第一次同时使用 cin 与 cout 时。",
+          "note": "01-03 新增 #c-iostream + Mermaid 关系图，文件流节点标注阶段八"
+        },
+        {
+          "form": "四行类型小表",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "查某个名字是类型还是对象时。",
+          "note": "只列 ios_base / istream / ostream / cin·cout，不引入未讲的文件流细节"
+        },
+        {
+          "form": "ifstream / ofstream",
+          "disposition": "exclude",
+          "baseline": "covered",
+          "scene": "读文件、写文件时。",
+          "note": "图中只标“阶段八”，正文不展开"
+        }
+      ]
+    },
+    {
+      "id": "kp-41",
+      "name": "std::cin.get() 读字符",
+      "stage": 1,
+      "part": "01-03",
+      "anchor": "p1-03",
+      "scene": "需要读到空格、换行本身，而不是让 >> 自动跳过它们时。",
+      "baseline": "closure",
+      "gap": "改造前只有 clear() + ignore()，没有 get()。",
+      "baseline_note": "审计判定为 A。",
+      "questions": {
+        "problem": ">> 会自动跳过空白，读不到空格和换行",
+        "minimal": "char ch = std::cin.get();",
+        "forms": ">> 取词、get() 取一个字符、getline 取整行；三者混用要清缓冲区",
+        "errors": "用 >> 想读空格；get() 之后直接 getline 忘记残留的换行"
+      },
+      "forms": [
+        {
+          "form": ">> / get() / getline 行为对比",
+          "disposition": "fold",
+          "baseline": "missing",
+          "scene": "同一行输入 abc def，想看清三种读法各拿到什么。",
+          "note": "01-03 新增 #c-cin-get 折叠区 + 三行对照表"
+        },
+        {
+          "form": "可运行示例 cin_get.cpp",
+          "disposition": "fold",
+          "baseline": "missing",
+          "scene": "想亲手验证 get() 不跳过空格时。",
+          "note": "折叠区内完整示例，RUN_STDIN 登记 abc def，输出三行逐字一致"
+        },
+        {
+          "form": "与 clear() / ignore() 的配合",
+          "disposition": "fold",
+          "baseline": "covered",
+          "scene": "读取失败后要恢复输入流时。",
+          "note": "折叠区一句话指向已讲的 clear() + ignore() 用法"
+        }
+      ]
+    }
+  ]
+}
