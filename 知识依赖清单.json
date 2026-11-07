@@ -1,163 +1,3317 @@
 {
   "version": 1,
-  "updated": "2026-11-05",
+  "updated": "2026-11-07",
   "description": "全站知识依赖清单：登记每个需要“先讲后用”的概念与名称。first_def 指向页面里真实存在的锚点；检查脚本 tools/check_deps.py 按文档顺序比对首次出现位置。",
   "entries": [
-    {"term": "作用域", "type": "concept", "match": "作用域", "first_def": "c-scope", "full_def": "c-scope", "brief": "变量能用的范围：从声明处到所在的那对 { } 结束。"},
-    {"term": "局部变量", "type": "concept", "match": "局部变量", "first_def": "c-localvar", "full_def": "c-localvar", "brief": "在函数或一对 { } 里声明的变量，出块即失效。"},
-    {"term": "块语句", "type": "concept", "match": "单独成块|块语句", "first_def": "c-block", "full_def": "c-block", "brief": "单独写一对 { } 也构成一层作用域，块内变量先消失。"},
-    {"term": "变量", "type": "concept", "match": "变量", "first_def": "c-variable", "full_def": "c-variable", "brief": "一块有名字的存储空间，用来存数据。"},
-    {"term": "语句", "type": "concept", "match": "语句", "first_def": "c-statement", "full_def": "c-statement", "brief": "程序里会执行的一步操作，以分号结尾。"},
-    {"term": "表达式", "type": "concept", "match": "表达式", "first_def": "c-expression", "full_def": "c-expression", "brief": "由变量、数字、运算符组成、能算出一个值的式子。"},
-    {"term": "运算符", "type": "concept", "match": "运算符", "first_def": "c-expression", "full_def": "p4-02", "brief": "+ - * / 这类对数据做运算的符号。"},
-    {"term": "函数", "type": "concept", "match": "函数", "first_def": "c-function-preview", "full_def": "p3-05", "brief": "一段有名字、可以被反复调用的代码。"},
-    {"term": "返回值", "type": "concept", "match": "返回值", "first_def": "p1-01", "full_def": "p3-05", "brief": "函数执行完后交回给调用方的结果，return 后面那个值。"},
-    {"term": "命名空间", "type": "concept", "match": "命名空间", "first_def": "p1-01", "full_def": "p1-02", "brief": "给名字加上“姓氏”，避免不同库里的同名冲突。"},
-    {"term": "指针", "type": "concept", "match": "指针", "first_def": "p1-05", "full_def": "p2-05", "brief": "保存内存地址的变量，可以通过它读写别处的数据。"},
-    {"term": "数组", "type": "concept", "match": "数组", "first_def": "c-function-preview", "full_def": "p2-01", "brief": "一排连续的同类数据，用下标访问。"},
-    {"term": "字符串", "type": "concept", "match": "字符串", "first_def": "p1-04", "full_def": "p2-04", "brief": "一串字符；C++ 里常用 std::string 表示。"},
-    {"term": "引用（别名）", "type": "concept", "match": "(?<!解)引用|别名", "first_def": "c-ref-preview", "full_def": "p4-01", "brief": "给已存在的变量起另一个名字，改别名就是改变量。"},
-    {"term": "const 只读", "type": "concept", "match": "const(?![A-Za-z0-9_])", "first_def": "c-const", "full_def": "c-const", "brief": "只读限定：初始化后不能再改。"},
-    {"term": "生命周期", "type": "concept", "match": "生命周期", "first_def": "c-lifetime", "full_def": "c-lifetime", "brief": "从创建拿到内存，到被回收为止的这段时间。"},
-    {"term": "全局变量", "type": "concept", "match": "全局变量", "first_def": "c-new-preview", "full_def": "c-new-preview", "brief": "写在所有函数外面的变量，活到程序结束。"},
-    {"term": "栈与堆", "type": "concept", "match": "栈区|堆区|栈上|堆上|栈和堆|栈对象|堆对象|栈内存|堆内存", "first_def": "p2-00", "full_def": "p2-00", "brief": "栈自动分配回收；堆要手动 new / delete。"},
-    {"term": "栈帧", "type": "concept", "match": "栈帧", "first_def": "c-stackframe", "full_def": "c-stackframe", "brief": "每次函数调用在栈上划出的那块内存，放形参和局部变量。"},
-    {"term": "形参", "type": "concept", "match": "形参", "first_def": "p3-05", "full_def": "p3-05", "brief": "函数定义里写的参数名，接收调用方传来的值。"},
-    {"term": "实参", "type": "concept", "match": "实参", "first_def": "p3-05", "full_def": "p3-05", "brief": "调用函数时真正传进去的值或变量。"},
-    {"term": "值传递", "type": "concept", "match": "值传递", "first_def": "c-valuepass", "full_def": "c-valuepass", "brief": "函数拿到实参的副本，改形参不影响外面。"},
-    {"term": "地址传递", "type": "concept", "match": "地址传递", "first_def": "c-pass", "full_def": "c-pass", "brief": "把变量地址传给函数，函数通过指针改原变量。"},
-    {"term": "引用传递", "type": "concept", "match": "引用传递", "first_def": "c-pass", "full_def": "c-pass", "brief": "形参就是实参的别名，改形参等于改外面。"},
-    {"term": "对象", "type": "concept", "match": "对象", "first_def": "c-scope", "full_def": "c-class", "brief": "按类创建出来的具体个体。"},
-    {"term": "成员", "type": "concept", "match": "成员", "first_def": "c-member", "full_def": "c-member", "brief": "类内部的变量或函数，归这个类（及它的对象）所有。"},
-    {"term": "访问权限", "type": "concept", "match": "访问权限", "first_def": "c-access", "full_def": "c-access", "brief": "public / protected / private，决定谁能访问成员。"},
-    {"term": "构造函数", "type": "concept", "match": "构造函数", "first_def": "c-preview-s4", "full_def": "c-construct", "brief": "对象创建时自动执行、用来准备初始数据的函数。"},
-    {"term": "封装", "type": "concept", "match": "封装", "first_def": "c-preview-s4", "full_def": "c-enclosure", "brief": "把数据藏进 private，只留 public 接口给外面用。"},
-    {"term": "函数重载", "type": "concept", "match": "重载", "first_def": "c-preview-s4", "full_def": "p4-02", "brief": "同名函数靠参数个数或类型区分版本。"},
-    {"term": "默认参数", "type": "concept", "match": "默认参数", "first_def": "c-preview-s4", "full_def": "p4-03", "brief": "调用时不写这个实参，就自动使用备用值。"},
-    {"term": "析构函数", "type": "concept", "match": "析构函数|析构", "first_def": "c-preview-s5", "full_def": "p5-01", "brief": "对象销毁前自动执行的收尾函数，名字是 ~类名。"},
-    {"term": "拷贝构造", "type": "concept", "match": "拷贝构造", "first_def": "c-preview-s5", "full_def": "p5-02", "brief": "用已有对象创建新对象时调用的构造函数。"},
-    {"term": "浅拷贝", "type": "concept", "match": "浅拷贝", "first_def": "c-preview-s5", "full_def": "p5-02", "brief": "只复制指针地址，两个对象共用同一块内存。"},
-    {"term": "深拷贝", "type": "concept", "match": "深拷贝", "first_def": "c-preview-s5", "full_def": "p5-02", "brief": "另外申请内存，把内容真正复制一份。"},
-    {"term": "运算符重载", "type": "concept", "match": "运算符重载", "first_def": "c-preview-s5", "full_def": "p5-03", "brief": "让 + 等运算符作用于自己定义的类。"},
-    {"term": "继承", "type": "concept", "match": "继承", "first_def": "c-preview-s5", "full_def": "c-inherit", "brief": "新类沿用旧类的成员与行为。", "exempt": [{"stage": 4, "part": 9, "channel": "body", "reason": "阶段预告卡片的阶段名属于标题性提及，紧随其后的 #c-preview-s5 立即逐词解释"}]},
-    {"term": "基类", "type": "concept", "match": "基类", "first_def": "c-preview-s5", "full_def": "c-inherit", "brief": "被继承的旧类，也叫父类。"},
-    {"term": "派生类", "type": "concept", "match": "派生类", "first_def": "c-preview-s5", "full_def": "c-inherit", "brief": "继承出来的新类，也叫子类。"},
-    {"term": "多态", "type": "concept", "match": "多态", "first_def": "c-preview-s5", "full_def": "c-polymorphism", "brief": "同一调用按对象实际类型执行不同版本。", "exempt": [{"stage": 4, "part": 9, "channel": "body", "reason": "阶段预告卡片的阶段名属于标题性提及，紧随其后的 #c-preview-s5 立即逐词解释"}]},
-    {"term": "虚函数", "type": "concept", "match": "虚函数", "first_def": "c-preview-s5", "full_def": "c-polymorphism", "brief": "基类里用 virtual 标记、可被派生类改写的函数。"},
-    {"term": "模板", "type": "concept", "match": "模板", "first_def": "c-preview-s6", "full_def": "p6-01", "brief": "写代码时把类型留成空位，用时再填。", "note": "阶段五预告给了定义，阶段六 Part 01、02 展开函数模板与类模板。"},
-    {"term": "try-catch", "type": "concept", "match": "try-catch|try \\/ catch|异常处理", "first_def": "c-preview-s6", "full_def": "p6-03", "brief": "try 里放可能出错的代码，catch 里处理错误。", "note": "阶段五预告给了定义，阶段六 Part 03、04 展开写法与捕获顺序。"},
-    {"term": "RAII", "type": "concept", "match": "RAII", "first_def": "c-preview-s6", "full_def": "p6-05", "brief": "用构造申请资源、用析构释放资源。", "note": "阶段五预告给了定义，阶段六 Part 05 展开异常路径的释放时机。"},
-    {"term": "std::vector", "type": "concept", "match": "std::vector", "first_def": "p2-07", "full_def": "p2-07", "brief": "能自动变长的数组，阶段七细讲。"},
-    {"term": "ASCII", "type": "concept", "match": "ASCII", "first_def": "c-ascii", "full_def": "c-ascii", "brief": "字符与 0～127 编号的对照表；'A' 是 65，'a' 是 97，大小写差 32。"},
-    {"term": "static_cast", "type": "name", "match": "static_cast", "first_def": "c-static-cast", "full_def": "c-static-cast", "brief": "写明白的类型转换：static_cast<目标类型>(值)。", "note": "初学只需 static_cast；dynamic_cast / const_cast / reinterpret_cast 的用途表在 c-static-cast，完整用法留到阶段五以后。"},
-    {"term": "std::array", "type": "name", "match": "std::array", "first_def": "c-std-array", "full_def": "c-std-array", "brief": "长度固定的标准库数组，类型和长度写在尖括号里，如 std::array<int, 5>。", "note": "阶段二就地解释尖括号写法；模板机制留到阶段六 Part 02。"},
-    {"term": "array 头文件", "type": "name", "match": "<array>", "first_def": "c-std-array", "full_def": "c-std-array", "brief": "提供 std::array 的头文件。"},
-    {"term": "基于范围的 for", "type": "concept", "match": "基于范围的 for|范围 for", "first_def": "c-range-for", "full_def": "c-range-for", "brief": "for (元素变量 : 数组) 依次取出每个元素，不用自己维护下标。"},
-    {"term": "cin.get", "type": "name", "match": "cin\\.get", "first_def": "c-cin-get", "full_def": "c-cin-get", "brief": "从输入流读一个字符，不跳过空格和换行。"},
-    {"term": "ios_base", "type": "name", "match": "ios_base", "first_def": "c-iostream", "full_def": "c-iostream", "brief": "输入输出流家族共同的老祖宗，管格式与状态。"},
-    {"term": "switch case 作用域", "type": "concept", "match": "case 里的变量|jump to case label", "first_def": "c-switch-case-scope", "full_def": "c-switch-case-scope", "brief": "case 只是标签不是独立作用域；在 case 里定义变量要加一对花括号。"},
-    {"term": "数组参数", "type": "concept", "match": "数组参数", "first_def": "c-array-param", "full_def": "c-array-param", "brief": "数组传进函数只会传首地址，长度必须另传一个 int n；日常写 int* a, int n。"},
-
-    {"term": "#include", "type": "name", "match": "#include", "first_def": "p1-00", "full_def": "p1-00", "brief": "预处理指令：把别的文件内容包含进来。"},
-    {"term": "iostream", "type": "name", "match": "iostream", "first_def": "p1-00", "full_def": "p1-00", "brief": "输入输出头文件，提供 cout / cin。"},
-    {"term": "std::cout", "type": "name", "match": "std::cout", "first_def": "p1-01", "full_def": "p1-01", "brief": "标准输出流，用 << 往屏幕写。"},
-    {"term": "std::endl", "type": "name", "match": "std::endl", "first_def": "p1-01", "full_def": "p1-01", "brief": "换行并刷新输出缓冲。"},
-    {"term": "return", "type": "name", "match": "\\breturn\\b", "first_def": "p1-01", "full_def": "p1-01", "brief": "结束函数并把结果交回调用方。"},
-    {"term": "std::cin", "type": "name", "match": "std::cin", "first_def": "p1-03", "full_def": "p1-03", "brief": "标准输入流，用 >> 从键盘读。"},
-    {"term": "getline", "type": "name", "match": "getline", "first_def": "p1-03", "full_def": "p1-03", "brief": "读入一整行文字，能保留空格。"},
-    {"term": "std::string", "type": "name", "match": "std::string", "first_def": "p1-03", "full_def": "p2-04", "brief": "C++ 的文本类型，自动记录长度。"},
-    {"term": "std::fixed", "type": "name", "match": "std::fixed", "first_def": "p1-03", "full_def": "p1-03", "brief": "让浮点数按固定小数位输出。"},
-    {"term": "std::setprecision", "type": "name", "match": "setprecision", "first_def": "p1-03", "full_def": "p1-03", "brief": "设置浮点输出精度。"},
-    {"term": "std::numeric_limits", "type": "name", "match": "numeric_limits", "first_def": "p6-02", "full_def": "c-s6-explicit", "brief": "标准库里的类模板，尖括号里写类型就能查它的取值范围。"},
-    {"term": "sizeof", "type": "name", "match": "sizeof", "first_def": "p1-04", "full_def": "p1-04", "brief": "求类型或变量占多少字节，结果是一个无符号整数（std::size_t）。"},
-    {"term": "std::size_t", "type": "name", "match": "size_t", "first_def": "c-size-t", "full_def": "c-size-t", "brief": "无符号的大小类型，表示数组下标和 sizeof 结果。"},
-    {"term": "cstddef", "type": "name", "match": "cstddef", "first_def": "c-size-t", "full_def": "c-size-t", "brief": "提供 std::size_t 的头文件。"},
-    {"term": "climits", "type": "name", "match": "<climits>", "first_def": "p1-04", "full_def": "p1-04", "brief": "提供 INT_MAX、LLONG_MAX 等各类型范围常量的头文件。"},
-    {"term": "cfloat", "type": "name", "match": "<cfloat>", "first_def": "p1-04", "full_def": "p1-04", "brief": "提供 FLT_MAX、DBL_MAX 等小数范围常量的头文件。"},
-    {"term": "cstdint", "type": "name", "match": "<cstdint>", "first_def": "p1-04", "full_def": "p1-04", "brief": "提供 SIZE_MAX 等整数上限常量的头文件。"},
-    {"term": "INT_MAX", "type": "name", "match": "\\b(?:CHAR_MIN|CHAR_MAX|SCHAR_MIN|SCHAR_MAX|UCHAR_MAX|SHRT_MIN|SHRT_MAX|USHRT_MAX|INT_MIN|INT_MAX|UINT_MAX|LONG_MIN|LONG_MAX|ULONG_MAX|LLONG_MIN|LLONG_MAX|ULLONG_MAX|FLT_MAX|DBL_MAX)\\b", "first_def": "p1-04", "full_def": "p1-04", "brief": "标准库预先定义的最大 / 最小值常量，如 INT_MAX 是 int 的上限。"},
-    {"term": "limits", "type": "name", "match": "<limits>", "first_def": "p6-02", "full_def": "p6-02", "brief": "提供 std::numeric_limits 类模板的头文件。"},
-    {"term": "std::boolalpha", "type": "name", "match": "boolalpha", "first_def": "p1-04", "full_def": "p1-04", "brief": "让 bool 输出 true / false 而不是 1 / 0。"},
-    {"term": "auto", "type": "name", "match": "\\bauto\\b", "first_def": "p1-05", "full_def": "p1-05", "brief": "让编译器根据初始值推导类型。"},
-    {"term": "new", "type": "name", "match": "\\bnew\\b", "first_def": "c-new-preview", "full_def": "p2-05", "brief": "向堆申请内存的关键字。", "exempt": [{"stage": 1, "part": 9, "channel": "body", "reason": "阶段一小结的下一章预告，就地写成「new 向堆申请内存、delete 把内存归还，两者配对使用」，完整写法在 #c-new-preview"}]},
-    {"term": "delete", "type": "name", "match": "\\bdelete\\b", "first_def": "c-new-preview", "full_def": "p2-05", "brief": "把 new 申请的内存还给系统。", "exempt": [{"stage": 1, "part": 9, "channel": "body", "reason": "阶段一小结的下一章预告，就地写成「new 向堆申请内存、delete 把内存归还，两者配对使用」，完整写法在 #c-new-preview"}]},
-    {"term": "nullptr", "type": "name", "match": "nullptr", "first_def": "p2-05", "full_def": "p2-05", "brief": "空指针常量，表示“不指向任何对象”。"},
-    {"term": "class", "type": "name", "match": "\\bclass\\b", "first_def": "c-preview-s4", "full_def": "c-class", "brief": "定义类的关键字：把数据和操作打包。"},
-    {"term": "public", "type": "name", "match": "\\bpublic\\b", "first_def": "c-preview-s4", "full_def": "c-access", "brief": "公开访问权限，类外部也能用。"},
-    {"term": "private", "type": "name", "match": "\\bprivate\\b", "first_def": "c-preview-s4", "full_def": "c-access", "brief": "私有访问权限，只有类内部能用。"},
-    {"term": "protected", "type": "name", "match": "protected", "first_def": "c-protected", "full_def": "c-protected", "brief": "受保护访问权限，派生类内部也能用。"},
-    {"term": "virtual", "type": "name", "match": "\\bvirtual\\b", "first_def": "c-polymorphism", "full_def": "c-polymorphism", "brief": "标记虚函数，让调用按实际类型分派。"},
-    {"term": "override", "type": "name", "match": "\\boverride\\b", "first_def": "c-polymorphism", "full_def": "p5-05", "brief": "标记“我在改写基类虚函数”，签名写错会报错。"},
-    {"term": "operator=", "type": "name", "match": "operator=", "first_def": "p5-02", "full_def": "p5-02", "brief": "赋值运算符对应的函数名：把右边对象写进左边。"},
-    {"term": "operator+", "type": "name", "match": "operator\\+", "first_def": "p5-03", "full_def": "p5-03", "brief": "让自定义类型支持 + 的成员/非成员函数。"},
-    {"term": "operator<<", "type": "name", "match": "operator&lt;&lt;|operator<<", "first_def": "p5-03", "full_def": "p5-03", "brief": "让自定义类型能被 cout 输出。"},
-    {"term": "std::ostream", "type": "name", "match": "std::ostream", "first_def": "p5-03", "full_def": "p5-03", "brief": "输出流的类型，cout 就是它的一个对象。"},
-    {"term": "struct", "type": "name", "match": "\\bstruct\\b", "first_def": "c-struct", "full_def": "c-struct", "brief": "和 class 几乎一样，成员默认 public；适合只把几个数据打包。"},
-    {"term": "无符号 unsigned", "type": "concept", "match": "unsigned", "first_def": "c-unsigned", "full_def": "c-unsigned", "brief": "只存 0 和正数，把负数范围让给正数。"},
-    {"term": "整数溢出", "type": "concept", "match": "整数溢出", "first_def": "c-overflow", "full_def": "c-overflow", "brief": "无符号按 2^n 取模回绕；有符号溢出是未定义行为，结果不可依赖。"},
-    {"term": "字面量后缀", "type": "concept", "match": "字面量后缀", "first_def": "c-suffix", "full_def": "c-suffix", "brief": "数字后加 L/f 等字母，明确它的类型。"},
-    {"term": "隐式转换与截断", "type": "concept", "match": "隐式转换与截断", "first_def": "c-implicit", "full_def": "c-implicit", "brief": "赋值时自动换类型；double 转 int 只留整数部分。"},
-    {"term": "浮点精度", "type": "concept", "match": "浮点精度", "first_def": "deep-p1-04", "full_def": "deep-p1-04", "brief": "二进制只能近似表示多数小数，累加会产生误差。"},
-    {"term": "auto 丢失只读属性", "type": "concept", "match": "auto 会丢掉最外层的只读属性", "first_def": "c-auto-const", "full_def": "c-auto-const", "brief": "auto 推导为普通 int 副本，副本仍可修改。"},
-    {"term": "数组退化", "type": "concept", "match": "数组退化成", "first_def": "c-array-decay", "full_def": "c-array-decay", "brief": "数组名在推导或传参时变成首地址指针。"},
-    {"term": "二维数组", "type": "concept", "match": "二维数组", "first_def": "deep-p2-02", "full_def": "c-multidim", "brief": "数组的数组，用两个下标访问，按行连续存放。"},
-    {"term": "strcmp", "type": "name", "match": "strcmp", "first_def": "c-cstrcmp", "full_def": "c-cstrcmp", "brief": "按内容逐字符比较两个 C 风格字符串，返回 0 表示相同。"},
-    {"term": "悬空指针", "type": "concept", "match": "悬空指针", "first_def": "c-dangling", "full_def": "c-dangling", "brief": "delete 后仍保存旧地址的指针，再解引用是未定义行为。"},
-    {"term": "野指针", "type": "concept", "match": "野指针", "first_def": "c-wild", "full_def": "c-wild", "brief": "未初始化、指向随机地址的指针。"},
-    {"term": "指针数组", "type": "concept", "match": "指针数组", "first_def": "c-pointer-array", "full_def": "c-pointer-array", "brief": "装多个指针的数组，例如 int* a[3]。"},
-    {"term": "指针的指针", "type": "concept", "match": "指针的指针", "first_def": "c-pointer-pointer", "full_def": "c-pointer-pointer", "brief": "保存另一个指针地址的指针，例如 int**。"},
-    {"term": "const 与指针", "type": "concept", "match": "const 放在 \\* 左边", "first_def": "c-const-pointer", "full_def": "c-const-pointer", "brief": "const 在 * 左限制指向的值，在 * 右限制指针本身。"},
-    {"term": "优先级", "type": "concept", "match": "优先级与结合性", "first_def": "c-precedence", "full_def": "c-precedence", "brief": "决定同一表达式里先算哪个运算符。"},
-    {"term": "自增前后缀", "type": "concept", "match": "i\\+\\+ 与 \\+\\+i", "first_def": "c-incdec", "full_def": "c-incdec", "brief": "后置返回旧值，前置返回新值。"},
-    {"term": "逗号表达式", "type": "concept", "match": "逗号表达式", "first_def": "c-comma", "full_def": "c-comma", "brief": "从左往右计算，整个表达式的值是最后一项。"},
-    {"term": "switch 贯穿", "type": "concept", "match": "贯穿", "first_def": "c-fallthrough", "full_def": "c-fallthrough", "brief": "case 没写 break 时继续执行下一个 case。"},
-    {"term": "循环边界", "type": "concept", "match": "边界怎么选", "first_def": "c-loop-bound", "full_def": "c-loop-bound", "brief": "按是否包含终点选择 < 或 <=，用首尾值代入验证。"},
-    {"term": "循环变量作用域", "type": "concept", "match": "只在循环内有效", "first_def": "c-loop-scope", "full_def": "c-loop-scope", "brief": "for 头里声明的变量循环结束即失效。"},
-    {"term": "返回引用", "type": "concept", "match": "返回引用", "first_def": "c-return-ref", "full_def": "c-return-ref", "brief": "返回原变量本身而非副本；不能返回局部变量。"},
-    {"term": "递归", "type": "concept", "match": "递归", "first_def": "c-recursion", "full_def": "c-recursion", "brief": "函数自己调用自己，必须有终止条件。"},
-    {"term": "const 引用参数", "type": "concept", "match": "const 引用", "first_def": "p4-01", "full_def": "p4-01", "brief": "只读地绑定原对象，避免复制大参数。"},
-    {"term": "重载二义", "type": "concept", "match": "会二义|二义性", "first_def": "c-overload-default", "full_def": "c-overload-default", "brief": "多个重载版本都能匹配同一次调用，编译器无法选择。"},
-    {"term": "static 成员", "type": "name", "match": "static 成员", "first_def": "c-static-member", "full_def": "c-static-member", "brief": "属于类而不属于对象、所有对象共享的成员。"},
-    {"term": "成员初始化列表", "type": "concept", "match": "成员初始化列表", "first_def": "c-initlist", "full_def": "c-initlist", "brief": "构造函数冒号后直接初始化成员；const、引用、无默认构造时必须用。"},
-    {"term": "对象数组", "type": "concept", "match": "对象数组", "first_def": "c-object-array", "full_def": "c-object-array", "brief": "一排同类对象，每个元素都会各自构造。"},
-    {"term": "继承方式", "type": "concept", "match": "继承也有 public", "first_def": "c-inherit-access", "full_def": "c-inherit-access", "brief": "public/protected/private 三种继承改变成员的访问权限。"},
-    {"term": "同名成员隐藏", "type": "concept", "match": "同名成员会隐藏", "first_def": "c-name-hiding", "full_def": "c-name-hiding", "brief": "派生类同名成员会挡住基类版本，不是合并。"},
-    {"term": "对象切片", "type": "concept", "match": "对象切片", "first_def": "c-slicing", "full_def": "c-slicing", "brief": "派生类对象按值赋给基类对象时，派生部分被切掉。"},
-    {"term": "纯虚函数", "type": "concept", "match": "纯虚函数", "first_def": "c-pure-virtual", "full_def": "c-pure-virtual", "brief": "声明 = 0 的虚函数，使类成为抽象类，派生类必须实现。"},
-    {"term": "final", "type": "name", "match": "\\bfinal\\b", "first_def": "c-final", "full_def": "c-final", "brief": "禁止派生类继续重写虚函数或继承该类。"},
-    {"term": "c_str", "type": "name", "match": "c_str", "first_def": "c-cstr", "full_def": "c-cstr", "brief": "把 std::string 转成只读的 C 风格字符串。"},
-    {"term": "empty 与 back", "type": "name", "match": "empty\\(\\)|back\\(\\)", "first_def": "c-empty-back", "full_def": "c-empty-back", "brief": "empty 判断空串，back 取最后一个字符。"},
-    {"term": "引用必须初始化", "type": "concept", "match": "引用必须初始化", "first_def": "c-ref-bind", "full_def": "c-ref-bind", "brief": "引用声明时绑定，之后不能改绑，也没有空引用。"},
-    {"term": "作用域与生命周期", "type": "concept", "match": "作用域结束不等于对象一定消失", "first_def": "c-scope-lifetime", "full_def": "c-scope-lifetime", "brief": "栈对象随作用域结束销毁，堆对象要等 delete。"},
-    {"term": "初始化列表调用基类构造", "type": "syntax", "match": "\\)\\s*:\\s*[A-Z]\\w*\\s*\\(", "first_def": "c-inherit-ctor", "full_def": "c-inherit-ctor", "brief": "派生类构造函数的参数列表后写 : 基类(实参)，把参数交给基类构造。", "note": "阶段五 Part 04 讲写法：冒号位置、为什么必须写、执行顺序。", "exempt": []},
-    {"term": "普通成员初始化列表", "type": "syntax", "match": "\\)\\s*:\\s*[a-z_]\\w*\\s*\\(", "first_def": "c-initlist", "full_def": "c-initlist", "brief": "构造函数名后用冒号接 成员(初值)，在对象出生时直接初始化成员。", "note": "阶段四 Part 05 已讲；阶段五 Part 04 只回指，不重复展开。", "exempt": []},
-    {"term": "范围 for 写法", "type": "syntax", "match": "for\\s*\\(\\s*int\\s+\\w+\\s*:", "first_def": "c-range-for", "full_def": "c-range-for", "brief": "for (int 元素变量 : 数组) —— 左边是每轮接住元素的副本。", "note": "阶段三 Part 03；要改元素时左边写成引用，放在折叠区。"},
-    {"term": "函数模板", "type": "concept", "match": "函数模板", "first_def": "c-preview-s6", "full_def": "c-s6-func-template", "brief": "把参数类型写成占位符 T，调用时由编译器按实参类型替换。", "note": "阶段五预告只分了个类；阶段六 Part 01 讲声明行、推导与实例化。"},
-    {"term": "类模板", "type": "concept", "match": "类模板", "first_def": "c-preview-s6", "full_def": "c-s6-class-template", "brief": "把类里的成员类型写成占位符 T，用时在类名后写 <具体类型>。", "note": "阶段六 Part 02 讲定义与显式实参。"},
-    {"term": "类型推导", "type": "concept", "match": "类型推导", "first_def": "c-s6-deduce", "full_def": "c-s6-deduce", "brief": "调用模板时，编译器从实参类型反推占位符 T 具体是什么。", "note": "阶段六 Part 01；推导不出唯一结果就编译失败。"},
-    {"term": "模板参数", "type": "concept", "match": "模板参数|类型参数", "first_def": "c-s6-param", "full_def": "c-s6-param", "brief": "尖括号里声明的占位名字，如 <typename T> 里的 T。", "note": "阶段六 Part 01；多参数放折叠区。"},
-    {"term": "实例化", "type": "concept", "match": "实例化", "first_def": "c-s6-instantiate", "full_def": "c-s6-instantiate", "brief": "编译器按具体类型把模板生成一份真正的函数或类。", "note": "阶段六 Part 01；同一类型只生成一次。"},
-    {"term": "显式实参", "type": "concept", "match": "显式实参|显式指定", "first_def": "c-s6-explicit", "full_def": "c-s6-explicit", "brief": "在模板名后的尖括号里直接写具体类型，如 Box<int>。", "note": "阶段六 Part 02；类模板不能省尖括号。"},
-    {"term": "异常", "type": "concept", "match": "异常", "first_def": "c-preview-s6", "full_def": "p6-03", "brief": "程序运行时遇到的错误情况，可以抛出并在别处统一处理。", "note": "阶段五预告一句带过；阶段六 Part 03 讲抛出、捕获与栈展开。", "exempt": [{"stage": 5, "part": 1, "channel": "body", "reason": "阶段五析构避坑只给结论‘析构里不要抛异常’，完整讲解在阶段六 Part 03"}]},
-    {"term": "抛出", "type": "concept", "match": "抛出", "first_def": "c-s6-throw", "full_def": "c-s6-throw", "brief": "用 throw 把错误情况交给上层，当前函数立即停止。", "note": "阶段六 Part 03；throw 语句写法同时登记为 syntax。"},
-    {"term": "捕获", "type": "concept", "match": "捕获", "first_def": "c-s6-trycatch", "full_def": "c-s6-trycatch", "brief": "catch 接住抛出的异常，并按括号里的类型决定谁来处理。", "note": "阶段六 Part 03；Part 04 讲捕获顺序与按引用捕获。"},
-    {"term": "异常对象", "type": "concept", "match": "异常对象", "first_def": "c-s6-exception", "full_def": "c-s6-exception", "brief": "throw 后面那个值会被复制成一个对象，沿调用链向上传递。", "note": "阶段六 Part 03。"},
-    {"term": "栈展开", "type": "concept", "match": "栈展开", "first_def": "c-s6-unwind", "full_def": "c-s6-unwind", "brief": "异常向上传递时，逐层退出函数并销毁这一层的局部对象。", "note": "阶段六 Part 03；Part 05 用它解释 RAII 为何能释放资源。"},
-    {"term": "noexcept", "type": "syntax", "match": "noexcept", "first_def": "c-s6-noexcept", "full_def": "c-s6-noexcept", "brief": "写在函数声明后，承诺这个函数不抛异常；违背承诺会直接终止。", "note": "阶段六 Part 04 只讲一句，不展开细节。"},
-    {"term": "异常安全", "type": "concept", "match": "异常安全", "first_def": "c-s6-exception-safety", "full_def": "c-s6-exception-safety", "brief": "出错抛出后，资源仍被释放、对象仍处于可继续使用的状态。", "note": "阶段六 Part 06 综合示例。"},
-    {"term": "资源守卫", "type": "concept", "match": "资源守卫|守卫对象", "first_def": "c-s6-raii", "full_def": "c-s6-raii", "brief": "把资源交给一个栈对象保管，离开作用域时由析构函数自动释放。", "note": "阶段六 Part 05。"},
-    {"term": "std::runtime_error", "type": "name", "match": "runtime_error", "first_def": "c-s6-exception-type", "full_def": "c-s6-exception-type", "brief": "标准库的运行时错误异常类型，构造时给一句错误说明。", "note": "阶段六 Part 03；头文件 <stdexcept>。"},
-    {"term": "std::exception", "type": "name", "match": "std::exception", "first_def": "c-s6-catchbase", "full_def": "c-s6-catchbase", "brief": "所有标准异常的基类，用它可以接住任意一种标准异常。", "note": "阶段六 Part 04；宽泛捕获要放在具体捕获之后。"},
-    {"term": "what()", "type": "name", "match": "what\\s*\\(", "first_def": "c-s6-exception-type", "full_def": "c-s6-exception-type", "brief": "异常对象的成员函数，返回构造时写的那句错误说明。", "note": "阶段六 Part 03。"},
-    {"term": "stdexcept", "type": "name", "match": "stdexcept", "first_def": "c-s6-exception-type", "full_def": "c-s6-exception-type", "brief": "提供 runtime_error 等标准异常类型的头文件。", "note": "阶段六 Part 03。"},
-    {"term": "函数模板声明", "type": "syntax", "match": "template\\s*<\\s*typename\\s+\\w+\\s*>", "first_def": "c-s6-func-template", "full_def": "c-s6-func-template", "brief": "template 开头，尖括号里声明占位类型，下一行才是函数。", "note": "阶段六 Part 01 逐段拆读。"},
-    {"term": "类模板显式实参", "type": "syntax", "match": "\\bBox\\s*<\\s*(?:int|std::string)\\s*>", "first_def": "c-s6-explicit", "full_def": "c-s6-explicit", "brief": "类名后写 <具体类型> 才能创建对象。", "note": "阶段六 Part 02。"},
-    {"term": "类模板实例化", "type": "syntax", "match": "\\bBox\\s*<\\s*int\\s*>", "first_def": "c-s6-class-template", "full_def": "c-s6-explicit", "brief": "类型名后接 <具体类型>，编译器按这个类型生成一个具体的类。", "note": "阶段六 Part 02；全站的模板实参写法由 check_deps.py 的模板扫描统一把关。", "detect": "template"},
-    {"term": "函数模板实例化", "type": "syntax", "match": "larger\\s*<\\s*(?:int|double)\\s*>", "first_def": "c-s6-func-template", "full_def": "c-s6-explicit", "brief": "调用函数模板时，可以在函数名后写 <具体类型>，也可以交给编译器从实参推导。", "note": "阶段六 Part 01；显式写法在 Part 01 的错误示例里出现。", "detect": "template"},
-    {"term": "throw 语句", "type": "syntax", "match": "throw\\s+[^\\n;]+;", "first_def": "c-s6-throw", "full_def": "c-s6-throw", "brief": "throw 后面跟要抛出的值，整句以分号结束。", "note": "阶段六 Part 03。"},
-    {"term": "try-catch 配对", "type": "syntax", "match": "try\\s*\\{", "first_def": "c-s6-trycatch", "full_def": "c-s6-trycatch", "brief": "try 花括号后必须紧跟一个或多个 catch，中间不能插别的语句。", "note": "阶段六 Part 03。"},
-    {"term": "catch 按值", "type": "syntax", "match": "catch\\s*\\(\\s*std::\\w+\\s+\\w+\\s*\\)", "first_def": "c-s6-trycatch", "full_def": "c-s6-trycatch", "brief": "括号里写类型和变量名，异常对象被复制一份给 catch。", "note": "阶段六 Part 03 先用；Part 04 说明为什么改成按引用。"},
-    {"term": "catch 按引用", "type": "syntax", "match": "catch\\s*\\(\\s*const\\s+std::\\w+\\s*&\\s*\\w+\\s*\\)", "first_def": "c-s6-trycatch", "full_def": "c-s6-catchref", "brief": "类型后加 &，直接引用抛出的异常对象，不复制、不切片。", "note": "阶段六 Part 03 示例先用；Part 04 解释 & 与 const 为什么这样写。"},
-    {"term": "catch 全捕获", "type": "syntax", "match": "catch\\s*\\(\\s*\\.\\.\\.\\s*\\)", "first_def": "c-s6-catchall", "full_def": "c-s6-catchall", "brief": "括号里写 ...，接住任何类型的异常，只能放最后。", "note": "阶段六 Part 04。"}
+    {
+      "term": "作用域",
+      "type": "concept",
+      "match": "作用域",
+      "first_def": "c-scope",
+      "full_def": "c-scope",
+      "brief": "变量能用的范围：从声明处到所在的那对 { } 结束。"
+    },
+    {
+      "term": "局部变量",
+      "type": "concept",
+      "match": "局部变量",
+      "first_def": "c-localvar",
+      "full_def": "c-localvar",
+      "brief": "在函数或一对 { } 里声明的变量，出块即失效。"
+    },
+    {
+      "term": "块语句",
+      "type": "concept",
+      "match": "单独成块|块语句",
+      "first_def": "c-block",
+      "full_def": "c-block",
+      "brief": "单独写一对 { } 也构成一层作用域，块内变量先消失。"
+    },
+    {
+      "term": "变量",
+      "type": "concept",
+      "match": "变量",
+      "first_def": "c-variable",
+      "full_def": "c-variable",
+      "brief": "一块有名字的存储空间，用来存数据。"
+    },
+    {
+      "term": "语句",
+      "type": "concept",
+      "match": "语句",
+      "first_def": "c-statement",
+      "full_def": "c-statement",
+      "brief": "程序里会执行的一步操作，以分号结尾。"
+    },
+    {
+      "term": "表达式",
+      "type": "concept",
+      "match": "表达式",
+      "first_def": "c-expression",
+      "full_def": "c-expression",
+      "brief": "由变量、数字、运算符组成、能算出一个值的式子。"
+    },
+    {
+      "term": "运算符",
+      "type": "concept",
+      "match": "运算符",
+      "first_def": "c-expression",
+      "full_def": "p4-02",
+      "brief": "+ - * / 这类对数据做运算的符号。"
+    },
+    {
+      "term": "函数",
+      "type": "concept",
+      "match": "函数",
+      "first_def": "c-function-preview",
+      "full_def": "p3-05",
+      "brief": "一段有名字、可以被反复调用的代码。"
+    },
+    {
+      "term": "返回值",
+      "type": "concept",
+      "match": "返回值",
+      "first_def": "p1-01",
+      "full_def": "p3-05",
+      "brief": "函数执行完后交回给调用方的结果，return 后面那个值。"
+    },
+    {
+      "term": "命名空间",
+      "type": "concept",
+      "match": "命名空间",
+      "first_def": "p1-01",
+      "full_def": "p1-02",
+      "brief": "给名字加上“姓氏”，避免不同库里的同名冲突。"
+    },
+    {
+      "term": "指针",
+      "type": "concept",
+      "match": "指针",
+      "first_def": "p1-05",
+      "full_def": "p2-05",
+      "brief": "保存内存地址的变量，可以通过它读写别处的数据。"
+    },
+    {
+      "term": "数组",
+      "type": "concept",
+      "match": "数组",
+      "first_def": "c-function-preview",
+      "full_def": "p2-01",
+      "brief": "一排连续的同类数据，用下标访问。"
+    },
+    {
+      "term": "字符串",
+      "type": "concept",
+      "match": "字符串",
+      "first_def": "p1-04",
+      "full_def": "p2-04",
+      "brief": "一串字符；C++ 里常用 std::string 表示。"
+    },
+    {
+      "term": "引用（别名）",
+      "type": "concept",
+      "match": "(?<!解)引用|别名",
+      "first_def": "c-ref-preview",
+      "full_def": "p4-01",
+      "brief": "给已存在的变量起另一个名字，改别名就是改变量。"
+    },
+    {
+      "term": "const 只读",
+      "type": "concept",
+      "match": "const(?![A-Za-z0-9_])",
+      "first_def": "c-const",
+      "full_def": "c-const",
+      "brief": "只读限定：初始化后不能再改。"
+    },
+    {
+      "term": "生命周期",
+      "type": "concept",
+      "match": "生命周期",
+      "first_def": "c-lifetime",
+      "full_def": "c-lifetime",
+      "brief": "从创建拿到内存，到被回收为止的这段时间。"
+    },
+    {
+      "term": "全局变量",
+      "type": "concept",
+      "match": "全局变量",
+      "first_def": "c-new-preview",
+      "full_def": "c-new-preview",
+      "brief": "写在所有函数外面的变量，活到程序结束。"
+    },
+    {
+      "term": "栈与堆",
+      "type": "concept",
+      "match": "栈区|堆区|栈上|堆上|栈和堆|栈对象|堆对象|栈内存|堆内存",
+      "first_def": "p2-00",
+      "full_def": "p2-00",
+      "brief": "栈自动分配回收；堆要手动 new / delete。"
+    },
+    {
+      "term": "栈帧",
+      "type": "concept",
+      "match": "栈帧",
+      "first_def": "c-stackframe",
+      "full_def": "c-stackframe",
+      "brief": "每次函数调用在栈上划出的那块内存，放形参和局部变量。"
+    },
+    {
+      "term": "形参",
+      "type": "concept",
+      "match": "形参",
+      "first_def": "p3-05",
+      "full_def": "p3-05",
+      "brief": "函数定义里写的参数名，接收调用方传来的值。"
+    },
+    {
+      "term": "实参",
+      "type": "concept",
+      "match": "实参",
+      "first_def": "p3-05",
+      "full_def": "p3-05",
+      "brief": "调用函数时真正传进去的值或变量。"
+    },
+    {
+      "term": "值传递",
+      "type": "concept",
+      "match": "值传递",
+      "first_def": "c-valuepass",
+      "full_def": "c-valuepass",
+      "brief": "函数拿到实参的副本，改形参不影响外面。"
+    },
+    {
+      "term": "地址传递",
+      "type": "concept",
+      "match": "地址传递",
+      "first_def": "c-pass",
+      "full_def": "c-pass",
+      "brief": "把变量地址传给函数，函数通过指针改原变量。"
+    },
+    {
+      "term": "引用传递",
+      "type": "concept",
+      "match": "引用传递",
+      "first_def": "c-pass",
+      "full_def": "c-pass",
+      "brief": "形参就是实参的别名，改形参等于改外面。",
+      "aliases": [
+        "引用参数"
+      ]
+    },
+    {
+      "term": "对象",
+      "type": "concept",
+      "match": "对象",
+      "first_def": "c-scope",
+      "full_def": "c-class",
+      "brief": "按类创建出来的具体个体。"
+    },
+    {
+      "term": "成员",
+      "type": "concept",
+      "match": "成员",
+      "first_def": "c-member",
+      "full_def": "c-member",
+      "brief": "类内部的变量或函数，归这个类（及它的对象）所有。",
+      "aliases": [
+        "成员变量"
+      ]
+    },
+    {
+      "term": "访问权限",
+      "type": "concept",
+      "match": "访问权限",
+      "first_def": "c-access",
+      "full_def": "c-access",
+      "brief": "public / protected / private，决定谁能访问成员。"
+    },
+    {
+      "term": "构造函数",
+      "type": "concept",
+      "match": "构造函数",
+      "first_def": "c-preview-s4",
+      "full_def": "c-construct",
+      "brief": "对象创建时自动执行、用来准备初始数据的函数。"
+    },
+    {
+      "term": "封装",
+      "type": "concept",
+      "match": "封装",
+      "first_def": "c-preview-s4",
+      "full_def": "c-enclosure",
+      "brief": "把数据藏进 private，只留 public 接口给外面用。"
+    },
+    {
+      "term": "函数重载",
+      "type": "concept",
+      "match": "重载",
+      "first_def": "c-preview-s4",
+      "full_def": "p4-02",
+      "brief": "同名函数靠参数个数或类型区分版本。"
+    },
+    {
+      "term": "默认参数",
+      "type": "concept",
+      "match": "默认参数",
+      "first_def": "c-preview-s4",
+      "full_def": "p4-03",
+      "brief": "调用时不写这个实参，就自动使用备用值。"
+    },
+    {
+      "term": "析构函数",
+      "type": "concept",
+      "match": "析构函数|析构",
+      "first_def": "c-preview-s5",
+      "full_def": "p5-01",
+      "brief": "对象销毁前自动执行的收尾函数，名字是 ~类名。"
+    },
+    {
+      "term": "拷贝构造",
+      "type": "concept",
+      "match": "拷贝构造",
+      "first_def": "c-preview-s5",
+      "full_def": "p5-02",
+      "brief": "用已有对象创建新对象时调用的构造函数。",
+      "aliases": [
+        "拷贝构造函数"
+      ]
+    },
+    {
+      "term": "浅拷贝",
+      "type": "concept",
+      "match": "浅拷贝",
+      "first_def": "c-preview-s5",
+      "full_def": "p5-02",
+      "brief": "只复制指针地址，两个对象共用同一块内存。"
+    },
+    {
+      "term": "深拷贝",
+      "type": "concept",
+      "match": "深拷贝",
+      "first_def": "c-preview-s5",
+      "full_def": "p5-02",
+      "brief": "另外申请内存，把内容真正复制一份。"
+    },
+    {
+      "term": "运算符重载",
+      "type": "concept",
+      "match": "运算符重载",
+      "first_def": "c-preview-s5",
+      "full_def": "p5-03",
+      "brief": "让 + 等运算符作用于自己定义的类。"
+    },
+    {
+      "term": "继承",
+      "type": "concept",
+      "match": "继承",
+      "first_def": "c-preview-s5",
+      "full_def": "c-inherit",
+      "brief": "新类沿用旧类的成员与行为。",
+      "exempt": [
+        {
+          "stage": 4,
+          "part": 9,
+          "channel": "body",
+          "reason": "阶段预告卡片的阶段名属于标题性提及，紧随其后的 #c-preview-s5 立即逐词解释"
+        }
+      ]
+    },
+    {
+      "term": "基类",
+      "type": "concept",
+      "match": "基类",
+      "first_def": "c-preview-s5",
+      "full_def": "c-inherit",
+      "brief": "被继承的旧类，也叫父类。"
+    },
+    {
+      "term": "派生类",
+      "type": "concept",
+      "match": "派生类",
+      "first_def": "c-preview-s5",
+      "full_def": "c-inherit",
+      "brief": "继承出来的新类，也叫子类。"
+    },
+    {
+      "term": "多态",
+      "type": "concept",
+      "match": "多态",
+      "first_def": "c-preview-s5",
+      "full_def": "c-polymorphism",
+      "brief": "同一调用按对象实际类型执行不同版本。",
+      "exempt": [
+        {
+          "stage": 4,
+          "part": 9,
+          "channel": "body",
+          "reason": "阶段预告卡片的阶段名属于标题性提及，紧随其后的 #c-preview-s5 立即逐词解释"
+        }
+      ]
+    },
+    {
+      "term": "虚函数",
+      "type": "concept",
+      "match": "虚函数",
+      "first_def": "c-preview-s5",
+      "full_def": "c-polymorphism",
+      "brief": "基类里用 virtual 标记、可被派生类改写的函数。"
+    },
+    {
+      "term": "模板",
+      "type": "concept",
+      "match": "模板",
+      "first_def": "c-preview-s6",
+      "full_def": "p6-01",
+      "brief": "写代码时把类型留成空位，用时再填。",
+      "note": "阶段五预告给了定义，阶段六 Part 01、02 展开函数模板与类模板。"
+    },
+    {
+      "term": "try-catch",
+      "type": "concept",
+      "match": "try-catch|try \\/ catch|异常处理",
+      "first_def": "c-preview-s6",
+      "full_def": "p6-03",
+      "brief": "try 里放可能出错的代码，catch 里处理错误。",
+      "note": "阶段五预告给了定义，阶段六 Part 03、04 展开写法与捕获顺序。"
+    },
+    {
+      "term": "RAII",
+      "type": "concept",
+      "match": "RAII",
+      "first_def": "c-preview-s6",
+      "full_def": "p6-05",
+      "brief": "用构造申请资源、用析构释放资源。",
+      "note": "阶段五预告给了定义，阶段六 Part 05 展开异常路径的释放时机。"
+    },
+    {
+      "term": "std::vector",
+      "type": "concept",
+      "match": "\\bvector\\b",
+      "first_def": "p7-01",
+      "full_def": "p7-01",
+      "brief": "能自动变长的数组；阶段二只提名，阶段七 01 正式讲建法、增删与遍历。",
+      "exempt": [
+        {
+          "stage": 1,
+          "part": 5,
+          "channel": "body",
+          "reason": "阶段一 05 只写“后面学 string、vector 会经常用”，是提名不是使用"
+        },
+        {
+          "stage": 7,
+          "part": 0,
+          "channel": "any",
+          "reason": "阶段七 00 前置基础只把 vector 列进容器名单并指向 01，不展示用法"
+        }
+      ]
+    },
+    {
+      "term": "push_back",
+      "type": "name",
+      "match": "\\bpush_back\\b",
+      "first_def": "c-vector",
+      "full_def": "c-vector",
+      "brief": "在 vector 末尾追加一个元素，长度加 1；容量不够时整块搬家。"
+    },
+    {
+      "term": "size()",
+      "type": "name",
+      "match": "\\bsize\\s*\\(\\s*\\)",
+      "first_def": "p2-01",
+      "full_def": "c-vector",
+      "brief": "返回容器当前元素个数；std::array 与 std::string 早就在用，vector 的 size() 会随增删变化。",
+      "note": "阶段二 01 首次使用，阶段七 01 补 vector 语义，按“先提后讲”登记。"
+    },
+    {
+      "term": "vector::at()",
+      "type": "name",
+      "match": "\\bv\\.at\\(|scores\\.at\\(|\\bvector\\b[^。；\\n]{0,25}at\\(",
+      "first_def": "c-vector",
+      "full_def": "c-vector",
+      "brief": "带边界检查的下标访问；越界抛 std::out_of_range，而 v[i] 不检查。"
+    },
+    {
+      "term": "insert",
+      "type": "name",
+      "match": "\\binsert\\(",
+      "first_def": "c-vector",
+      "full_def": "c-vector",
+      "brief": "在指定位置插入元素；位置用迭代器表示，插入点后面的元素整体后移。"
+    },
+    {
+      "term": "ASCII",
+      "type": "concept",
+      "match": "ASCII",
+      "first_def": "c-ascii",
+      "full_def": "c-ascii",
+      "brief": "字符与 0～127 编号的对照表；'A' 是 65，'a' 是 97，大小写差 32。"
+    },
+    {
+      "term": "static_cast",
+      "type": "name",
+      "match": "static_cast",
+      "first_def": "c-static-cast",
+      "full_def": "c-static-cast",
+      "brief": "写明白的类型转换：static_cast<目标类型>(值)。",
+      "note": "初学只需 static_cast；dynamic_cast / const_cast / reinterpret_cast 的用途表在 c-static-cast，完整用法留到阶段五以后。"
+    },
+    {
+      "term": "reinterpret_cast",
+      "type": "name",
+      "match": "reinterpret_cast",
+      "first_def": "c-static-cast",
+      "full_def": "c-static-cast",
+      "brief": "把一块内存硬按另一种类型解释；C 风格圆括号在 static_cast 失败时会退到它。",
+      "note": "只在读底层代码时认识；日常代码不要用它绕过类型检查，否则解引用即未定义行为。"
+    },
+    {
+      "term": "C 风格转换",
+      "type": "concept",
+      "match": "C 风格转换|C 风格的圆括号|圆括号写法|圆括号转换",
+      "first_def": "c-static-cast",
+      "full_def": "c-static-cast",
+      "brief": "用 (目标类型)值 的圆括号写法做强制转换；不区分四种 cast，static_cast 拒绝时会退到 reinterpret_cast 硬来。",
+      "note": "正文用 int* → double* 的例子说明它为什么能编过、为什么仍然错，新代码统一改用 static_cast。"
+    },
+    {
+      "term": "std::array",
+      "type": "name",
+      "match": "std::array",
+      "first_def": "c-std-array",
+      "full_def": "c-std-array",
+      "brief": "长度固定的标准库数组，类型和长度写在尖括号里，如 std::array<int, 5>。",
+      "note": "阶段二就地解释尖括号写法；模板机制留到阶段六 Part 02。"
+    },
+    {
+      "term": "编译期常量",
+      "type": "concept",
+      "match": "编译期常量",
+      "first_def": "c-std-array",
+      "full_def": "c-std-array",
+      "brief": "写代码时就固定、编译阶段就能算出的值；std::array 的长度必须用它，运行时变量不行。",
+      "note": "正文贴出 std::array<int, n> 的真实报错，并给出“运行时长度改用 vector”的替代路径。"
+    },
+    {
+      "term": "array 头文件",
+      "type": "name",
+      "match": "<array>",
+      "first_def": "c-std-array",
+      "full_def": "c-std-array",
+      "brief": "提供 std::array 的头文件。"
+    },
+    {
+      "term": "基于范围的 for",
+      "type": "concept",
+      "match": "基于范围的 for|范围 for",
+      "first_def": "c-range-for",
+      "full_def": "c-range-for",
+      "brief": "for (元素变量 : 数组) 依次取出每个元素，不用自己维护下标。"
+    },
+    {
+      "term": "cin.get",
+      "type": "name",
+      "match": "cin\\.get",
+      "first_def": "c-cin-get",
+      "full_def": "c-cin-get",
+      "brief": "从输入流读一个字符，不跳过空格和换行。"
+    },
+    {
+      "term": "ios_base",
+      "type": "name",
+      "match": "ios_base",
+      "first_def": "c-iostream",
+      "full_def": "c-iostream",
+      "brief": "输入输出流家族共同的老祖宗，管格式与状态。"
+    },
+    {
+      "term": "switch case 作用域",
+      "type": "concept",
+      "match": "case 里的变量|jump to case label",
+      "first_def": "c-switch-case-scope",
+      "full_def": "c-switch-case-scope",
+      "brief": "case 只是标签不是独立作用域；在 case 里定义变量要加一对花括号。"
+    },
+    {
+      "term": "数组参数",
+      "type": "concept",
+      "match": "数组参数",
+      "first_def": "c-array-param",
+      "full_def": "c-array-param",
+      "brief": "数组传进函数只会传首地址，长度必须另传一个 int n；日常写 int* a, int n。"
+    },
+    {
+      "term": "#include",
+      "type": "name",
+      "match": "#include",
+      "first_def": "p1-00",
+      "full_def": "p1-00",
+      "brief": "预处理指令：把别的文件内容包含进来。",
+      "points": [
+        "kp-54"
+      ]
+    },
+    {
+      "term": "iostream",
+      "type": "name",
+      "match": "iostream",
+      "first_def": "p1-00",
+      "full_def": "p1-00",
+      "brief": "输入输出头文件，提供 cout / cin。",
+      "points": [
+        "kp-40"
+      ]
+    },
+    {
+      "term": "std::cout",
+      "type": "name",
+      "match": "std::cout",
+      "first_def": "p1-01",
+      "full_def": "p1-01",
+      "brief": "标准输出流，用 << 往屏幕写。",
+      "points": [
+        "kp-40"
+      ]
+    },
+    {
+      "term": "std::endl",
+      "type": "name",
+      "match": "std::endl",
+      "first_def": "p1-01",
+      "full_def": "p1-01",
+      "brief": "换行并刷新输出缓冲。",
+      "points": [
+        "kp-40"
+      ]
+    },
+    {
+      "term": "return",
+      "type": "name",
+      "match": "\\breturn\\b",
+      "first_def": "p1-01",
+      "full_def": "p1-01",
+      "brief": "结束函数并把结果交回调用方。"
+    },
+    {
+      "term": "std::cin",
+      "type": "name",
+      "match": "std::cin",
+      "first_def": "p1-03",
+      "full_def": "p1-03",
+      "brief": "标准输入流，用 >> 从键盘读。"
+    },
+    {
+      "term": "getline",
+      "type": "name",
+      "match": "getline",
+      "first_def": "p1-03",
+      "full_def": "p1-03",
+      "brief": "读入一整行文字，能保留空格。"
+    },
+    {
+      "term": "std::string",
+      "type": "name",
+      "match": "std::string",
+      "first_def": "p1-03",
+      "full_def": "p2-04",
+      "brief": "C++ 的文本类型，自动记录长度。"
+    },
+    {
+      "term": "std::fixed",
+      "type": "name",
+      "match": "std::fixed",
+      "first_def": "p1-03",
+      "full_def": "p1-03",
+      "brief": "让浮点数按固定小数位输出。",
+      "points": [
+        "kp-40"
+      ]
+    },
+    {
+      "term": "std::setprecision",
+      "type": "name",
+      "match": "setprecision",
+      "first_def": "p1-03",
+      "full_def": "p1-03",
+      "brief": "设置浮点输出精度。",
+      "depth": "brief",
+      "note": "设置一次后对后续输出持续生效，直到再次设置；不是只影响下一次。",
+      "points": [
+        "kp-40"
+      ]
+    },
+    {
+      "term": "std::numeric_limits",
+      "type": "name",
+      "match": "numeric_limits",
+      "first_def": "p6-02",
+      "full_def": "c-s6-explicit",
+      "brief": "标准库里的类模板，尖括号里写类型就能查它的取值范围。"
+    },
+    {
+      "term": "sizeof",
+      "type": "name",
+      "match": "sizeof",
+      "first_def": "p1-04",
+      "full_def": "p1-04",
+      "brief": "求类型或变量占多少字节，结果是一个无符号整数（std::size_t）。"
+    },
+    {
+      "term": "std::size_t",
+      "type": "name",
+      "match": "size_t",
+      "first_def": "c-size-t",
+      "full_def": "c-size-t",
+      "brief": "无符号的大小类型，表示数组下标和 sizeof 结果。",
+      "depth": "brief",
+      "note": "阶段二只给出“无符号大小类型”这一句，够用于数组下标。"
+    },
+    {
+      "term": "cstddef",
+      "type": "name",
+      "match": "cstddef",
+      "first_def": "c-size-t",
+      "full_def": "c-size-t",
+      "brief": "提供 std::size_t 的头文件。",
+      "points": [
+        "kp-34"
+      ]
+    },
+    {
+      "term": "climits",
+      "type": "name",
+      "match": "<climits>",
+      "first_def": "p1-04",
+      "full_def": "p1-04",
+      "brief": "提供 INT_MAX、LLONG_MAX 等各类型范围常量的头文件。",
+      "points": [
+        "kp-01"
+      ]
+    },
+    {
+      "term": "cfloat",
+      "type": "name",
+      "match": "<cfloat>",
+      "first_def": "p1-04",
+      "full_def": "p1-04",
+      "brief": "提供 FLT_MAX、DBL_MAX 等小数范围常量的头文件。"
+    },
+    {
+      "term": "cstdint",
+      "type": "name",
+      "match": "<cstdint>",
+      "first_def": "p1-04",
+      "full_def": "p1-04",
+      "brief": "提供 SIZE_MAX 等整数上限常量的头文件。"
+    },
+    {
+      "term": "INT_MAX",
+      "type": "name",
+      "match": "\\b(?:CHAR_MIN|CHAR_MAX|SCHAR_MIN|SCHAR_MAX|UCHAR_MAX|SHRT_MIN|SHRT_MAX|USHRT_MAX|INT_MIN|INT_MAX|UINT_MAX|LONG_MIN|LONG_MAX|ULONG_MAX|LLONG_MIN|LLONG_MAX|ULLONG_MAX|FLT_MAX|DBL_MAX)\\b",
+      "first_def": "p1-04",
+      "full_def": "p1-04",
+      "brief": "标准库预先定义的最大 / 最小值常量，如 INT_MAX 是 int 的上限。"
+    },
+    {
+      "term": "limits",
+      "type": "name",
+      "match": "<limits>",
+      "first_def": "p6-02",
+      "full_def": "p6-02",
+      "brief": "提供 std::numeric_limits 类模板的头文件。",
+      "points": [
+        "kp-26"
+      ]
+    },
+    {
+      "term": "std::boolalpha",
+      "type": "name",
+      "match": "boolalpha",
+      "first_def": "p1-04",
+      "full_def": "p1-04",
+      "brief": "让 bool 输出 true / false 而不是 1 / 0。",
+      "points": [
+        "kp-40"
+      ]
+    },
+    {
+      "term": "auto",
+      "type": "name",
+      "match": "\\bauto\\b",
+      "first_def": "p1-05",
+      "full_def": "p1-05",
+      "brief": "让编译器根据初始值推导类型。"
+    },
+    {
+      "term": "new",
+      "type": "name",
+      "match": "\\bnew\\b",
+      "first_def": "c-new-preview",
+      "full_def": "p2-05",
+      "brief": "向堆申请内存的关键字。",
+      "exempt": [
+        {
+          "stage": 1,
+          "part": 9,
+          "channel": "body",
+          "reason": "阶段一小结的下一章预告，就地写成「new 向堆申请内存、delete 把内存归还，两者配对使用」，完整写法在 #c-new-preview"
+        }
+      ]
+    },
+    {
+      "term": "delete",
+      "type": "name",
+      "match": "\\bdelete\\b",
+      "first_def": "c-new-preview",
+      "full_def": "p2-05",
+      "brief": "把 new 申请的内存还给系统。",
+      "exempt": [
+        {
+          "stage": 1,
+          "part": 9,
+          "channel": "body",
+          "reason": "阶段一小结的下一章预告，就地写成「new 向堆申请内存、delete 把内存归还，两者配对使用」，完整写法在 #c-new-preview"
+        }
+      ]
+    },
+    {
+      "term": "nullptr",
+      "type": "name",
+      "match": "nullptr",
+      "first_def": "p2-05",
+      "full_def": "p2-05",
+      "brief": "空指针常量，表示“不指向任何对象”。"
+    },
+    {
+      "term": "class",
+      "type": "name",
+      "match": "\\bclass\\b",
+      "first_def": "c-preview-s4",
+      "full_def": "c-class",
+      "brief": "定义类的关键字：把数据和操作打包。"
+    },
+    {
+      "term": "public",
+      "type": "name",
+      "match": "\\bpublic\\b",
+      "first_def": "c-preview-s4",
+      "full_def": "c-access",
+      "brief": "公开访问权限，类外部也能用。"
+    },
+    {
+      "term": "private",
+      "type": "name",
+      "match": "\\bprivate\\b",
+      "first_def": "c-preview-s4",
+      "full_def": "c-access",
+      "brief": "私有访问权限，只有类内部能用。"
+    },
+    {
+      "term": "protected",
+      "type": "name",
+      "match": "protected",
+      "first_def": "c-protected",
+      "full_def": "c-protected",
+      "brief": "受保护访问权限，派生类内部也能用。"
+    },
+    {
+      "term": "virtual",
+      "type": "name",
+      "match": "\\bvirtual\\b",
+      "first_def": "c-polymorphism",
+      "full_def": "c-polymorphism",
+      "brief": "标记虚函数，让调用按实际类型分派。",
+      "exempt": [
+        {
+          "stage": 5,
+          "part": 4,
+          "channel": "body",
+          "reason": "折叠区讲多继承时顺带给出虚继承的关键字写法，就地说明用途；完整虚函数讲解在 Part 06"
+        }
+      ]
+    },
+    {
+      "term": "override",
+      "type": "name",
+      "match": "\\boverride\\b",
+      "first_def": "c-polymorphism",
+      "full_def": "p5-05",
+      "brief": "标记“我在改写基类虚函数”，签名写错会报错。",
+      "aliases": [
+        "重写"
+      ]
+    },
+    {
+      "term": "operator=",
+      "type": "name",
+      "match": "operator=",
+      "first_def": "p5-02",
+      "full_def": "p5-02",
+      "brief": "赋值运算符对应的函数名：把右边对象写进左边。",
+      "depth": "brief",
+      "note": "阶段五 02 只在拷贝赋值里给一句定义，运算符重载的完整形态在阶段五 03。"
+    },
+    {
+      "term": "operator+",
+      "type": "name",
+      "match": "operator\\+",
+      "first_def": "p5-03",
+      "full_def": "p5-03",
+      "brief": "让自定义类型支持 + 的成员/非成员函数。"
+    },
+    {
+      "term": "operator<<",
+      "type": "name",
+      "match": "operator&lt;&lt;|operator<<",
+      "first_def": "p5-03",
+      "full_def": "p5-03",
+      "brief": "让自定义类型能被 cout 输出。"
+    },
+    {
+      "term": "std::ostream",
+      "type": "name",
+      "match": "std::ostream",
+      "first_def": "p5-03",
+      "full_def": "p5-03",
+      "brief": "输出流的类型，cout 就是它的一个对象。",
+      "depth": "brief",
+      "note": "阶段五 03 只在运算符重载里用到，未展开流类型。"
+    },
+    {
+      "term": "struct",
+      "type": "name",
+      "match": "\\bstruct\\b",
+      "first_def": "c-struct",
+      "full_def": "c-struct",
+      "brief": "和 class 几乎一样，成员默认 public；适合只把几个数据打包。"
+    },
+    {
+      "term": "无符号 unsigned",
+      "type": "concept",
+      "match": "unsigned",
+      "first_def": "c-unsigned",
+      "full_def": "c-unsigned",
+      "brief": "只存 0 和正数，把负数范围让给正数。"
+    },
+    {
+      "term": "整数溢出",
+      "type": "concept",
+      "match": "整数溢出",
+      "first_def": "c-overflow",
+      "full_def": "c-overflow",
+      "brief": "无符号按 2^n 取模回绕；有符号溢出是未定义行为，结果不可依赖。"
+    },
+    {
+      "term": "字面量后缀",
+      "type": "concept",
+      "match": "字面量后缀",
+      "first_def": "c-suffix",
+      "full_def": "c-suffix",
+      "brief": "数字后加 L/f 等字母，明确它的类型。"
+    },
+    {
+      "term": "隐式转换与截断",
+      "type": "concept",
+      "match": "隐式转换与截断",
+      "first_def": "c-implicit",
+      "full_def": "c-implicit",
+      "brief": "赋值时自动换类型；double 转 int 只留整数部分。",
+      "aliases": [
+        "隐式转换"
+      ]
+    },
+    {
+      "term": "浮点精度",
+      "type": "concept",
+      "match": "浮点精度",
+      "first_def": "deep-p1-04",
+      "full_def": "deep-p1-04",
+      "brief": "二进制只能近似表示多数小数，累加会产生误差。"
+    },
+    {
+      "term": "auto 丢失只读属性",
+      "type": "concept",
+      "match": "auto 会丢掉最外层的只读属性",
+      "first_def": "c-auto-const",
+      "full_def": "c-auto-const",
+      "brief": "auto 推导为普通 int 副本，副本仍可修改。"
+    },
+    {
+      "term": "数组退化",
+      "type": "concept",
+      "match": "数组退化成",
+      "first_def": "c-array-decay",
+      "full_def": "c-array-decay",
+      "brief": "数组名在推导或传参时变成首地址指针。"
+    },
+    {
+      "term": "二维数组",
+      "type": "concept",
+      "match": "二维数组",
+      "first_def": "deep-p2-02",
+      "full_def": "c-multidim",
+      "brief": "数组的数组，用两个下标访问，按行连续存放。"
+    },
+    {
+      "term": "strcmp",
+      "type": "name",
+      "match": "strcmp",
+      "first_def": "c-cstrcmp",
+      "full_def": "c-cstrcmp",
+      "brief": "按内容逐字符比较两个 C 风格字符串，返回 0 表示相同。"
+    },
+    {
+      "term": "悬空指针",
+      "type": "concept",
+      "match": "悬空指针",
+      "first_def": "c-dangling",
+      "full_def": "c-dangling",
+      "brief": "delete 后仍保存旧地址的指针，再解引用是未定义行为。"
+    },
+    {
+      "term": "野指针",
+      "type": "concept",
+      "match": "野指针",
+      "first_def": "c-wild",
+      "full_def": "c-wild",
+      "brief": "未初始化、指向随机地址的指针。"
+    },
+    {
+      "term": "指针数组",
+      "type": "concept",
+      "match": "指针数组",
+      "first_def": "c-pointer-array",
+      "full_def": "c-pointer-array",
+      "brief": "装多个指针的数组，例如 int* a[3]。"
+    },
+    {
+      "term": "指针的指针",
+      "type": "concept",
+      "match": "指针的指针",
+      "first_def": "c-pointer-pointer",
+      "full_def": "c-pointer-pointer",
+      "brief": "保存另一个指针地址的指针，例如 int**。"
+    },
+    {
+      "term": "const 与指针",
+      "type": "concept",
+      "match": "const 放在 \\* 左边",
+      "first_def": "c-const-pointer",
+      "full_def": "c-const-pointer",
+      "brief": "const 在 * 左限制指向的值，在 * 右限制指针本身。"
+    },
+    {
+      "term": "优先级",
+      "type": "concept",
+      "match": "优先级与结合性",
+      "first_def": "c-precedence",
+      "full_def": "c-precedence",
+      "brief": "决定同一表达式里先算哪个运算符。"
+    },
+    {
+      "term": "自增前后缀",
+      "type": "concept",
+      "match": "i\\+\\+ 与 \\+\\+i",
+      "first_def": "c-incdec",
+      "full_def": "c-incdec",
+      "brief": "后置返回旧值，前置返回新值。"
+    },
+    {
+      "term": "逗号表达式",
+      "type": "concept",
+      "match": "逗号表达式",
+      "first_def": "c-comma",
+      "full_def": "c-comma",
+      "brief": "从左往右计算，整个表达式的值是最后一项。"
+    },
+    {
+      "term": "switch 贯穿",
+      "type": "concept",
+      "match": "贯穿",
+      "first_def": "c-fallthrough",
+      "full_def": "c-fallthrough",
+      "brief": "case 没写 break 时继续执行下一个 case。"
+    },
+    {
+      "term": "循环边界",
+      "type": "concept",
+      "match": "边界怎么选",
+      "first_def": "c-loop-bound",
+      "full_def": "c-loop-bound",
+      "brief": "按是否包含终点选择 < 或 <=，用首尾值代入验证。"
+    },
+    {
+      "term": "循环变量作用域",
+      "type": "concept",
+      "match": "只在循环内有效",
+      "first_def": "c-loop-scope",
+      "full_def": "c-loop-scope",
+      "brief": "for 头里声明的变量循环结束即失效。"
+    },
+    {
+      "term": "返回引用",
+      "type": "concept",
+      "match": "返回引用",
+      "first_def": "c-return-ref",
+      "full_def": "c-return-ref",
+      "brief": "返回原变量本身而非副本；不能返回局部变量。"
+    },
+    {
+      "term": "递归",
+      "type": "concept",
+      "match": "递归",
+      "first_def": "c-recursion",
+      "full_def": "c-recursion",
+      "brief": "函数自己调用自己，必须有终止条件。"
+    },
+    {
+      "term": "const 引用参数",
+      "type": "concept",
+      "match": "const 引用",
+      "first_def": "p4-01",
+      "full_def": "p4-01",
+      "brief": "只读地绑定原对象，避免复制大参数。"
+    },
+    {
+      "term": "重载二义",
+      "type": "concept",
+      "match": "会二义|二义性",
+      "first_def": "c-overload-default",
+      "full_def": "c-overload-default",
+      "brief": "多个重载版本都能匹配同一次调用，编译器无法选择。"
+    },
+    {
+      "term": "static 成员",
+      "type": "name",
+      "match": "static 成员",
+      "first_def": "c-static-member",
+      "full_def": "c-static-member",
+      "brief": "属于类而不属于对象、所有对象共享的成员。"
+    },
+    {
+      "term": "成员初始化列表",
+      "type": "concept",
+      "match": "成员初始化列表",
+      "first_def": "c-initlist",
+      "full_def": "c-initlist",
+      "brief": "构造函数冒号后直接初始化成员；const、引用、无默认构造时必须用。"
+    },
+    {
+      "term": "对象数组",
+      "type": "concept",
+      "match": "对象数组",
+      "first_def": "c-object-array",
+      "full_def": "c-object-array",
+      "brief": "一排同类对象，每个元素都会各自构造。"
+    },
+    {
+      "term": "继承方式",
+      "type": "concept",
+      "match": "继承也有 public",
+      "first_def": "c-inherit-access",
+      "full_def": "c-inherit-access",
+      "brief": "public/protected/private 三种继承改变成员的访问权限。"
+    },
+    {
+      "term": "同名成员隐藏",
+      "type": "concept",
+      "match": "同名成员会隐藏",
+      "first_def": "c-name-hiding",
+      "full_def": "c-name-hiding",
+      "brief": "派生类同名成员会挡住基类版本，不是合并。"
+    },
+    {
+      "term": "对象切片",
+      "type": "concept",
+      "match": "对象切片",
+      "first_def": "c-slicing",
+      "full_def": "c-slicing",
+      "brief": "派生类对象按值赋给基类对象时，派生部分被切掉。"
+    },
+    {
+      "term": "纯虚函数",
+      "type": "concept",
+      "match": "纯虚函数",
+      "first_def": "c-pure-virtual",
+      "full_def": "c-pure-virtual",
+      "brief": "声明 = 0 的虚函数，使类成为抽象类，派生类必须实现。"
+    },
+    {
+      "term": "final",
+      "type": "name",
+      "match": "\\bfinal\\b",
+      "first_def": "c-final",
+      "full_def": "c-final",
+      "brief": "禁止派生类继续重写虚函数或继承该类。"
+    },
+    {
+      "term": "c_str",
+      "type": "name",
+      "match": "c_str",
+      "first_def": "c-cstr",
+      "full_def": "c-cstr",
+      "brief": "把 std::string 转成只读的 C 风格字符串。"
+    },
+    {
+      "term": "empty 与 back",
+      "type": "name",
+      "match": "empty\\(\\)|back\\(\\)",
+      "first_def": "c-empty-back",
+      "full_def": "c-empty-back",
+      "brief": "empty 判断空串，back 取最后一个字符。"
+    },
+    {
+      "term": "引用必须初始化",
+      "type": "concept",
+      "match": "引用必须初始化",
+      "first_def": "c-ref-bind",
+      "full_def": "c-ref-bind",
+      "brief": "引用声明时绑定，之后不能改绑，也没有空引用。"
+    },
+    {
+      "term": "作用域与生命周期",
+      "type": "concept",
+      "match": "作用域结束不等于对象一定消失",
+      "first_def": "c-scope-lifetime",
+      "full_def": "c-scope-lifetime",
+      "brief": "栈对象随作用域结束销毁，堆对象要等 delete。"
+    },
+    {
+      "term": "初始化列表调用基类构造",
+      "type": "syntax",
+      "match": "\\)\\s*:\\s*[A-Z]\\w*\\s*\\(",
+      "first_def": "c-inherit-ctor",
+      "full_def": "c-inherit-ctor",
+      "brief": "派生类构造函数的参数列表后写 : 基类(实参)，把参数交给基类构造。",
+      "note": "阶段五 Part 04 讲写法：冒号位置、为什么必须写、执行顺序。",
+      "exempt": [
+        {
+          "stage": 4,
+          "part": 5,
+          "channel": "any",
+          "reason": "委托构造的冒号后写本类另一个构造函数，形式与基类构造相同但不是继承；基类构造在阶段五 Part 04 才讲"
+        }
+      ]
+    },
+    {
+      "term": "普通成员初始化列表",
+      "type": "syntax",
+      "match": "\\)\\s*:\\s*[a-z_]\\w*\\s*\\(",
+      "first_def": "c-initlist",
+      "full_def": "c-initlist",
+      "brief": "构造函数名后用冒号接 成员(初值)，在对象出生时直接初始化成员。",
+      "note": "阶段四 Part 05 已讲；阶段五 Part 04 只回指，不重复展开。",
+      "exempt": []
+    },
+    {
+      "term": "范围 for 写法",
+      "type": "syntax",
+      "match": "for\\s*\\(\\s*int\\s+\\w+\\s*:",
+      "first_def": "c-range-for",
+      "full_def": "c-range-for",
+      "brief": "for (int 元素变量 : 数组) —— 左边是每轮接住元素的副本。",
+      "note": "阶段三 Part 03；要改元素时左边写成引用，放在折叠区。"
+    },
+    {
+      "term": "函数模板",
+      "type": "concept",
+      "match": "函数模板",
+      "first_def": "c-preview-s6",
+      "full_def": "c-s6-func-template",
+      "brief": "把参数类型写成占位符 T，调用时由编译器按实参类型替换。",
+      "note": "阶段五预告只分了个类；阶段六 Part 01 讲声明行、推导与实例化。"
+    },
+    {
+      "term": "类模板",
+      "type": "concept",
+      "match": "类模板",
+      "first_def": "c-preview-s6",
+      "full_def": "c-s6-class-template",
+      "brief": "把类里的成员类型写成占位符 T，用时在类名后写 <具体类型>。",
+      "note": "阶段六 Part 02 讲定义与显式实参。"
+    },
+    {
+      "term": "类型推导",
+      "type": "concept",
+      "match": "类型推导",
+      "first_def": "c-s6-deduce",
+      "full_def": "c-s6-deduce",
+      "brief": "调用模板时，编译器从实参类型反推占位符 T 具体是什么。",
+      "note": "阶段六 Part 01；推导不出唯一结果就编译失败。"
+    },
+    {
+      "term": "模板参数",
+      "type": "concept",
+      "match": "模板参数|类型参数",
+      "first_def": "c-s6-param",
+      "full_def": "c-s6-param",
+      "brief": "尖括号里声明的占位名字，如 <typename T> 里的 T。",
+      "note": "阶段六 Part 01；多参数放折叠区。"
+    },
+    {
+      "term": "实例化",
+      "type": "concept",
+      "match": "实例化",
+      "first_def": "c-s6-instantiate",
+      "full_def": "c-s6-instantiate",
+      "brief": "编译器按具体类型把模板生成一份真正的函数或类。",
+      "note": "阶段六 Part 01；同一类型只生成一次。"
+    },
+    {
+      "term": "显式实参",
+      "type": "concept",
+      "match": "显式实参|显式指定",
+      "first_def": "c-s6-explicit",
+      "full_def": "c-s6-explicit",
+      "brief": "在模板名后的尖括号里直接写具体类型，如 Box<int>。",
+      "note": "阶段六 Part 02；类模板不能省尖括号。"
+    },
+    {
+      "term": "异常",
+      "type": "concept",
+      "match": "异常",
+      "first_def": "c-preview-s6",
+      "full_def": "p6-03",
+      "brief": "程序运行时遇到的错误情况，可以抛出并在别处统一处理。",
+      "note": "阶段五预告一句带过；阶段六 Part 03 讲抛出、捕获与栈展开。",
+      "exempt": [
+        {
+          "stage": 5,
+          "part": 1,
+          "channel": "body",
+          "reason": "阶段五析构避坑只给结论‘析构里不要抛异常’，完整讲解在阶段六 Part 03"
+        }
+      ]
+    },
+    {
+      "term": "抛出",
+      "type": "concept",
+      "match": "抛出",
+      "first_def": "c-s6-throw",
+      "full_def": "c-s6-throw",
+      "brief": "用 throw 把错误情况交给上层，当前函数立即停止。",
+      "note": "阶段六 Part 03；throw 语句写法同时登记为 syntax。",
+      "aliases": [
+        "抛出异常"
+      ]
+    },
+    {
+      "term": "捕获",
+      "type": "concept",
+      "match": "捕获",
+      "first_def": "c-s6-trycatch",
+      "full_def": "c-s6-trycatch",
+      "brief": "catch 接住抛出的异常，并按括号里的类型决定谁来处理。",
+      "note": "阶段六 Part 03；Part 04 讲捕获顺序与按引用捕获。",
+      "exempt": [
+        {
+          "stage": 2,
+          "part": 5,
+          "channel": "body",
+          "reason": "此处“捕获”指 Lambda 捕获外部变量，与异常捕获同名不同义；异常的捕获在阶段六 Part 03"
+        }
+      ]
+    },
+    {
+      "term": "异常对象",
+      "type": "concept",
+      "match": "异常对象",
+      "first_def": "c-s6-exception",
+      "full_def": "c-s6-exception",
+      "brief": "throw 后面那个值会被复制成一个对象，沿调用链向上传递。",
+      "note": "阶段六 Part 03。"
+    },
+    {
+      "term": "栈展开",
+      "type": "concept",
+      "match": "栈展开",
+      "first_def": "c-s6-unwind",
+      "full_def": "c-s6-unwind",
+      "brief": "异常向上传递时，逐层退出函数并销毁这一层的局部对象。",
+      "note": "阶段六 Part 03；Part 05 用它解释 RAII 为何能释放资源。"
+    },
+    {
+      "term": "noexcept",
+      "type": "syntax",
+      "match": "noexcept",
+      "first_def": "c-s6-noexcept",
+      "full_def": "c-s6-noexcept",
+      "brief": "写在函数声明后，承诺这个函数不抛异常；违背承诺会直接终止。",
+      "note": "阶段六 Part 04 只讲一句，不展开细节。"
+    },
+    {
+      "term": "异常安全",
+      "type": "concept",
+      "match": "异常安全",
+      "first_def": "c-s6-exception-safety",
+      "full_def": "c-s6-exception-safety",
+      "brief": "出错抛出后，资源仍被释放、对象仍处于可继续使用的状态。",
+      "note": "阶段六 Part 06 综合示例。"
+    },
+    {
+      "term": "资源守卫",
+      "type": "concept",
+      "match": "资源守卫|守卫对象",
+      "first_def": "c-s6-raii",
+      "full_def": "c-s6-raii",
+      "brief": "把资源交给一个栈对象保管，离开作用域时由析构函数自动释放。",
+      "note": "阶段六 Part 05。"
+    },
+    {
+      "term": "std::runtime_error",
+      "type": "name",
+      "match": "runtime_error",
+      "first_def": "c-s6-exception-type",
+      "full_def": "c-s6-exception-type",
+      "brief": "标准库的运行时错误异常类型，构造时给一句错误说明。",
+      "note": "阶段六 Part 03；头文件 <stdexcept>。"
+    },
+    {
+      "term": "std::exception",
+      "type": "name",
+      "match": "std::exception",
+      "first_def": "c-s6-catchbase",
+      "full_def": "c-s6-catchbase",
+      "brief": "所有标准异常的基类，用它可以接住任意一种标准异常。",
+      "note": "阶段六 Part 04；宽泛捕获要放在具体捕获之后。"
+    },
+    {
+      "term": "what()",
+      "type": "name",
+      "match": "what\\s*\\(",
+      "first_def": "c-s6-exception-type",
+      "full_def": "c-s6-exception-type",
+      "brief": "异常对象的成员函数，返回构造时写的那句错误说明。",
+      "note": "阶段六 Part 03。"
+    },
+    {
+      "term": "stdexcept",
+      "type": "name",
+      "match": "stdexcept",
+      "first_def": "c-s6-exception-type",
+      "full_def": "c-s6-exception-type",
+      "brief": "提供 runtime_error 等标准异常类型的头文件。",
+      "note": "阶段六 Part 03。"
+    },
+    {
+      "term": "函数模板声明",
+      "type": "syntax",
+      "match": "template\\s*<\\s*typename\\s+\\w+\\s*>",
+      "first_def": "c-s6-func-template",
+      "full_def": "c-s6-func-template",
+      "brief": "template 开头，尖括号里声明占位类型，下一行才是函数。",
+      "note": "阶段六 Part 01 逐段拆读。"
+    },
+    {
+      "term": "类模板显式实参",
+      "type": "syntax",
+      "match": "\\bBox\\s*<\\s*(?:int|std::string)\\s*>",
+      "first_def": "c-s6-explicit",
+      "full_def": "c-s6-explicit",
+      "brief": "类名后写 <具体类型> 才能创建对象。",
+      "note": "阶段六 Part 02。"
+    },
+    {
+      "term": "类模板实例化",
+      "type": "syntax",
+      "match": "\\bBox\\s*<\\s*int\\s*>",
+      "first_def": "c-s6-class-template",
+      "full_def": "c-s6-explicit",
+      "brief": "类型名后接 <具体类型>，编译器按这个类型生成一个具体的类。",
+      "note": "阶段六 Part 02；全站的模板实参写法由 check_deps.py 的模板扫描统一把关。",
+      "detect": "template"
+    },
+    {
+      "term": "函数模板实例化",
+      "type": "syntax",
+      "match": "larger\\s*<\\s*(?:int|double)\\s*>",
+      "first_def": "c-s6-func-template",
+      "full_def": "c-s6-explicit",
+      "brief": "调用函数模板时，可以在函数名后写 <具体类型>，也可以交给编译器从实参推导。",
+      "note": "阶段六 Part 01；显式写法在 Part 01 的错误示例里出现。",
+      "detect": "template"
+    },
+    {
+      "term": "throw 语句",
+      "type": "syntax",
+      "match": "throw\\s+[^\\n;]+;",
+      "first_def": "c-s6-throw",
+      "full_def": "c-s6-throw",
+      "brief": "throw 后面跟要抛出的值，整句以分号结束。",
+      "note": "阶段六 Part 03。"
+    },
+    {
+      "term": "try-catch 配对",
+      "type": "syntax",
+      "match": "try\\s*\\{",
+      "first_def": "c-s6-trycatch",
+      "full_def": "c-s6-trycatch",
+      "brief": "try 花括号后必须紧跟一个或多个 catch，中间不能插别的语句。",
+      "note": "阶段六 Part 03。"
+    },
+    {
+      "term": "catch 按值",
+      "type": "syntax",
+      "match": "catch\\s*\\(\\s*std::\\w+\\s+\\w+\\s*\\)",
+      "first_def": "c-s6-trycatch",
+      "full_def": "c-s6-trycatch",
+      "brief": "括号里写类型和变量名，异常对象被复制一份给 catch。",
+      "note": "阶段六 Part 03 先用；Part 04 说明为什么改成按引用。"
+    },
+    {
+      "term": "catch 按引用",
+      "type": "syntax",
+      "match": "catch\\s*\\(\\s*const\\s+std::\\w+\\s*&\\s*\\w+\\s*\\)",
+      "first_def": "c-s6-trycatch",
+      "full_def": "c-s6-catchref",
+      "brief": "类型后加 &，直接引用抛出的异常对象，不复制、不切片。",
+      "note": "阶段六 Part 03 示例先用；Part 04 解释 & 与 const 为什么这样写。"
+    },
+    {
+      "term": "catch 全捕获",
+      "type": "syntax",
+      "match": "catch\\s*\\(\\s*\\.\\.\\.\\s*\\)",
+      "first_def": "c-s6-catchall",
+      "full_def": "c-s6-catchall",
+      "brief": "括号里写 ...，接住任何类型的异常，只能放最后。",
+      "note": "阶段六 Part 04。"
+    },
+    {
+      "term": "this 指针",
+      "type": "name",
+      "match": "this->|this 指针|return \\*this|有没有 this|没有 this",
+      "first_def": "c-static-member",
+      "full_def": "c-this",
+      "brief": "成员函数里指向“当前调用对象”的隐含指针，用 this-> 区分同名形参与成员。",
+      "note": "阶段四 static 一节先给一句定义，阶段五 02 正式展开。"
+    },
+    {
+      "term": "类作用域",
+      "type": "concept",
+      "match": "类作用域",
+      "first_def": "c-class-scope",
+      "full_def": "c-class-scope",
+      "brief": "类里定义的名字归这个类管辖：成员可直接用，外面要带类名限定。"
+    },
+    {
+      "term": "const 成员函数",
+      "type": "concept",
+      "match": "const 成员函数",
+      "first_def": "c-const-member-first",
+      "full_def": "c-const-member",
+      "brief": "在参数列表后加 const，承诺不修改成员；const 对象只能调用这类函数。"
+    },
+    {
+      "term": "mutable",
+      "type": "name",
+      "match": "mutable",
+      "first_def": "c-const-member",
+      "full_def": "c-const-member",
+      "brief": "给成员开一个例外：即使在 const 成员函数里也允许修改它。"
+    },
+    {
+      "term": "友元",
+      "type": "concept",
+      "match": "友元|friend",
+      "first_def": "c-friend",
+      "full_def": "c-friend",
+      "brief": "被类授予访问私有成员权限的外部函数或类；友元不是成员。"
+    },
+    {
+      "term": "转换构造函数",
+      "type": "concept",
+      "match": "转换构造函数",
+      "first_def": "c-conversion",
+      "full_def": "c-conversion",
+      "brief": "只收一个参数的构造函数，可把别的类型自动变成本类对象。"
+    },
+    {
+      "term": "类型转换运算符",
+      "type": "concept",
+      "match": "类型转换运算符|operator double",
+      "first_def": "c-conversion-op",
+      "full_def": "c-conversion-op",
+      "brief": "operator 目标类型()，让本类对象能被当成另一种类型使用。"
+    },
+    {
+      "term": "explicit",
+      "type": "name",
+      "match": "explicit",
+      "first_def": "c-explicit",
+      "full_def": "c-explicit",
+      "brief": "加在单参数构造函数上，禁止隐式转换，必须显式构造。"
+    },
+    {
+      "term": "抽象类",
+      "type": "concept",
+      "match": "抽象类",
+      "first_def": "c-abstract",
+      "full_def": "c-abstract",
+      "brief": "含纯虚函数的类，不能创建对象，只能作为派生类的接口合同。"
+    },
+    {
+      "term": "组合",
+      "type": "concept",
+      "match": "组合|成员对象",
+      "first_def": "c-composition",
+      "full_def": "c-composition",
+      "brief": "一个类把另一个类的对象作为成员，表示“包含”关系。"
+    },
+    {
+      "term": "RTTI",
+      "type": "name",
+      "match": "RTTI",
+      "first_def": "c-rtti",
+      "full_def": "c-rtti",
+      "brief": "运行时类型信息：程序运行中查询对象的实际类型。"
+    },
+    {
+      "term": "typeid",
+      "type": "name",
+      "match": "typeid",
+      "first_def": "c-rtti",
+      "full_def": "c-rtti",
+      "brief": "取表达式的类型信息，可比较两个对象实际类型是否相同。"
+    },
+    {
+      "term": "dynamic_cast",
+      "type": "name",
+      "match": "dynamic_cast",
+      "first_def": "c-rtti",
+      "full_def": "c-rtti",
+      "brief": "在多态类型间安全转换；指针转换失败返回空指针。",
+      "exempt": [
+        {
+          "stage": 1,
+          "part": 4,
+          "channel": "any",
+          "reason": "阶段一 04 的四种 cast 表只作预告并给出阶段五 05 折叠区实链，不展示用法"
+        }
+      ]
+    },
+    {
+      "term": "私有继承",
+      "type": "concept",
+      "match": "私有继承|private 继承",
+      "first_def": "c-inherit-access",
+      "full_def": "c-inherit-access",
+      "brief": "以 private 方式继承：基类的 public 与 protected 成员在派生类里都变成 private。"
+    },
+    {
+      "term": "保护继承",
+      "type": "concept",
+      "match": "保护继承|protected 继承",
+      "first_def": "c-inherit-access",
+      "full_def": "c-inherit-access",
+      "brief": "以 protected 方式继承：基类的 public 与 protected 成员在派生类里都变成 protected。"
+    },
+    {
+      "term": "静态类型",
+      "type": "concept",
+      "match": "静态类型",
+      "first_def": "c-rtti",
+      "full_def": "c-rtti",
+      "brief": "变量或指针在代码里声明的类型，编译时就能确定。"
+    },
+    {
+      "term": "动态类型",
+      "type": "concept",
+      "match": "动态类型",
+      "first_def": "c-rtti",
+      "full_def": "c-rtti",
+      "brief": "指针或引用当前实际指向的对象类型，运行到那一句时才知道。"
+    },
+    {
+      "term": "substr",
+      "type": "name",
+      "match": "substr",
+      "first_def": "c-string-substr",
+      "full_def": "c-string-substr",
+      "brief": "截取一段：s.substr(起点, 长度)，返回一段新字符串；只写起点就取到结尾。"
+    },
+    {
+      "term": "find",
+      "type": "name",
+      "match": "find\\(",
+      "first_def": "c-string-find",
+      "full_def": "c-string-find",
+      "brief": "查找位置：s.find(\"x\") 返回第一次出现的下标，找不到返回 std::string::npos。"
+    },
+    {
+      "term": "erase",
+      "type": "name",
+      "match": "erase\\(",
+      "first_def": "c-string-erase",
+      "full_def": "c-string-erase",
+      "brief": "删除一段：s.erase(起点, 个数) 直接改原串，不返回新串。"
+    },
+    {
+      "term": "std::to_string",
+      "type": "name",
+      "match": "to_string",
+      "first_def": "c-to-string",
+      "full_def": "c-to-string",
+      "brief": "数字转文本：std::to_string(2026) 得到 \"2026\"，用于拼接输出。"
+    },
+    {
+      "term": "std::stoi",
+      "type": "name",
+      "match": "stoi\\(",
+      "first_def": "c-stoi",
+      "full_def": "c-stoi",
+      "brief": "文本转整数：std::stoi(\"2026\") 得到 2026，遇到非数字字符就停。"
+    },
+    {
+      "term": "成员模板",
+      "type": "concept",
+      "match": "成员模板",
+      "first_def": "c-member-template",
+      "full_def": "c-member-template",
+      "brief": "类里面的成员函数自带模板：函数前再写一行 template，它能接收与类参数无关的另一种类型。"
+    },
+    {
+      "term": "可变参数模板",
+      "type": "concept",
+      "match": "可变参数模板|参数包",
+      "first_def": "c-variadic-template",
+      "full_def": "c-variadic-template",
+      "brief": "个数不定的模板：typename... Args 表示一组类型，args... 接收对应的一组值。"
+    },
+    {
+      "term": "std::function",
+      "type": "name",
+      "match": "std::function",
+      "first_def": "c-std-function",
+      "full_def": "c-std-function",
+      "brief": "可调用对象的统一容器：std::function<返回类型(参数类型)> 能装函数、Lambda 和函数对象。",
+      "exempt": [
+        {
+          "stage": 2,
+          "part": 5,
+          "channel": "body",
+          "reason": "函数指针条目只点名并指向阶段七的可调用对象讲解，不展开写法"
+        }
+      ]
+    },
+    {
+      "term": "STL",
+      "type": "concept",
+      "match": "STL",
+      "first_def": "c-stl",
+      "full_def": "c-stl",
+      "brief": "C++ 标准库中容器、迭代器、算法三层配合使用的那套组件。",
+      "exempt": [
+        {
+          "stage": 6,
+          "part": 9,
+          "channel": "body",
+          "reason": "阶段六小结只把 STL 列为下一阶段主题并指向阶段七，不展开用法"
+        }
+      ]
+    },
+    {
+      "term": "容器",
+      "type": "concept",
+      "match": "容器",
+      "first_def": "c-container",
+      "full_def": "c-container",
+      "brief": "标准库里现成的“能装一组数据”的类型，如 vector、list、map。",
+      "exempt": [
+        {
+          "stage": 2,
+          "part": 1,
+          "channel": "body",
+          "reason": "阶段二只预告“另一种容器”并把读者引到阶段七，不展开"
+        }
+      ]
+    },
+    {
+      "term": "迭代器",
+      "type": "concept",
+      "match": "迭代器",
+      "first_def": "c-iterator",
+      "full_def": "p7-02",
+      "brief": "指向容器中某个元素的对象，用 ++ 走到下一个，用 * 取元素。"
+    },
+    {
+      "term": "泛型算法",
+      "type": "concept",
+      "match": "泛型算法",
+      "first_def": "c-algorithm",
+      "full_def": "c-algorithm",
+      "brief": "只接收迭代器区间、不挑容器类型的算法，如 sort、find。"
+    },
+    {
+      "term": "Lambda",
+      "type": "concept",
+      "match": "Lambda",
+      "first_def": "c-lambda",
+      "full_def": "c-lambda",
+      "brief": "不写名字、直接写在调用处的函数，捕获列表决定能用哪些外部变量。",
+      "exempt": [
+        {
+          "stage": 6,
+          "part": 2,
+          "channel": "body",
+          "reason": "阶段六只对比 std::function 时提到 Lambda 名字并指向 #c-lambda，不展开写法"
+        },
+        {
+          "stage": 6,
+          "part": 2,
+          "channel": "code",
+          "reason": "阶段六注释注明“Lambda 的写法留到阶段七”，属于预告而非使用"
+        },
+        {
+          "stage": 2,
+          "part": 5,
+          "channel": "body",
+          "reason": "函数指针条目只点名并指向阶段七的 Lambda 讲解，不展开写法"
+        }
+      ]
+    },
+    {
+      "term": "捕获列表",
+      "type": "concept",
+      "match": "捕获列表",
+      "first_def": "c-capture",
+      "full_def": "c-capture",
+      "brief": "Lambda 开头方括号里的部分，声明能访问哪些外部变量、按值还是按引用。"
+    },
+    {
+      "term": "智能指针",
+      "type": "concept",
+      "match": "智能指针",
+      "first_def": "c-smart-ptr",
+      "full_def": "c-smart-ptr",
+      "brief": "用对象管理堆内存的指针，离开作用域自动 delete。",
+      "exempt": [
+        {
+          "stage": 4,
+          "part": 9,
+          "channel": "body",
+          "reason": "阶段四小结只把智能指针列为后续主题，不展开用法"
+        },
+        {
+          "stage": 6,
+          "part": 9,
+          "channel": "body",
+          "reason": "阶段六小结把智能指针列为下一步主题，不展开用法"
+        }
+      ]
+    },
+    {
+      "term": "所有权",
+      "type": "concept",
+      "match": "所有权",
+      "first_def": "c-ownership",
+      "full_def": "c-ownership",
+      "brief": "谁负责在最后 delete 这块堆内存；同一时刻只该有一个负责人。"
+    },
+    {
+      "term": "引用计数",
+      "type": "concept",
+      "match": "引用计数",
+      "first_def": "c-refcount",
+      "full_def": "c-refcount",
+      "brief": "记录有多少个 shared_ptr 指向同一对象，减到 0 才 delete。"
+    },
+    {
+      "term": "循环引用",
+      "type": "concept",
+      "match": "循环引用",
+      "first_def": "c-cycle",
+      "full_def": "c-cycle",
+      "brief": "两个对象互相用 shared_ptr 指向对方，计数永远降不到 0。"
+    },
+    {
+      "term": "移动语义",
+      "type": "concept",
+      "match": "移动语义",
+      "first_def": "c-move",
+      "full_def": "c-move",
+      "brief": "把资源直接转交给新对象，而不是复制一份再销毁旧的。",
+      "exempt": [
+        {
+          "stage": 4,
+          "part": 9,
+          "channel": "body",
+          "reason": "阶段四小结只把移动语义列为后续主题，不展开用法"
+        },
+        {
+          "stage": 6,
+          "part": 9,
+          "channel": "body",
+          "reason": "阶段六小结把移动语义列为下一步主题，不展开用法"
+        }
+      ]
+    },
+    {
+      "term": "右值引用",
+      "type": "concept",
+      "match": "右值引用",
+      "first_def": "c-rvalue-ref",
+      "full_def": "c-rvalue-ref",
+      "brief": "用 && 声明的引用，只绑定临时对象或 std::move 之后的左值。"
+    },
+    {
+      "term": "std::list",
+      "type": "name",
+      "match": "std::list",
+      "first_def": "p7-01",
+      "full_def": "p7-01",
+      "brief": "双向链表容器，中间插入删除快，不能按下标跳着访问。"
+    },
+    {
+      "term": "std::deque",
+      "type": "name",
+      "match": "std::deque",
+      "first_def": "p7-01",
+      "full_def": "p7-01",
+      "brief": "双端队列容器，头尾插入删除都快。"
+    },
+    {
+      "term": "std::map",
+      "type": "name",
+      "match": "std::map",
+      "first_def": "p7-01",
+      "full_def": "p7-01",
+      "brief": "按 key 有序存储的键值容器，查找为对数时间。"
+    },
+    {
+      "term": "std::set",
+      "type": "name",
+      "match": "std::set\\b",
+      "first_def": "p7-01",
+      "full_def": "p7-01",
+      "brief": "只存不重复元素并自动排序的容器。"
+    },
+    {
+      "term": "std::unordered_map",
+      "type": "name",
+      "match": "std::unordered_map",
+      "first_def": "p7-01",
+      "full_def": "p7-01",
+      "brief": "用哈希表实现的键值容器，平均查找更快但遍历无序。"
+    },
+    {
+      "term": "std::sort",
+      "type": "name",
+      "match": "std::sort",
+      "first_def": "p7-02",
+      "full_def": "p7-02",
+      "brief": "把迭代器区间按规则排序的算法。"
+    },
+    {
+      "term": "std::find",
+      "type": "name",
+      "match": "std::find",
+      "first_def": "p7-02",
+      "full_def": "p7-02",
+      "brief": "在区间里找某个值，返回指向它的迭代器或 end()。"
+    },
+    {
+      "term": "std::count",
+      "type": "name",
+      "match": "std::count\\b",
+      "first_def": "p7-02",
+      "full_def": "p7-02",
+      "brief": "统计区间里某个值出现了多少次。"
+    },
+    {
+      "term": "std::accumulate",
+      "type": "name",
+      "match": "std::accumulate",
+      "first_def": "p7-02",
+      "full_def": "p7-02",
+      "brief": "从初值开始把区间里的元素依次累加或按自定义规则合并。"
+    },
+    {
+      "term": "std::for_each",
+      "type": "name",
+      "match": "std::for_each",
+      "first_def": "p7-02",
+      "full_def": "p7-02",
+      "brief": "对区间里每个元素调用同一个函数。"
+    },
+    {
+      "term": "std::unique_ptr",
+      "type": "name",
+      "match": "std::unique_ptr",
+      "first_def": "p7-04",
+      "full_def": "p7-04",
+      "brief": "独占一块堆内存的智能指针，不能拷贝，只能转移。"
+    },
+    {
+      "term": "std::make_unique",
+      "type": "name",
+      "match": "std::make_unique",
+      "first_def": "p7-04",
+      "full_def": "p7-04",
+      "brief": "创建对象并交给 unique_ptr 的工厂函数。"
+    },
+    {
+      "term": "std::shared_ptr",
+      "type": "name",
+      "match": "std::shared_ptr",
+      "first_def": "p7-04",
+      "full_def": "p7-04",
+      "brief": "按引用计数共享同一对象的智能指针，最后一个放手时释放。"
+    },
+    {
+      "term": "std::make_shared",
+      "type": "name",
+      "match": "std::make_shared",
+      "first_def": "p7-04",
+      "full_def": "p7-04",
+      "brief": "一次分配对象和控制块并交给 shared_ptr 的工厂函数。"
+    },
+    {
+      "term": "std::weak_ptr",
+      "type": "name",
+      "match": "std::weak_ptr",
+      "first_def": "p7-04",
+      "full_def": "p7-04",
+      "brief": "只观察 shared_ptr 管理的对象、不增计数的弱引用。"
+    },
+    {
+      "term": "std::move",
+      "type": "name",
+      "match": "std::move",
+      "first_def": "p7-04",
+      "full_def": "p7-05",
+      "brief": "把左值转成右值引用的类型转换，本身不搬任何数据；完整讲解见阶段七 05。"
+    },
+    {
+      "term": "Lambda 写法",
+      "type": "syntax",
+      "match": "\\[\\s*[&\\]=]*\\s*\\]\\s*\\(",
+      "first_def": "c-lambda",
+      "full_def": "c-lambda",
+      "brief": "[] 捕获列表 + () 参数列表 + {} 函数体，直接写在调用处。",
+      "exempt": [
+        {
+          "stage": 6,
+          "part": 2,
+          "channel": "code",
+          "reason": "阶段六代码里只有一行 Lambda 预览，注释已注明“写法留到阶段七”"
+        }
+      ]
+    },
+    {
+      "term": "捕获列表写法",
+      "type": "syntax",
+      "match": "\\[\\s*[=&]",
+      "first_def": "c-capture",
+      "full_def": "c-capture",
+      "brief": "方括号里写 = 表示按值捕获，写 & 表示按引用捕获，也可只列具体变量。"
+    },
+    {
+      "term": "右值引用写法",
+      "type": "syntax",
+      "match": "&&",
+      "first_def": "c-rvalue-ref",
+      "full_def": "c-rvalue-ref",
+      "brief": "类型后面写 && 声明右值引用；它和逻辑与 && 符号相同、含义完全不同。",
+      "exempt": [
+        {
+          "stage": 3,
+          "part": 0,
+          "channel": "body",
+          "reason": "阶段三讲逻辑与运算符 &&，与右值引用的 && 同名不同义"
+        },
+        {
+          "stage": 3,
+          "part": 0,
+          "channel": "code",
+          "reason": "阶段三示例用 && 做条件与运算，不是右值引用"
+        },
+        {
+          "stage": 3,
+          "part": 1,
+          "channel": "body",
+          "reason": "阶段三分支示例里的 && 是逻辑与，不是右值引用"
+        },
+        {
+          "stage": 3,
+          "part": 1,
+          "channel": "code",
+          "reason": "阶段三分支示例里的 && 是逻辑与，不是右值引用"
+        }
+      ]
+    },
+    {
+      "term": "三目运算符 ? :",
+      "type": "syntax",
+      "match": "\\?[^。；\\n:]{1,30}:",
+      "first_def": "p3-00",
+      "full_def": "p3-00",
+      "brief": "条件 ? 甲 : 乙：条件为真取甲、为假取乙。只在“二选一得到一个值”时用，分支一长仍写 if-else。",
+      "note": "阶段三 00 前置基础正文首次正式讲解（细锚点 #c-ternary）：读法、与 if 的取舍、优先级与括号、两分支类型、嵌套与漏冒号；阶段五 04 起只在继承示例里直接用。",
+      "aliases": [
+        "条件运算符"
+      ]
+    },
+    {
+      "term": "向上转型",
+      "type": "concept",
+      "match": "向上转型|向上转换",
+      "first_def": "p5-06",
+      "full_def": "p5-06",
+      "brief": "把派生类对象当成基类对象用，只保留基类那部分接口。",
+      "note": "讲多态之前先说明“为什么能这样用”。"
+    },
+    {
+      "term": "pair / first / second",
+      "type": "name",
+      "match": "std::pair|\\bpair<|\\.first|\\.second",
+      "first_def": "p7-01",
+      "full_def": "p7-01",
+      "brief": "std::pair 把两个值捆成一个；first / second 分别取第一、第二个。",
+      "note": "阶段七 01 用 map 时顺带介绍。"
+    },
+    {
+      "term": "if (auto x = ...) 条件内声明",
+      "type": "syntax",
+      "match": "if\\s*\\(\\s*auto\\s+[A-Za-z_][\\w]*\\s*=",
+      "first_def": "c-cycle",
+      "full_def": "c-cycle",
+      "brief": "在 if 的条件里声明变量并同时判断它；变量只在 if 这一句里有效。",
+      "note": "阶段七 04 用 if (auto locked = ...) 演示。",
+      "points": [
+        "kp-49"
+      ]
+    },
+    {
+      "term": "new int[n]() 值初始化",
+      "type": "syntax",
+      "match": "new\\s+[A-Za-z_][\\w:<>]*\\s*\\[\\s*[A-Za-z0-9_]+\\s*\\]\\s*\\(\\s*\\)",
+      "first_def": "c-s6-raii",
+      "full_def": "c-s6-raii",
+      "brief": "new int[n]() 会把每个元素清零；不写那对括号就是未初始化。",
+      "note": "阶段六 05 讲资源释放时出现，括号写不写结果不同。",
+      "points": [
+        "kp-12"
+      ]
+    },
+    {
+      "term": "T() 零值构造",
+      "type": "syntax",
+      "match": "\\bT\\s*\\(\\s*\\)",
+      "first_def": "exercise-s6-e1",
+      "full_def": "exercise-s6-e1",
+      "brief": "模板里写 T() 表示按默认方式构造一个 T 值；数值类型得到 0。",
+      "note": "阶段六 08 练习初始代码里首次出现，参考答案沿用。"
+    },
+    {
+      "term": "非类型模板参数",
+      "type": "concept",
+      "match": "非类型模板参数",
+      "first_def": "deep-p6-01",
+      "full_def": "deep-p6-01",
+      "brief": "模板参数不一定类型，也可以是整数等编译期常量，如 Box<int, 5> 里的 5。",
+      "note": "阶段六 01 折叠区一句话带过，展开在后续模板章节。"
+    },
+    {
+      "term": "折叠表达式",
+      "type": "concept",
+      "match": "折叠表达式",
+      "first_def": "p6-01",
+      "full_def": "c-variadic-template",
+      "brief": "C++17 把一包参数用一个运算符依次合并的写法，如 (args + ...)。",
+      "note": "阶段六 01 折叠区只作名词解释，不要求手写。"
+    },
+    {
+      "term": "std::string::npos",
+      "type": "name",
+      "match": "npos",
+      "first_def": "p2-04",
+      "full_def": "p2-04",
+      "brief": "find 找不到时返回的“无效位置”常量，不要拿它当下标。",
+      "note": "阶段二 04 的 find 示例里首次出现。"
+    },
+    {
+      "term": "十六进制 0x",
+      "type": "syntax",
+      "match": "0x[0-9A-Fa-f]+",
+      "first_def": "p2-05",
+      "full_def": "p2-05",
+      "brief": "以 0x 开头的整数按十六进制写，常见于地址和位掩码。",
+      "note": "阶段二 05 讲指针地址时出现，只要求会读。"
+    },
+    {
+      "term": "一行逗号声明多个变量",
+      "type": "syntax",
+      "match": "(?:int|double|char|bool)\\s+[A-Za-z_][\\w]*\\s*=\\s*[^;,\\n]+,\\s*[A-Za-z_][\\w]*\\s*=",
+      "first_def": "p1-06",
+      "full_def": "p1-06",
+      "brief": "同一类型可以一行写多个变量，用逗号分隔；容易只改到其中一个。",
+      "note": "阶段一 06 初始化示例里出现。",
+      "points": [
+        "kp-01"
+      ]
+    },
+    {
+      "term": "extern 声明",
+      "type": "concept",
+      "match": "extern",
+      "first_def": "p8-01",
+      "full_def": "p8-03",
+      "brief": "只声明“这个名字在别的文件里定义过”，不分配存储；定义仍然只能有一处。",
+      "note": "阶段八 03 首次展开；00 的标签与 02 的预告属于提名。",
+      "exempt": [
+        {
+          "stage": 8,
+          "part": 0,
+          "channel": "any",
+          "reason": "Part 00 的副标题标签只是列出本节关键词"
+        },
+        {
+          "stage": 8,
+          "part": 2,
+          "channel": "any",
+          "reason": "Part 02 明确写“下一节 03 专门讲”"
+        }
+      ]
+    },
+    {
+      "term": "变量声明与定义",
+      "type": "concept",
+      "match": "声明与定义",
+      "first_def": "p8-01",
+      "full_def": "p8-03",
+      "brief": "定义分配存储且全项目只有一份；声明只告诉编译器名字和类型，可以重复。",
+      "note": "阶段八 03 与函数的声明/定义并列讲。"
+    },
+    {
+      "term": "链接性",
+      "type": "concept",
+      "match": "链接性",
+      "first_def": "p8-03",
+      "full_def": "p8-03",
+      "brief": "一个名字能不能被别的编译单元看到；默认外部链接，加 static 变内部链接。",
+      "note": "阶段八 03 讲 static 时首次给出定义。"
+    },
+    {
+      "term": "内部链接",
+      "type": "concept",
+      "match": "内部链接",
+      "first_def": "p8-03",
+      "full_def": "p8-03",
+      "brief": "名字只在本编译单元可见，别的 .cpp 链接不到。",
+      "note": "阶段八 03 与 static 一起讲。"
+    },
+    {
+      "term": "文件作用域 static",
+      "type": "syntax",
+      "match": "static\\s+int\\s+g_count",
+      "first_def": "p8-03",
+      "full_def": "p8-03",
+      "brief": "在函数外给变量或函数加 static，把它关进本文件。",
+      "note": "阶段八 03 的 counter.cpp 片段。"
+    },
+    {
+      "term": "编译单元",
+      "type": "concept",
+      "match": "编译单元",
+      "first_def": "p8-00",
+      "full_def": "p8-00",
+      "brief": "一个 .cpp 加上它 include 进来的头文件，构成编译器处理的一个整体。",
+      "note": "阶段八 00 首次解释，后续 Part 直接沿用。"
+    },
+    {
+      "term": "ofstream",
+      "type": "name",
+      "match": "ofstream",
+      "first_def": "p8-05",
+      "full_def": "p8-05",
+      "brief": "输出文件流，用法像 cout，把数据写进文件。",
+      "note": "阶段一关系图只标“阶段八”，正文在阶段八 05 展开。",
+      "exempt": [
+        {
+          "stage": 1,
+          "part": 3,
+          "channel": "any",
+          "reason": "阶段一关系图与说明只提名“阶段八再讲”，未展开用法"
+        }
+      ]
+    },
+    {
+      "term": "ifstream",
+      "type": "name",
+      "match": "ifstream",
+      "first_def": "p8-05",
+      "full_def": "p8-05",
+      "brief": "输入文件流，用法像 cin，从文件里读数据。",
+      "note": "阶段一关系图只标“阶段八”，正文在阶段八 05 展开。",
+      "exempt": [
+        {
+          "stage": 1,
+          "part": 3,
+          "channel": "any",
+          "reason": "阶段一关系图与说明只提名“阶段八再讲”，未展开用法"
+        }
+      ]
+    },
+    {
+      "term": "ios::app",
+      "type": "syntax",
+      "match": "ios::app",
+      "first_def": "p8-05",
+      "full_def": "p8-05",
+      "brief": "追加模式：新内容接在文件末尾，不清空原有内容。",
+      "note": "阶段八 05 打开模式表与追加示例。"
+    },
+    {
+      "term": "ios::trunc",
+      "type": "syntax",
+      "match": "ios::trunc",
+      "first_def": "p8-05",
+      "full_def": "p8-05",
+      "brief": "截断模式：打开时清空原有内容，是 ofstream 的默认行为。",
+      "note": "阶段八 05 打开模式表。"
+    },
+    {
+      "term": "is_open",
+      "type": "name",
+      "match": "is_open",
+      "first_def": "p8-05",
+      "full_def": "p8-05",
+      "brief": "询问流有没有成功打开文件；失败时不要继续读写。",
+      "note": "阶段八 05 示例四。"
+    },
+    {
+      "term": "istringstream",
+      "type": "name",
+      "match": "istringstream",
+      "first_def": "p8-05",
+      "full_def": "p8-05",
+      "brief": "把一行字符串包装成小输入流，用 >> 按空格拆出各个字段。",
+      "note": "阶段八 05 逐行解析示例。"
+    },
+    {
+      "term": "逐行读文件",
+      "type": "concept",
+      "match": "逐行读",
+      "first_def": "p8-05",
+      "full_def": "p8-05",
+      "brief": "用 while (getline(in, line)) 一次读一行，读到文件末尾自动结束。",
+      "note": "阶段八 05 示例三。"
+    },
+    {
+      "term": "inline 函数",
+      "type": "concept",
+      "match": "inline",
+      "first_def": "c-inline",
+      "full_def": "c-inline",
+      "brief": "给编译器的建议：调用处直接展开函数体；更重要的作用是允许函数定义写进头文件而不重复定义。",
+      "note": "阶段四 03 正式讲解；阶段八 07 坑 1 只回指。",
+      "aliases": [
+        "内联"
+      ]
+    },
+    {
+      "term": "pragma once",
+      "type": "syntax",
+      "match": "pragma once",
+      "first_def": "p8-01",
+      "full_def": "p8-02",
+      "brief": "头文件保护指令：同一个编译单元里只展开一次。",
+      "note": "阶段八 02 首次讲。"
+    },
+    {
+      "term": "头文件保护",
+      "type": "concept",
+      "match": "头文件保护",
+      "first_def": "p8-00",
+      "full_def": "p8-02",
+      "brief": "防止同一个头文件在同一编译单元里被展开两次。",
+      "note": "阶段八 02。"
+    },
+    {
+      "term": "-c 只编译",
+      "type": "syntax",
+      "match": "-c main.cpp",
+      "first_def": "p8-04",
+      "full_def": "p8-04",
+      "brief": "g++ -c 只生成目标文件，不链接。",
+      "note": "阶段八 04 编译命令块。",
+      "points": [
+        "kp-58"
+      ]
+    },
+    {
+      "term": "宏",
+      "type": "concept",
+      "match": "宏",
+      "first_def": "c-inline",
+      "full_def": "p8-02",
+      "brief": "预处理器在编译前的文本替换：用 #define 定义一个名字，用到它的地方被原样替换，不检查类型；完整用法在阶段八 02 头文件保护。",
+      "note": "阶段四 03 给最小定义并指路；阶段八 02 include guard 系统讲解。"
+    },
+    {
+      "term": "条件编译",
+      "type": "concept",
+      "match": "条件编译",
+      "first_def": "p8-02",
+      "full_def": "p8-02",
+      "brief": "用 #ifndef / #define / #endif 让一段代码只在条件成立时参与编译。",
+      "note": "阶段八 02 写法二 include guard。"
+    },
+    {
+      "term": "#ifndef",
+      "type": "syntax",
+      "match": "#ifndef",
+      "first_def": "p8-02",
+      "full_def": "p8-02",
+      "brief": "预处理指令：宏还没定义时，才保留下面这段内容。",
+      "note": "阶段八 02 include guard 首个示例。"
+    },
+    {
+      "term": "#define",
+      "type": "syntax",
+      "match": "#define",
+      "first_def": "c-inline",
+      "full_def": "p8-02",
+      "brief": "预处理指令：定义一个宏，也就是给一个名字打上标记；阶段八 02 用它给头文件做“来过了”的标记。",
+      "note": "阶段四 03 在宏的最小定义里首次说明作用；阶段八 02 include guard 展开用法。"
+    },
+    {
+      "term": "#endif",
+      "type": "syntax",
+      "match": "#endif",
+      "first_def": "p8-02",
+      "full_def": "p8-02",
+      "brief": "预处理指令：结束 #ifndef 这一段条件编译。",
+      "note": "阶段八 02 include guard 首个示例。"
+    },
+    {
+      "term": "-I 头文件搜索路径",
+      "type": "syntax",
+      "match": "-I",
+      "first_def": "p8-01",
+      "full_def": "p8-01",
+      "brief": "告诉编译器再去指定目录里找头文件；头文件和 .cpp 同目录时用不上。",
+      "note": "阶段八 01 类拆分示例的编译命令说明。",
+      "points": [
+        "kp-55"
+      ]
+    },
+    {
+      "term": "沙箱",
+      "type": "concept",
+      "match": "沙箱",
+      "first_def": "p8-05",
+      "full_def": "p8-05",
+      "brief": "临时开给程序用的隔离环境；在线运行写出的文件不落到本机硬盘。",
+      "note": "阶段八 05 第一个文件流示例上方首次解释。"
+    },
+    {
+      "term": "按位或",
+      "type": "syntax",
+      "match": "按位或",
+      "first_def": "p8-05",
+      "full_def": "p8-05",
+      "brief": "这里只表示“把两个开关合在一起”，用来组合打开模式；不讲位运算细节。",
+      "note": "阶段八 05 打开模式段首次解释。",
+      "points": [
+        "kp-60"
+      ]
+    },
+    {
+      "term": "函数指针",
+      "type": "concept",
+      "match": "函数指针",
+      "first_def": "deep-p6-02",
+      "full_def": "deep-p6-02",
+      "brief": "指向函数的指针，类型写作 int (*p)(int)；本书只要求看懂读法，日常改用 Lambda 或 std::function。",
+      "note": "阶段二 05 折叠区点名并指路；阶段六 02 折叠区给对照示例，阶段七 03 做三种可调用写法对照。",
+      "exempt": [
+        {
+          "stage": 2,
+          "part": 5,
+          "channel": "body",
+          "reason": "折叠区只点名并指向阶段六 02 的读法示例，不展开写法"
+        }
+      ]
+    },
+    {
+      "term": "委托构造",
+      "type": "concept",
+      "match": "委托构造",
+      "first_def": "deep-p4-05",
+      "full_def": "deep-p4-05",
+      "brief": "一个构造函数在冒号后调用同类另一个构造函数，先完成公共初始化。",
+      "note": "阶段四 05 折叠区给最小写法与适用场景，只要求看懂。"
+    },
+    {
+      "term": "多继承与虚继承",
+      "type": "concept",
+      "match": "多继承|多重继承|虚继承",
+      "first_def": "deep-p5-04",
+      "full_def": "deep-p5-04",
+      "brief": "多继承是一个类写多个基类；虚继承用于消除菱形继承里的重复基类，本书只给多继承最小写法。",
+      "note": "阶段五 04 折叠区给多继承最小写法与取舍；虚继承明确不讲，去向《C++ Primer Plus》第 14 章。"
+    },
+    {
+      "term": "位运算",
+      "type": "concept",
+      "match": "位运算",
+      "first_def": "c-precedence",
+      "full_def": "c-precedence",
+      "brief": "对二进制位做与、或、异或、取反、移位；本书不讲，需要时查参考书。",
+      "note": "阶段三 00 运算符表处明确不讲并给参考去向；阶段八按位或只当“合开关”读。",
+      "aliases": [
+        "位运算符"
+      ]
+    },
+    {
+      "term": "输入输出",
+      "type": "concept",
+      "match": "输入输出",
+      "first_def": "p1-03",
+      "full_def": "p1-03",
+      "brief": "程序把数据读进来、把结果显示出去；std::cin 负责读，std::cout 负责写。",
+      "exempt": [
+        {
+          "stage": 1,
+          "part": 1,
+          "channel": "code",
+          "reason": "标题前缀的导入性提及，正式讲解见 p1-03"
+        }
+      ]
+    },
+    {
+      "term": "取值范围",
+      "type": "concept",
+      "match": "取值范围",
+      "first_def": "p1-04",
+      "full_def": "p1-04",
+      "brief": "一种类型能装下的最小到最大值；由位宽推出，超出范围会回绕或未定义。"
+    },
+    {
+      "term": "字符数组",
+      "type": "concept",
+      "match": "字符数组",
+      "first_def": "p2-03",
+      "full_def": "p2-03",
+      "brief": "用 char 存一串字符，末尾用 \\0 标记结束；std::string 的底层思路。"
+    },
+    {
+      "term": "分支",
+      "type": "concept",
+      "match": "分支",
+      "first_def": "p3-01",
+      "full_def": "p3-01",
+      "brief": "按条件走不同代码路径；C++ 用 if / else 写。",
+      "exempt": [
+        {
+          "stage": 1,
+          "part": 3,
+          "channel": "body",
+          "reason": "标题前缀的导入性提及，正式讲解见 p3-01"
+        },
+        {
+          "stage": 1,
+          "part": 6,
+          "channel": "code",
+          "reason": "标题前缀的导入性提及，正式讲解见 p3-01"
+        }
+      ]
+    },
+    {
+      "term": "多分支",
+      "type": "concept",
+      "match": "多分支",
+      "first_def": "p3-02",
+      "full_def": "p3-02",
+      "brief": "一个值对上多条路径；C++ 用 switch / case 写，别忘 break。",
+      "exempt": [
+        {
+          "stage": 2,
+          "part": 2,
+          "channel": "body",
+          "reason": "标题前缀的导入性提及，正式讲解见 p3-02"
+        }
+      ]
+    },
+    {
+      "term": "文件流",
+      "type": "concept",
+      "match": "文件流",
+      "first_def": "p8-05",
+      "full_def": "p8-05",
+      "brief": "把文件当成输入/输出流来读写；ofstream 写、ifstream 读。",
+      "exempt": [
+        {
+          "stage": 1,
+          "part": 3,
+          "channel": "body",
+          "reason": "标题前缀的导入性提及，正式讲解见 p8-05"
+        },
+        {
+          "stage": 7,
+          "part": 9,
+          "channel": "table",
+          "reason": "标题前缀的导入性提及，正式讲解见 p8-05"
+        }
+      ]
+    },
+    {
+      "term": "打开模式",
+      "type": "concept",
+      "match": "打开模式",
+      "first_def": "p8-05",
+      "full_def": "p8-05",
+      "brief": "打开文件时说明覆盖还是追加；ios::trunc 覆盖，ios::app 追加。"
+    },
+    {
+      "term": "编译",
+      "type": "concept",
+      "match": "编译",
+      "first_def": "p1-00",
+      "full_def": "p1-00",
+      "brief": "把 C++ 源码翻译成汇编/机器码的步骤，编译器顺带检查语法和类型。",
+      "points": [
+        "kp-58"
+      ]
+    },
+    {
+      "term": "链接",
+      "type": "concept",
+      "match": "链接",
+      "first_def": "p1-00",
+      "full_def": "p1-00",
+      "brief": "把多个目标文件和标准库拼成可执行程序，并补全函数地址。",
+      "points": [
+        "kp-58"
+      ]
+    },
+    {
+      "term": "预处理",
+      "type": "concept",
+      "match": "预处理",
+      "first_def": "p1-00",
+      "full_def": "p1-00",
+      "brief": "编译前展开 #include、#define 等指令的步骤。",
+      "points": [
+        "kp-55"
+      ]
+    },
+    {
+      "term": "汇编",
+      "type": "concept",
+      "match": "汇编",
+      "first_def": "p1-00",
+      "full_def": "p1-00",
+      "brief": "把汇编代码逐条翻译成机器码的步骤。",
+      "points": [
+        "kp-58"
+      ]
+    },
+    {
+      "term": "目标文件",
+      "type": "concept",
+      "match": "目标文件",
+      "first_def": "p1-00",
+      "full_def": "p1-00",
+      "brief": "编译器产出的中间文件（.o/.obj），还要经链接器拼成可执行文件。",
+      "points": [
+        "kp-58"
+      ]
+    },
+    {
+      "term": "可执行文件",
+      "type": "concept",
+      "match": "可执行文件",
+      "first_def": "p1-00",
+      "full_def": "p1-00",
+      "brief": "链接完成后能直接运行的程序文件（.exe 等）。",
+      "points": [
+        "kp-58"
+      ],
+      "aliases": [
+        "可执行程序"
+      ]
+    },
+    {
+      "term": "编译错误",
+      "type": "concept",
+      "match": "编译错误",
+      "first_def": "c-function-preview",
+      "full_def": "c-function-preview",
+      "brief": "编译器在翻译阶段发现的语法或类型错误，通常带文件名和行号。",
+      "points": [
+        "kp-58"
+      ]
+    },
+    {
+      "term": "链接错误",
+      "type": "concept",
+      "match": "链接错误",
+      "first_def": "c-function-preview",
+      "full_def": "p8-04",
+      "brief": "链接阶段才发现的问题，如函数只有声明没有定义、符号重复；常没有行号。",
+      "points": [
+        "kp-58"
+      ]
+    },
+    {
+      "term": "运行错误",
+      "type": "concept",
+      "match": "运行错误",
+      "first_def": "c-function-preview",
+      "full_def": "c-function-preview",
+      "brief": "程序跑起来后才出现的问题，如越界、除以 0、空指针。",
+      "points": [
+        "kp-58"
+      ]
+    },
+    {
+      "term": "关键字",
+      "type": "concept",
+      "match": "关键字",
+      "first_def": "p1-04",
+      "full_def": "p1-04",
+      "brief": "C++ 里有特殊含义的单词，如 int、return、class，不能拿来当变量名。",
+      "points": [
+        "kp-01"
+      ]
+    },
+    {
+      "term": "注释",
+      "type": "concept",
+      "match": "注释",
+      "first_def": "p1-06",
+      "full_def": "p1-06",
+      "brief": "用 // 或 /* */ 写给人的说明，编译器会跳过不执行。",
+      "points": [
+        "kp-01"
+      ]
+    },
+    {
+      "term": "字面量",
+      "type": "concept",
+      "match": "字面量",
+      "first_def": "c-suffix",
+      "full_def": "c-suffix",
+      "brief": "代码里直接写出来的值，如 42、3.14、'A'、true。",
+      "points": [
+        "kp-01"
+      ]
+    },
+    {
+      "term": "常量",
+      "type": "concept",
+      "match": "常量",
+      "first_def": "c-size-t",
+      "full_def": "c-suffix",
+      "brief": "程序中固定不变的值：字面量、const 变量，以及头文件里预定义的范围常量。",
+      "points": [
+        "kp-01"
+      ]
+    },
+    {
+      "term": "基础数据类型",
+      "type": "concept",
+      "match": "基础数据类型",
+      "first_def": "p1-04",
+      "full_def": "p1-04",
+      "brief": "int、double、char、bool 这些最常用的类型；选类型就是选能装下数据的盒子。",
+      "points": [
+        "kp-01"
+      ]
+    },
+    {
+      "term": "类型转换",
+      "type": "concept",
+      "match": "类型转换",
+      "first_def": "c-implicit",
+      "full_def": "c-static-cast",
+      "brief": "把一种类型的值变成另一种类型；有隐式自动转换，也有显式 static_cast。",
+      "points": [
+        "kp-01",
+        "kp-34"
+      ]
+    },
+    {
+      "term": "逻辑运算符",
+      "type": "concept",
+      "match": "逻辑运算符",
+      "first_def": "p3-00",
+      "full_def": "p3-00",
+      "brief": "&&、||、! 三个把条件组合起来的运算符。",
+      "points": [
+        "kp-05"
+      ]
+    },
+    {
+      "term": "自定义命名空间",
+      "type": "concept",
+      "match": "自定义命名空间",
+      "first_def": "p1-02",
+      "full_def": "p1-02",
+      "brief": "用 namespace 自己划一个名字区域，把同项目的函数和类型放进去。",
+      "points": [
+        "kp-40"
+      ]
+    },
+    {
+      "term": "预处理指令",
+      "type": "concept",
+      "match": "预处理指令",
+      "first_def": "p8-02",
+      "full_def": "p8-02",
+      "brief": "以 # 开头、在编译前由预处理器处理的指令，如 #include、#define。",
+      "points": [
+        "kp-55"
+      ]
+    },
+    {
+      "term": "源文件",
+      "type": "concept",
+      "match": "源文件",
+      "first_def": "p8-00",
+      "full_def": "p8-00",
+      "brief": ".cpp 文件，放函数定义；编译后变成目标文件。",
+      "points": [
+        "kp-54"
+      ],
+      "exempt": [
+        {
+          "stage": 1,
+          "part": 7,
+          "channel": "body",
+          "reason": "阶段一 07 只是提醒“源文件里也写注释”，阶段八 00 才正式讲源文件分工"
+        }
+      ]
+    },
+    {
+      "term": "调试",
+      "type": "concept",
+      "match": "调试",
+      "first_def": "p7-09",
+      "full_def": "p8-09",
+      "brief": "运行程序、定位错误的动作；本书只在阶段七 09 和阶段八 09 指路。",
+      "points": [
+        "kp-58"
+      ]
+    },
+    {
+      "term": "循环控制",
+      "type": "concept",
+      "match": "循环控制",
+      "first_def": "p3-04",
+      "full_def": "p3-04",
+      "brief": "用 break 提前结束循环、用 continue 跳过本轮、用 return 离开函数。",
+      "points": [
+        "kp-08"
+      ]
+    },
+    {
+      "term": "嵌套循环",
+      "type": "concept",
+      "match": "嵌套循环",
+      "first_def": "p3-06",
+      "full_def": "p3-06",
+      "brief": "一个循环体里再写一个循环；外层走一轮，内层走完整一轮。",
+      "points": [
+        "kp-08"
+      ]
+    },
+    {
+      "term": "死循环",
+      "type": "concept",
+      "match": "死循环",
+      "first_def": "p3-03",
+      "full_def": "p3-03",
+      "brief": "条件永远为真、自己停不下来的循环。",
+      "points": [
+        "kp-08"
+      ]
+    },
+    {
+      "term": "数组遍历",
+      "type": "concept",
+      "match": "数组遍历",
+      "first_def": "p2-02",
+      "full_def": "p2-02",
+      "brief": "用循环从下标 0 走到 n-1，逐个访问数组元素。",
+      "points": [
+        "kp-10"
+      ]
+    },
+    {
+      "term": "下标越界",
+      "type": "concept",
+      "match": "下标越界",
+      "first_def": "c-function-preview",
+      "full_def": "p2-02",
+      "brief": "访问数组时下标小于 0 或大于等于长度；C++ 不检查，结果可能错甚至崩溃。",
+      "points": [
+        "kp-10"
+      ]
+    },
+    {
+      "term": "空指针",
+      "type": "concept",
+      "match": "空指针",
+      "first_def": "p2-05",
+      "full_def": "p2-05",
+      "brief": "不指向任何对象的指针，写作 nullptr；解引用前要判空。",
+      "points": [
+        "kp-12"
+      ]
+    },
+    {
+      "term": "解引用",
+      "type": "concept",
+      "match": "解引用",
+      "first_def": "p2-05",
+      "full_def": "p2-05",
+      "brief": "用 * 按指针保存的地址读出或写回那块内存。",
+      "points": [
+        "kp-12"
+      ]
+    },
+    {
+      "term": "取地址",
+      "type": "concept",
+      "match": "取地址",
+      "first_def": "p2-05",
+      "full_def": "p2-05",
+      "brief": "用 & 取一个变量的内存地址，交给指针保存。",
+      "points": [
+        "kp-12"
+      ]
+    },
+    {
+      "term": "调用栈",
+      "type": "concept",
+      "match": "调用栈",
+      "first_def": "c-stackframe",
+      "full_def": "c-stackframe",
+      "brief": "函数调用时一层层压入栈帧的结构；出错时能看出谁调用了谁。",
+      "points": [
+        "kp-14",
+        "kp-09"
+      ],
+      "exempt": [
+        {
+          "stage": 2,
+          "part": 9,
+          "channel": "body",
+          "reason": "阶段二 09 的路线图只是提名，阶段三 05 才讲栈帧与调用栈"
+        }
+      ]
+    },
+    {
+      "term": "函数声明",
+      "type": "concept",
+      "match": "函数声明",
+      "first_def": "p3-05",
+      "full_def": "p3-05",
+      "brief": "只写返回类型、函数名和参数列表，以分号结尾，告诉编译器函数怎么用。",
+      "points": [
+        "kp-09"
+      ]
+    },
+    {
+      "term": "函数定义",
+      "type": "concept",
+      "match": "函数定义",
+      "first_def": "p3-05",
+      "full_def": "p3-05",
+      "brief": "声明加上函数体，真正实现函数做什么。",
+      "points": [
+        "kp-09"
+      ],
+      "exempt": [
+        {
+          "stage": 2,
+          "part": 9,
+          "channel": "body",
+          "reason": "阶段二 09 的路线图只是提名，阶段三 05 才正式讲函数定义"
+        }
+      ]
+    },
+    {
+      "term": "参数列表",
+      "type": "concept",
+      "match": "参数列表",
+      "first_def": "p3-05",
+      "full_def": "p3-05",
+      "brief": "函数名括号里那串参数，写清每个参数的类型和名字。",
+      "points": [
+        "kp-09"
+      ]
+    },
+    {
+      "term": "赋值运算符",
+      "type": "concept",
+      "match": "赋值运算符",
+      "first_def": "p5-02",
+      "full_def": "p5-02",
+      "brief": "= 把右边的值写进左边；对对象来说由 operator= 负责重新赋值。",
+      "points": [
+        "kp-21"
+      ]
+    },
+    {
+      "term": "对象生命周期",
+      "type": "concept",
+      "match": "对象生命周期",
+      "first_def": "c-preview-s5",
+      "full_def": "p5-01",
+      "brief": "对象从构造出生、使用、到析构销毁的整个过程。",
+      "points": [
+        "kp-20"
+      ],
+      "exempt": [
+        {
+          "stage": 4,
+          "part": 5,
+          "channel": "body",
+          "reason": "阶段四 05 的图注只是预告，阶段五 01 正式讲对象生命周期"
+        }
+      ]
+    },
+    {
+      "term": "静态成员",
+      "type": "concept",
+      "match": "静态成员",
+      "first_def": "c-static-member",
+      "full_def": "c-static-member",
+      "brief": "用 static 声明、属于整个类而不是某个对象的成员；所有对象共享一份。",
+      "points": [
+        "kp-18"
+      ],
+      "aliases": [
+        "静态成员函数"
+      ]
+    },
+    {
+      "term": "成员函数",
+      "type": "concept",
+      "match": "成员函数",
+      "first_def": "c-member",
+      "full_def": "c-member",
+      "brief": "定义在类里的函数，通过对象调用，能访问成员变量。",
+      "points": [
+        "kp-18"
+      ]
+    },
+    {
+      "term": "拷贝赋值",
+      "type": "concept",
+      "match": "拷贝赋值",
+      "first_def": "p5-02",
+      "full_def": "p5-02",
+      "brief": "用一个已有对象给另一个对象重新赋值，由 operator= 完成。",
+      "points": [
+        "kp-21"
+      ]
+    },
+    {
+      "term": "移动赋值",
+      "type": "concept",
+      "match": "移动赋值",
+      "first_def": "p7-05",
+      "full_def": "c-move",
+      "brief": "把源对象的资源直接接管过来，源对象随后变成空壳。",
+      "points": [
+        "kp-50"
+      ]
+    },
+    {
+      "term": "移动构造",
+      "type": "concept",
+      "match": "移动构造",
+      "first_def": "p7-05",
+      "full_def": "c-move",
+      "brief": "用即将销毁的对象创建新对象，直接接管它的资源而不是拷贝。",
+      "points": [
+        "kp-50"
+      ]
+    },
+    {
+      "term": "模板特化",
+      "type": "concept",
+      "match": "模板特化",
+      "first_def": "deep-p6-01",
+      "full_def": "deep-p6-01",
+      "brief": "给某个具体类型单独写一份模板实现；本书只登记、不示范。",
+      "points": [
+        "kp-25"
+      ]
+    },
+    {
+      "term": "标准异常",
+      "type": "concept",
+      "match": "标准异常",
+      "first_def": "c-s6-catchbase",
+      "full_def": "c-s6-catchbase",
+      "brief": "标准库 stdexcept 里定义的一组异常类型，如 std::runtime_error、std::out_of_range。",
+      "points": [
+        "kp-28"
+      ]
+    },
+    {
+      "term": "迭代器失效",
+      "type": "concept",
+      "match": "迭代器失效",
+      "first_def": "c-algorithm",
+      "full_def": "c-algorithm",
+      "brief": "容器扩容或删除元素后，原来指向旧位置的迭代器不能再用。",
+      "points": [
+        "kp-44"
+      ]
+    },
+    {
+      "term": "哈希表",
+      "type": "concept",
+      "match": "哈希表",
+      "first_def": "c-vector",
+      "full_def": "c-vector",
+      "brief": "按 key 直接算出位置的存储结构，平均查找接近常数时间；std::unordered_map 用它。",
+      "points": [
+        "kp-43"
+      ]
+    },
+    {
+      "term": "左值",
+      "type": "concept",
+      "match": "左值",
+      "first_def": "p7-05",
+      "full_def": "c-move",
+      "brief": "有名字、能取地址、之后还会用的对象。",
+      "points": [
+        "kp-50"
+      ]
+    },
+    {
+      "term": "右值",
+      "type": "concept",
+      "match": "右值",
+      "first_def": "p7-05",
+      "full_def": "c-move",
+      "brief": "临时对象、字面量、马上就要销毁的对象。",
+      "points": [
+        "kp-50"
+      ]
+    },
+    {
+      "term": "函数对象",
+      "type": "concept",
+      "match": "函数对象",
+      "first_def": "c-std-function",
+      "full_def": "c-std-function",
+      "brief": "能像函数一样调用的对象，通常是重载了 operator() 的类对象。",
+      "points": [
+        "kp-26"
+      ]
+    },
+    {
+      "term": "可调用对象",
+      "type": "concept",
+      "match": "可调用对象",
+      "first_def": "deep-p6-02",
+      "full_def": "deep-p6-02",
+      "brief": "能写进调用括号后面的东西：普通函数、Lambda、函数对象等。",
+      "points": [
+        "kp-26",
+        "kp-46"
+      ]
+    },
+    {
+      "term": "外部链接",
+      "type": "concept",
+      "match": "外部链接",
+      "first_def": "p8-03",
+      "full_def": "p8-03",
+      "brief": "没有 static 的函数或全局变量，别的 .cpp 文件也能用。",
+      "points": [
+        "kp-56"
+      ]
+    },
+    {
+      "term": "二进制文件",
+      "type": "concept",
+      "match": "二进制文件",
+      "first_def": "p8-05",
+      "full_def": "p8-05",
+      "brief": "按字节原样存数据、记事本打不开的文件；读写要用 ios::binary。",
+      "points": [
+        "kp-60"
+      ]
+    },
+    {
+      "term": "文本文件",
+      "type": "concept",
+      "match": "文本文件",
+      "first_def": "p8-05",
+      "full_def": "p8-05",
+      "brief": "按字符编码存、记事本能打开的文件；成绩、配置、日志常用它。",
+      "points": [
+        "kp-60"
+      ]
+    },
+    {
+      "term": "缓冲区",
+      "type": "concept",
+      "match": "缓冲区",
+      "first_def": "cin-recover",
+      "full_def": "cin-recover",
+      "brief": "输入输出暂时存放数据的内存区；cin 读失败时坏字符会留在缓冲区。",
+      "points": [
+        "kp-40",
+        "kp-41"
+      ]
+    },
+    {
+      "term": "编译期",
+      "type": "concept",
+      "match": "编译期",
+      "first_def": "c-std-array",
+      "full_def": "c-std-array",
+      "brief": "代码还没运行、编译器处理源码的阶段；数组长度和 constexpr 必须在这步定下来。",
+      "points": [
+        "kp-36"
+      ]
+    },
+    {
+      "term": "内存泄漏",
+      "type": "concept",
+      "match": "内存泄漏",
+      "first_def": "c-wild",
+      "full_def": "c-wild",
+      "brief": "用 new 申请的内存没有 delete，程序运行时再也拿不回来。",
+      "points": [
+        "kp-14"
+      ]
+    },
+    {
+      "term": "未定义行为",
+      "type": "concept",
+      "match": "未定义行为",
+      "first_def": "c-size-t",
+      "full_def": "c-overflow",
+      "brief": "标准没规定结果、换编译器或优化级别就可能变的行为，不能依赖。",
+      "points": [
+        "kp-01"
+      ]
+    },
+    {
+      "term": "链接器",
+      "type": "concept",
+      "match": "链接器",
+      "first_def": "c-inline",
+      "full_def": "c-inline",
+      "brief": "把多个目标文件拼成可执行程序的工具；负责补全函数地址、检查重复定义。",
+      "points": [
+        "kp-58"
+      ]
+    },
+    {
+      "term": "结合性",
+      "type": "concept",
+      "match": "结合性",
+      "first_def": "c-precedence",
+      "full_def": "c-precedence",
+      "brief": "同一优先级的运算符按从左到右（或从右到左）的顺序计算。",
+      "points": [
+        "kp-05"
+      ]
+    },
+    {
+      "term": "虚函数表",
+      "type": "concept",
+      "match": "虚函数表",
+      "first_def": "c-polymorphism",
+      "full_def": "c-polymorphism",
+      "brief": "对象里记录“该调哪个虚函数”的表；本书只建立概念，不展开内存布局。",
+      "points": [
+        "kp-24"
+      ]
+    },
+    {
+      "term": "自定义删除器",
+      "type": "concept",
+      "match": "自定义删除器",
+      "first_def": "deep-p7-04",
+      "full_def": "deep-p7-04",
+      "brief": "给智能指针指定一个替代 delete 的清理函数，资源不是 new 出来时用。",
+      "points": [
+        "kp-47"
+      ]
+    },
+    {
+      "term": "扩容",
+      "type": "concept",
+      "match": "扩容",
+      "first_def": "c-string-capacity",
+      "full_def": "c-string-capacity",
+      "brief": "string/vector 放不下时另申请更大内存并搬过去；旧地址和旧迭代器会失效。",
+      "points": [
+        "kp-43",
+        "kp-44"
+      ]
+    },
+    {
+      "term": "输入迭代器",
+      "type": "concept",
+      "match": "输入迭代器",
+      "first_def": "c-algorithm",
+      "full_def": "c-algorithm",
+      "brief": "只能单步向前读、不能回头也不能写的迭代器。",
+      "points": [
+        "kp-44"
+      ]
+    },
+    {
+      "term": "前向迭代器",
+      "type": "concept",
+      "match": "前向迭代器",
+      "first_def": "c-algorithm",
+      "full_def": "c-algorithm",
+      "brief": "能单步向前、可重复读写同一位置的迭代器。",
+      "points": [
+        "kp-44"
+      ]
+    },
+    {
+      "term": "双向迭代器",
+      "type": "concept",
+      "match": "双向迭代器",
+      "first_def": "c-algorithm",
+      "full_def": "c-algorithm",
+      "brief": "能前后移动的迭代器，如 list；不能像数组那样随机跳。",
+      "points": [
+        "kp-44"
+      ]
+    },
+    {
+      "term": "随机访问迭代器",
+      "type": "concept",
+      "match": "随机访问迭代器",
+      "first_def": "c-algorithm",
+      "full_def": "c-algorithm",
+      "brief": "能用 +n/-n 直接跳到任意位置的迭代器，vector 提供；std::sort 要求这一档。",
+      "points": [
+        "kp-44"
+      ]
+    },
+    {
+      "term": "内存四区",
+      "type": "concept",
+      "match": "内存四区",
+      "first_def": "c-preview-mem",
+      "full_def": "p2-00",
+      "brief": "栈区、堆区、全局区、常量区、代码区这几块内存的分工。",
+      "points": [
+        "kp-14"
+      ],
+      "aliases": [
+        "内存分区"
+      ]
+    }
   ]
 }

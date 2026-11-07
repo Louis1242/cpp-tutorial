@@ -7,9 +7,22 @@ __pycache__/
 *.log
 *.bak
 
+# 备份文件（index.html.bak-20261107-install 这类带日期的回滚点）
+*.bak-*
+
 # 系统文件
 Thumbs.db
 .DS_Store
 
 # 截图调试产物（非教程资产）
 .screenshots/
+
+# 分享打包产物
+.trae-html-share-packages/
+
+# 门禁与临时检查输出
+tmp_*.txt
+gate_*.txt
+
+# Cloudflare Pages 构建输出
+dist/

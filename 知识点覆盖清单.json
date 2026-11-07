@@ -2,8 +2,8 @@
   "meta": {
     "title": "C++ 教程知识点覆盖清单",
     "source": "index.html",
-    "updated": "2026-11-05",
-    "note": "逐知识点登记常见形态与处置；baseline 记录改造前的覆盖情况，disposition 记录改造后的落点。",
+    "updated": "2026-11-07",
+    "note": "逐知识点登记常见形态与处置；baseline 记录改造前的覆盖情况，status 记录当前是否已经落地（landed / pending），disposition 记录改造后的落点。",
     "disposition_labels": {
       "body": "正文必讲",
       "fold": "折叠区讲",
@@ -14,6 +14,9 @@
     {
       "id": "kp-01",
       "name": "整数类型：有符号、无符号与溢出",
+      "summary": "用 int、long long、unsigned 等类型存储整数；每种类型有固定位宽和取值范围，超出就会溢出。",
+      "group": "数据类型与转换",
+      "kind": "语义",
       "stage": 1,
       "part": "01-04",
       "anchor": "p1-04",
@@ -75,13 +78,32 @@
           "disposition": "exclude",
           "baseline": "missing",
           "scene": "读底层代码、写标志位时会遇到。",
-          "note": "明确不讲，留到阶段七补充阅读"
+          "note": "明确不讲；正文在运算符表处写明“本书不讲”，去向：《C++ Primer Plus》第 6 章「分支语句和逻辑运算符」的位运算符一节，或 cppreference「Bitwise logical operators」。"
         }
-      ]
+      ],
+      "terms": [
+        "整数溢出",
+        "无符号 unsigned",
+        "隐式转换与截断",
+        "字面量后缀",
+        "INT_MAX",
+        "cstdint",
+        "sizeof",
+        "取值范围"
+      ],
+      "theme": {
+        "primary": "语言基础",
+        "tags": [
+          "避坑"
+        ]
+      }
     },
     {
       "id": "kp-02",
       "name": "浮点类型与精度",
+      "summary": "用 float 或 double 存储小数的类型；二进制表示只能近似，所以精度有限，比较时要留容差。",
+      "group": "数据类型与转换",
+      "kind": "语义",
       "stage": 1,
       "part": "01-04",
       "anchor": "p1-04",
@@ -131,11 +153,26 @@
           "scene": "做收银、记账类程序时。",
           "note": "放进 01-04 折叠区"
         }
-      ]
+      ],
+      "terms": [
+        "浮点精度",
+        "cfloat",
+        "隐式转换与截断",
+        "字面量后缀"
+      ],
+      "theme": {
+        "primary": "语言基础",
+        "tags": [
+          "避坑"
+        ]
+      }
     },
     {
       "id": "kp-03",
       "name": "auto 类型推导",
+      "summary": "让编译器根据初始化表达式自动写出变量类型的关键字；默认推导出的是拷贝，不是引用。",
+      "group": "数据类型与转换",
+      "kind": "语法",
       "stage": 1,
       "part": "01-05",
       "anchor": "p1-05",
@@ -185,11 +222,26 @@
           "scene": "想把参数类型也交给编译器推导时。",
           "note": "C++17 不支持；等阶段六讲模板时再解释"
         }
-      ]
+      ],
+      "terms": [
+        "auto",
+        "auto 丢失只读属性",
+        "数组退化",
+        "const 只读"
+      ],
+      "theme": {
+        "primary": "语言基础",
+        "tags": [
+          "避坑"
+        ]
+      }
     },
     {
       "id": "kp-04",
       "name": "作用域与遮蔽",
+      "summary": "变量名能被看见和使用的代码范围；内层同名变量会遮住外层，离开作用域后局部变量失效。",
+      "group": "表达式与语句",
+      "kind": "语义",
       "stage": 1,
       "part": "01-04",
       "anchor": "c-scope",
@@ -217,12 +269,34 @@
           "baseline": "covered",
           "scene": "堆对象明明出了作用域却还活着时。",
           "note": "放进 05-01 折叠区，与对象生命周期一起讲"
+        },
+        {
+          "form": "变量与语句：类型 + 名字 + 分号",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "第一次读 main 里的两行代码",
+          "note": "阶段一 01“读代码前先认识三个词”已讲，本节接作用域"
         }
-      ]
+      ],
+      "terms": [
+        "作用域",
+        "局部变量",
+        "块语句",
+        "作用域与生命周期",
+        "变量",
+        "语句"
+      ],
+      "theme": {
+        "primary": "语言基础",
+        "tags": []
+      }
     },
     {
       "id": "kp-05",
       "name": "表达式与运算符",
+      "summary": "由变量、数字和运算符组成、能算出一个值的式子；运算符的优先级与结合方向决定了先算谁、后算谁。",
+      "group": "表达式与语句",
+      "kind": "语义",
       "stage": 3,
       "part": "03-00",
       "anchor": "p3-00",
@@ -263,13 +337,50 @@
           "disposition": "exclude",
           "baseline": "missing",
           "scene": "读底层代码、写标志位时。",
-          "note": "明确不讲，留到阶段七补充阅读"
+          "note": "明确不讲；正文在运算符表处写明“本书不讲”，去向：《C++ Primer Plus》第 6 章「分支语句和逻辑运算符」的位运算符一节，或 cppreference「Bitwise logical operators」。"
+        },
+        {
+          "form": "三目运算符 ? : 的读法与取值",
+          "disposition": "body",
+          "baseline": "partial",
+          "scene": "读继承示例里的 (credit.spend(300) ? \"成功\" : \"失败\")，或自己要把“二选一”压进一行时。",
+          "note": "阶段三 00 前置基础正文：先给“条件 ? 甲 : 乙”的取值规则，再给初始化 / return / 函数调用三种位置。"
+        },
+        {
+          "form": "与 if / else 的取舍、嵌套写法",
+          "disposition": "body",
+          "baseline": "partial",
+          "scene": "想用一个表达式替代 if，或看到 a ? b : c ? d : e 这种嵌套时。",
+          "note": "阶段三 00 前置基础同处讲：只在“两个分支各自产出一个值”时用三目；分支要执行多条语句就写紧接着 01 讲的 if / else；嵌套超过一层也改 if。"
+        },
+        {
+          "form": "优先级、括号与两分支类型",
+          "disposition": "body",
+          "baseline": "partial",
+          "scene": "把 ?: 和 &&、= 混着写，或两个分支类型不一致（1 : 2.5、std::string 与 const char*）时。",
+          "note": "阶段三 00 前置基础同处讲：?: 低于关系/逻辑、高于赋值，条件一律加括号；两分支要能互相转换，整体取更宽的那个类型。"
         }
-      ]
+      ],
+      "terms": [
+        "优先级",
+        "自增前后缀",
+        "逗号表达式",
+        "位运算",
+        "表达式",
+        "运算符",
+        "三目运算符 ? :"
+      ],
+      "theme": {
+        "primary": "语言基础",
+        "tags": []
+      }
     },
     {
       "id": "kp-06",
       "name": "分支 if / else",
+      "summary": "按条件在两段或多段代码里选一段执行的分支语句；条件为真走 if，否则走 else。",
+      "group": "流程控制",
+      "kind": "语法",
       "stage": 3,
       "part": "03-01",
       "anchor": "p3-01",
@@ -291,11 +402,21 @@
           "scene": "把多个条件拼起来时。",
           "note": "03-00 已覆盖"
         }
-      ]
+      ],
+      "terms": [
+        "分支"
+      ],
+      "theme": {
+        "primary": "语言基础",
+        "tags": []
+      }
     },
     {
       "id": "kp-07",
       "name": "多分支 switch",
+      "summary": "按一个整数、字符或枚举值跳到匹配 case 的分支语句；不写 break 会继续往下执行。",
+      "group": "流程控制",
+      "kind": "语法",
       "stage": 3,
       "part": "03-02",
       "anchor": "p3-02",
@@ -338,11 +459,23 @@
           "scene": "只有两个分支却在写 switch 时。",
           "note": "放进 03-02 折叠区"
         }
-      ]
+      ],
+      "terms": [
+        "switch case 作用域",
+        "switch 贯穿",
+        "多分支"
+      ],
+      "theme": {
+        "primary": "语言基础",
+        "tags": []
+      }
     },
     {
       "id": "kp-08",
       "name": "循环 for / while / do-while",
+      "summary": "让一段代码重复执行的三种语句：for 适合次数已知，while 先判断，do-while 至少执行一次。",
+      "group": "流程控制",
+      "kind": "语法",
       "stage": 3,
       "part": "03-03",
       "anchor": "p3-03",
@@ -392,11 +525,25 @@
           "scene": "出了 for 还想用 i，结果报 not declared。",
           "note": "放进 03-03 折叠区"
         }
-      ]
+      ],
+      "terms": [
+        "基于范围的 for",
+        "循环边界",
+        "循环变量作用域"
+      ],
+      "theme": {
+        "primary": "语言基础",
+        "tags": [
+          "避坑"
+        ]
+      }
     },
     {
       "id": "kp-09",
       "name": "函数：声明、栈帧与返回",
+      "summary": "把一段逻辑打包成可调用的代码单元；调用时参数按值复制，返回后局部变量随栈帧一起销毁。",
+      "group": "函数与参数",
+      "kind": "语义",
       "stage": 3,
       "part": "03-05",
       "anchor": "p3-05",
@@ -438,19 +585,31 @@
           "baseline": "covered",
           "scene": "想返回数组、返回对象本体、写连续赋值时。",
           "note": "放进 03-05 折叠区，强调不能返回局部变量"
-        },
-        {
-          "form": "inline 内联",
-          "disposition": "exclude",
-          "baseline": "missing",
-          "scene": "看到 inline 关键字时。",
-          "note": "明确不讲：是否内联由编译器决定，本教程不展开"
         }
-      ]
+      ],
+      "terms": [
+        "栈帧",
+        "形参",
+        "实参",
+        "数组参数",
+        "返回引用",
+        "递归",
+        "函数",
+        "返回值",
+        "return",
+        "值传递"
+      ],
+      "theme": {
+        "primary": "语言基础",
+        "tags": []
+      }
     },
     {
       "id": "kp-10",
       "name": "数组：初始化、遍历与边界",
+      "summary": "在连续内存里存放同一类型元素的一组变量；用下标访问，长度固定，越界不会自动检查。",
+      "group": "数组与字符串",
+      "kind": "语法",
       "stage": 2,
       "part": "02-02",
       "anchor": "p2-02",
@@ -500,11 +659,22 @@
           "scene": "把数组传进函数后，sizeof 突然失效。",
           "note": "放进 02-02 折叠区"
         }
-      ]
+      ],
+      "terms": [
+        "二维数组",
+        "数组"
+      ],
+      "theme": {
+        "primary": "语言基础",
+        "tags": []
+      }
     },
     {
       "id": "kp-11",
       "name": "字符串：C 风格与 std::string",
+      "summary": "表示文本的两种方式：C 风格字符数组以 \\0 结尾，std::string 自己管理长度并支持拼接查找。",
+      "group": "数组与字符串",
+      "kind": "工具",
       "stage": 2,
       "part": "02-04",
       "anchor": "p2-04",
@@ -560,12 +730,45 @@
           "baseline": "covered",
           "scene": "用 s[s.size() - 1] 取末字符时。",
           "note": "放进 02-04 折叠区"
+        },
+        {
+          "form": "截取、查找与删除一段",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "从邮箱里取用户名、找出 @ 的位置、删掉多余字符时。",
+          "note": "02-04 新增完整示例 string_ops.cpp：substr / find / erase"
+        },
+        {
+          "form": "数字与文本互转",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "把算好的数字拼进一句话，或把读进来的数字文本变回整数时。",
+          "note": "02-04 同一示例补 std::to_string 与 std::stoi"
         }
-      ]
+      ],
+      "terms": [
+        "c_str",
+        "empty 与 back",
+        "substr",
+        "find",
+        "erase",
+        "std::to_string",
+        "std::stoi",
+        "std::string::npos",
+        "strcmp",
+        "字符数组"
+      ],
+      "theme": {
+        "primary": "语言基础",
+        "tags": []
+      }
     },
     {
       "id": "kp-12",
       "name": "指针基础与动态内存",
+      "summary": "存放地址、能按地址读写目标对象的变量；new 申请堆内存，delete 归还，失手会留下悬空指针。",
+      "group": "指针与内存",
+      "kind": "语义",
       "stage": 2,
       "part": "02-05",
       "anchor": "p2-05",
@@ -608,11 +811,30 @@
           "scene": "delete 之后又解引用。",
           "note": "02-07 已覆盖，正文补一句"
         }
-      ]
+      ],
+      "terms": [
+        "nullptr",
+        "悬空指针",
+        "野指针",
+        "指针数组",
+        "指针的指针",
+        "const 与指针",
+        "指针",
+        "十六进制 0x"
+      ],
+      "theme": {
+        "primary": "内存与对象",
+        "tags": [
+          "避坑"
+        ]
+      }
     },
     {
       "id": "kp-13",
       "name": "指针的进阶形态",
+      "summary": "比普通指针更复杂的写法集合：二级指针、数组指针、函数指针和 const 指针。",
+      "group": "指针与内存",
+      "kind": "语法",
       "stage": 2,
       "part": "02-05",
       "anchor": "p2-05",
@@ -650,16 +872,29 @@
         },
         {
           "form": "函数指针",
-          "disposition": "exclude",
+          "disposition": "fold",
           "baseline": "missing",
           "scene": "回调、把函数当参数传时。",
-          "note": "明确不讲，留到阶段七与 Lambda、智能指针一起看"
+          "note": "阶段二 05 折叠区点名并指路；阶段六 02 折叠区 #deep-p6-02 给读法示例，阶段七 03 #p7-03 做三种写法对照；只要求看懂，不要求自己写。"
         }
-      ]
+      ],
+      "terms": [
+        "指针数组",
+        "指针的指针",
+        "const 与指针",
+        "nullptr"
+      ],
+      "theme": {
+        "primary": "内存与对象",
+        "tags": []
+      }
     },
     {
       "id": "kp-14",
       "name": "内存分区与泄漏",
+      "summary": "程序运行时内存的划分方式：栈放局部变量，堆放 new 出来的对象；申请后不 delete 就形成泄漏。",
+      "group": "指针与内存",
+      "kind": "语义",
       "stage": 2,
       "part": "02-00",
       "anchor": "p2-00",
@@ -695,11 +930,28 @@
           "scene": "读 C 风格代码时。",
           "note": "明确不讲：本教程统一用 new/delete"
         }
-      ]
+      ],
+      "terms": [
+        "栈与堆",
+        "生命周期",
+        "全局变量",
+        "new",
+        "delete",
+        "悬空指针"
+      ],
+      "theme": {
+        "primary": "内存与对象",
+        "tags": [
+          "避坑"
+        ]
+      }
     },
     {
       "id": "kp-15",
       "name": "引用",
+      "summary": "给已有变量起的别名，必须初始化且不能改绑；函数用引用参数可以直接修改实参、避免复制。",
+      "group": "指针与内存",
+      "kind": "语法",
       "stage": 4,
       "part": "04-01",
       "anchor": "p4-01",
@@ -734,12 +986,33 @@
           "baseline": "covered",
           "scene": "参数可能“没有”时，该用指针还是引用。",
           "note": "放进 04-01 折叠区"
+        },
+        {
+          "form": "三种参数传递：值 / 地址 / 引用",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "先对照“复制”与“共用”再引出引用",
+          "note": "阶段四 00 前置基础对照表已讲，本节落到引用"
         }
-      ]
+      ],
+      "terms": [
+        "引用（别名）",
+        "引用必须初始化",
+        "const 引用参数",
+        "地址传递",
+        "引用传递"
+      ],
+      "theme": {
+        "primary": "内存与对象",
+        "tags": []
+      }
     },
     {
       "id": "kp-16",
       "name": "函数重载",
+      "summary": "同一作用域里名字相同、参数列表不同的多个函数；编译器按实参个数和类型挑选调用哪个。",
+      "group": "函数与参数",
+      "kind": "语法",
       "stage": 4,
       "part": "04-02",
       "anchor": "p4-02",
@@ -782,11 +1055,22 @@
           "scene": "把 override 当成重载时。",
           "note": "放进 04-02 折叠区"
         }
-      ]
+      ],
+      "terms": [
+        "重载二义",
+        "函数重载"
+      ],
+      "theme": {
+        "primary": "抽象与复用",
+        "tags": []
+      }
     },
     {
       "id": "kp-17",
       "name": "默认参数",
+      "summary": "声明函数时给部分参数预先写好值；调用时省略它们，默认值必须从右往左连续排列。",
+      "group": "函数与参数",
+      "kind": "语法",
       "stage": 4,
       "part": "04-03",
       "anchor": "p4-03",
@@ -823,17 +1107,36 @@
           "note": "04-03 错误示例已覆盖"
         },
         {
+          "form": "inline 修饰",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "函数定义写进头文件、被多个 .cpp 包含时；或想让短小函数在调用处展开时。",
+          "note": "04-03 新增 c-inline 小节：建议非命令、长函数无意义、inline ≠ 一定内联、头文件定义必须 inline；配正反两组多文件示例"
+        },
+        {
           "form": "默认值表达式何时求值",
           "disposition": "exclude",
           "baseline": "missing",
           "scene": "默认值写成函数调用时。",
           "note": "明确不讲：属于编译期细节，本教程不展开"
         }
-      ]
+      ],
+      "terms": [
+        "inline 函数",
+        "宏",
+        "默认参数"
+      ],
+      "theme": {
+        "primary": "抽象与复用",
+        "tags": []
+      }
     },
     {
       "id": "kp-18",
       "name": "类、对象与 static 成员",
+      "summary": "把数据成员和操作它们的函数封装在一起的类型；每个对象有独立数据，static 成员由所有对象共享。",
+      "group": "类与对象",
+      "kind": "语义",
       "stage": 4,
       "part": "04-04",
       "anchor": "p4-04",
@@ -876,11 +1179,32 @@
           "scene": "想知道一个对象占几个字节时。",
           "note": "明确不讲，留到阶段七"
         }
-      ]
+      ],
+      "terms": [
+        "成员",
+        "访问权限",
+        "struct",
+        "static 成员",
+        "this 指针",
+        "类作用域",
+        "const 成员函数",
+        "对象",
+        "封装",
+        "class",
+        "public",
+        "private"
+      ],
+      "theme": {
+        "primary": "内存与对象",
+        "tags": []
+      }
     },
     {
       "id": "kp-19",
       "name": "构造函数与初始化",
+      "summary": "对象创建时自动执行的函数，负责把成员初始化到可用状态；const 和引用成员必须走初始化列表。",
+      "group": "类与对象",
+      "kind": "语法",
       "stage": 4,
       "part": "04-05",
       "anchor": "p4-05",
@@ -925,16 +1249,33 @@
         },
         {
           "form": "委托构造",
-          "disposition": "exclude",
+          "disposition": "fold",
           "baseline": "missing",
           "scene": "多个构造函数重复初始化逻辑时。",
-          "note": "明确不讲，留到阶段六"
+          "note": "放进 04-05 折叠区 #deep-p4-05，给最小写法与适用场景，只要求看懂。"
         }
-      ]
+      ],
+      "terms": [
+        "成员初始化列表",
+        "对象数组",
+        "mutable",
+        "委托构造",
+        "构造函数",
+        "普通成员初始化列表"
+      ],
+      "theme": {
+        "primary": "内存与对象",
+        "tags": [
+          "避坑"
+        ]
+      }
     },
     {
       "id": "kp-20",
       "name": "析构函数与对象生命周期",
+      "summary": "对象销毁时自动执行的函数，用来归还内存、文件、连接等资源；析构顺序与构造顺序相反。",
+      "group": "类与对象",
+      "kind": "语义",
       "stage": 5,
       "part": "05-01",
       "anchor": "p5-01",
@@ -984,11 +1325,23 @@
           "scene": "通过基类指针 delete 派生类对象。",
           "note": "05-05 已覆盖"
         }
-      ]
+      ],
+      "terms": [
+        "生命周期",
+        "资源守卫",
+        "析构函数"
+      ],
+      "theme": {
+        "primary": "内存与对象",
+        "tags": []
+      }
     },
     {
       "id": "kp-21",
       "name": "拷贝构造、赋值与深浅拷贝",
+      "summary": "用一个对象初始化另一个对象、或把已有对象赋给另一个对象时发生的复制；有指针成员时要写深拷贝。",
+      "group": "类与对象",
+      "kind": "语义",
       "stage": 5,
       "part": "05-02",
       "anchor": "p5-02",
@@ -1036,13 +1389,29 @@
           "disposition": "exclude",
           "baseline": "missing",
           "scene": "想把资源直接搬走、避免复制时。",
-          "note": "明确不讲，留到阶段七"
+          "note": "阶段七 05（#p7-05）完整讲解移动构造、移动赋值与 std::move。"
         }
-      ]
+      ],
+      "terms": [
+        "operator=",
+        "资源守卫",
+        "拷贝构造",
+        "浅拷贝",
+        "深拷贝"
+      ],
+      "theme": {
+        "primary": "内存与对象",
+        "tags": [
+          "避坑"
+        ]
+      }
     },
     {
       "id": "kp-22",
       "name": "运算符重载",
+      "summary": "给自定义类型重新定义 +、==、<< 等运算符行为的函数；让对象像内置类型一样参与表达式。",
+      "group": "类与对象",
+      "kind": "语法",
       "stage": 5,
       "part": "05-03",
       "anchor": "p5-03",
@@ -1071,11 +1440,28 @@
           "scene": "a = b = c、cout << a << b。",
           "note": "05-02、05-03 已覆盖"
         }
-      ]
+      ],
+      "terms": [
+        "operator+",
+        "operator<<",
+        "std::ostream",
+        "友元",
+        "转换构造函数",
+        "类型转换运算符",
+        "explicit",
+        "运算符重载"
+      ],
+      "theme": {
+        "primary": "抽象与复用",
+        "tags": []
+      }
     },
     {
       "id": "kp-23",
       "name": "继承与派生",
+      "summary": "在一个已有类的基础上派生新类，复用它的成员并扩展自己的部分；派生类构造时先构造基类。",
+      "group": "继承与多态",
+      "kind": "语法",
       "stage": 5,
       "part": "05-04",
       "anchor": "p5-04",
@@ -1119,17 +1505,44 @@
           "note": "放进 05-04 折叠区"
         },
         {
-          "form": "多继承与虚继承",
+          "form": "多继承",
+          "disposition": "fold",
+          "baseline": "missing",
+          "scene": "一个类要同时具备两种基类能力时。",
+          "note": "放进 05-04 折叠区 #deep-p5-04，给最小写法、构造顺序与取舍；本书示例只用单继承。"
+        },
+        {
+          "form": "虚继承",
           "disposition": "exclude",
           "baseline": "missing",
-          "scene": "菱形继承、多个基类时。",
-          "note": "明确不讲，留到阶段七"
+          "scene": "菱形继承、同一基类被重复继承时。",
+          "note": "明确不讲；正文写明原因，去向：《C++ Primer Plus》第 14 章「C++ 中的代码重用」。"
         }
-      ]
+      ],
+      "terms": [
+        "protected",
+        "继承方式",
+        "同名成员隐藏",
+        "组合",
+        "私有继承",
+        "保护继承",
+        "多继承与虚继承",
+        "继承",
+        "基类",
+        "派生类",
+        "初始化列表调用基类构造"
+      ],
+      "theme": {
+        "primary": "抽象与复用",
+        "tags": []
+      }
     },
     {
       "id": "kp-24",
       "name": "多态与虚函数",
+      "summary": "通过基类指针或引用调用虚函数时，按对象的实际类型选择实现；同一调用在不同派生类表现不同。",
+      "group": "继承与多态",
+      "kind": "语义",
       "stage": 5,
       "part": "05-05",
       "anchor": "p5-05",
@@ -1153,10 +1566,10 @@
         },
         {
           "form": "纯虚函数与抽象类",
-          "disposition": "fold",
+          "disposition": "body",
           "baseline": "covered",
           "scene": "只想定义接口、不想让基类被创建。",
-          "note": "放进 05-05 折叠区"
+          "note": "05-05 正文给完整示例，折叠区保留 =0 片段"
         },
         {
           "form": "对象切片",
@@ -1172,11 +1585,36 @@
           "scene": "想知道“运行时怎么找到正确函数”。",
           "note": "放进 05-05 折叠区，只建立概念"
         }
-      ]
+      ],
+      "terms": [
+        "virtual",
+        "override",
+        "对象切片",
+        "纯虚函数",
+        "final",
+        "抽象类",
+        "RTTI",
+        "typeid",
+        "dynamic_cast",
+        "静态类型",
+        "动态类型",
+        "多态",
+        "虚函数",
+        "向上转型"
+      ],
+      "theme": {
+        "primary": "抽象与复用",
+        "tags": [
+          "避坑"
+        ]
+      }
     },
     {
       "id": "kp-25",
       "name": "函数模板与类型推导",
+      "summary": "把函数参数类型写成模板参数，调用时由编译器按实参推导并生成对应版本的函数。",
+      "group": "模板与泛型",
+      "kind": "语法",
       "stage": 6,
       "part": "06-01",
       "anchor": "p6-01",
@@ -1212,6 +1650,13 @@
           "note": "放进 Part 01 折叠区，给 3 条形态与取舍"
         },
         {
+          "form": "可变参数模板",
+          "disposition": "fold",
+          "baseline": "missing",
+          "scene": "要写“个数不定”的打印、求和、转发函数时。",
+          "note": "放进 Part 01 折叠区第 4 条，示范 typename... Args 与折叠表达式"
+        },
+        {
           "form": "模板定义放错位置",
           "disposition": "body",
           "baseline": "covered",
@@ -1225,11 +1670,30 @@
           "scene": "某一种类型需要完全不同的实现时。",
           "note": "明确不讲，留到后续阅读；正文只说明存在这种写法"
         }
-      ]
+      ],
+      "terms": [
+        "类型推导",
+        "模板参数",
+        "实例化",
+        "可变参数模板",
+        "非类型模板参数",
+        "折叠表达式",
+        "模板",
+        "函数模板",
+        "函数模板声明",
+        "函数模板实例化"
+      ],
+      "theme": {
+        "primary": "抽象与复用",
+        "tags": []
+      }
     },
     {
       "id": "kp-26",
       "name": "类模板与显式实参",
+      "summary": "把类中的某个类型写成模板参数，使用时在尖括号里显式写明具体类型，编译器再生成对应的类。",
+      "group": "模板与泛型",
+      "kind": "语法",
       "stage": 6,
       "part": "06-02",
       "anchor": "p6-02",
@@ -1265,17 +1729,48 @@
           "note": "放进 Part 02 折叠区，讲 template 头要重复写"
         },
         {
+          "form": "成员模板",
+          "disposition": "fold",
+          "baseline": "missing",
+          "scene": "类模板里的某个函数要接收另一种类型时。",
+          "note": "放进 Part 02 折叠区，示范类里再写一行 template"
+        },
+        {
+          "form": "可调用对象 std::function",
+          "disposition": "fold",
+          "baseline": "missing",
+          "scene": "要存函数、Lambda、函数对象，又不想为每种写法改类型时。",
+          "note": "放进 Part 02 折叠区，与函数指针逐项对照，Lambda 指向 #stage-7"
+        },
+        {
           "form": "默认模板实参",
           "disposition": "exclude",
           "baseline": "missing",
           "scene": "不写类型也想用默认类型时。",
           "note": "明确不讲，留到后续阅读"
         }
-      ]
+      ],
+      "terms": [
+        "显式实参",
+        "成员模板",
+        "std::numeric_limits",
+        "函数指针",
+        "类模板",
+        "类模板显式实参",
+        "类模板实例化",
+        "std::function"
+      ],
+      "theme": {
+        "primary": "抽象与复用",
+        "tags": []
+      }
     },
     {
       "id": "kp-27",
       "name": "异常的抛出与捕获",
+      "summary": "函数无法正常返回时，用 throw 抛出一个异常对象，再由外层 try / catch 接住并处理。",
+      "group": "异常与资源管理",
+      "kind": "语法",
       "stage": 6,
       "part": "06-03",
       "anchor": "p6-03",
@@ -1324,11 +1819,33 @@
           "scene": "异常跨过好几层函数向上传时。",
           "note": "正文用调用链说明逐层退出、局部对象被销毁"
         }
-      ]
+      ],
+      "terms": [
+        "抛出",
+        "捕获",
+        "异常对象",
+        "栈展开",
+        "std::runtime_error",
+        "what()",
+        "stdexcept",
+        "try-catch",
+        "异常",
+        "throw 语句",
+        "try-catch 配对"
+      ],
+      "theme": {
+        "primary": "工程化与调试",
+        "tags": [
+          "避坑"
+        ]
+      }
     },
     {
       "id": "kp-28",
       "name": "多 catch 顺序与按引用捕获",
+      "summary": "一个 try 后面可以跟多个 catch，按从上到下顺序匹配；想改异常对象就要按引用捕获。",
+      "group": "异常与资源管理",
+      "kind": "语法",
       "stage": 6,
       "part": "06-04",
       "anchor": "p6-04",
@@ -1377,11 +1894,27 @@
           "scene": "想给异常加自己的类型，或处理一半再交给上层。",
           "note": "放进 Part 04 折叠区，用阶段五的继承与虚函数"
         }
-      ]
+      ],
+      "terms": [
+        "std::exception",
+        "捕获",
+        "异常对象",
+        "noexcept",
+        "catch 按值",
+        "catch 按引用",
+        "catch 全捕获"
+      ],
+      "theme": {
+        "primary": "工程化与调试",
+        "tags": []
+      }
     },
     {
       "id": "kp-29",
       "name": "RAII 与异常路径释放",
+      "summary": "把资源的申请放进构造函数、释放放进析构函数的做法；即使函数中途抛异常，析构也能保证释放。",
+      "group": "异常与资源管理",
+      "kind": "实践",
       "stage": 6,
       "part": "06-05",
       "anchor": "p6-05",
@@ -1424,17 +1957,36 @@
           "note": "放进 Part 05 折叠区，回指阶段五深拷贝"
         },
         {
-          "form": "文件、锁等系统资源",
+          "form": "文件资源交给析构自动关闭",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "写文件后忘记 close，或函数中途 return。",
+          "note": "阶段八 05 #p8-05：流对象离开作用域自动关闭，正文用作用域块演示。"
+        },
+        {
+          "form": "互斥锁等系统资源",
           "disposition": "exclude",
           "baseline": "missing",
-          "scene": "以后写文件、多线程时。",
-          "note": "明确不讲，留到阶段七之后的实践阅读"
+          "scene": "以后写多线程时。",
+          "note": "明确不讲；去向：cppreference「std::mutex / std::lock_guard」与《C++ Primer Plus》第 18 章。"
         }
-      ]
+      ],
+      "terms": [
+        "资源守卫",
+        "异常安全",
+        "RAII"
+      ],
+      "theme": {
+        "primary": "内存与对象",
+        "tags": []
+      }
     },
     {
       "id": "kp-30",
       "name": "模板、异常与 RAII 综合",
+      "summary": "把类模板、异常和 RAII 合在一起的练习：容器能装任意类型，越界抛异常，异常路径仍释放内存。",
+      "group": "模板与泛型",
+      "kind": "实践",
       "stage": 6,
       "part": "06-06",
       "anchor": "p6-06",
@@ -1469,11 +2021,22 @@
           "scene": "at 抛出后，两个对象都要正常释放。",
           "note": "预期输出里能看到两次释放再进 catch"
         }
-      ]
+      ],
+      "terms": [
+        "异常安全",
+        "资源守卫"
+      ],
+      "theme": {
+        "primary": "抽象与复用",
+        "tags": []
+      }
     },
     {
       "id": "kp-31",
       "name": "练习：模板版求最大值与求和",
+      "summary": "用函数模板实现求最大值与求和，让同一份逻辑同时适用于 int、double 等类型的一组练习。",
+      "group": "模板与泛型",
+      "kind": "实践",
       "stage": 6,
       "part": "06-08",
       "anchor": "p6-08",
@@ -1508,11 +2071,21 @@
           "scene": "与页面预期输出逐行对齐。",
           "note": "答案与默认输入一起给出"
         }
-      ]
+      ],
+      "terms": [
+        "T() 零值构造"
+      ],
+      "theme": {
+        "primary": "抽象与复用",
+        "tags": []
+      }
     },
     {
       "id": "kp-32",
       "name": "练习：RAII 资源守卫",
+      "summary": "用一个 Guard 类在构造时接管 new[] 内存、析构时释放，借此验证异常路径也不会泄漏的练习。",
+      "group": "异常与资源管理",
+      "kind": "实践",
       "stage": 6,
       "part": "06-08",
       "anchor": "p6-08",
@@ -1547,11 +2120,21 @@
           "scene": "输入元素个数，决定申请多大的数组。",
           "note": "默认输入 3，输入区常显"
         }
-      ]
+      ],
+      "terms": [
+        "资源守卫"
+      ],
+      "theme": {
+        "primary": "内存与对象",
+        "tags": []
+      }
     },
     {
       "id": "kp-33",
       "name": "ASCII 编码对照表",
+      "summary": "字符与 0～127 整数之间的一一对应表；大小写字母相差 32，数字字符从 48 开始连续排列。",
+      "group": "数据类型与转换",
+      "kind": "工具",
       "stage": 1,
       "part": "01-04",
       "anchor": "p1-04",
@@ -1587,16 +2170,28 @@
           "scene": "看到 '\\n' 的编号是 10、想不通 0～31 为什么打印不出来时。",
           "note": "01-04 新增折叠区，说明控制字符是设备指令"
         }
-      ]
+      ],
+      "terms": [
+        "ASCII",
+        "字符串"
+      ],
+      "theme": {
+        "primary": "语言基础",
+        "tags": []
+      }
     },
     {
       "id": "kp-34",
       "name": "显式类型转换与四种 cast",
+      "summary": "用 static_cast 等四种 cast 明确写出要转成什么类型；比 C 风格圆括号转换更能表明意图。",
+      "group": "数据类型与转换",
+      "kind": "语法",
       "stage": 1,
       "part": "01-04",
       "anchor": "p1-04",
       "scene": "需要明确截断小数、把整数除法变成小数除法、把字符当编号看时。",
       "baseline": "closure",
+      "status": "landed",
       "gap": "改造前 static_cast 零命中，隐式转换之外没有显式写法。",
       "baseline_note": "审计判定为 A（完全遗漏）。",
       "questions": {
@@ -1622,16 +2217,30 @@
         },
         {
           "form": "C 风格圆括号转换",
-          "disposition": "exclude",
+          "disposition": "body",
           "baseline": "missing",
-          "scene": "在老代码里见到 (int)price。",
-          "note": "明确写“能编过但不区分四种转换，新代码统一用 static_cast”"
+          "scene": "在老代码里见到 (int)price，或被 static_cast 拒绝后想改用圆括号硬转 int* → double* 时。",
+          "note": "01-04 正文讲清：圆括号会依次尝试几种转换，static_cast 拒绝时退到 reinterpret_cast 硬来；能编过不代表对，解引用即未定义行为，并贴出 invalid static_cast 的真实报错"
         }
-      ]
+      ],
+      "terms": [
+        "static_cast",
+        "reinterpret_cast",
+        "C 风格转换",
+        "sizeof",
+        "std::size_t"
+      ],
+      "theme": {
+        "primary": "语言基础",
+        "tags": []
+      }
     },
     {
       "id": "kp-35",
       "name": "struct：把数据打包",
+      "summary": "只把几个数据成员捆在一起、默认全部公开的类型；用花括号初始化，用点号访问成员。",
+      "group": "类与对象",
+      "kind": "语法",
       "stage": 4,
       "part": "04-04",
       "anchor": "p4-04",
@@ -1667,16 +2276,29 @@
           "scene": "阶段五读到“struct 和 class 几乎一样”时。",
           "note": "原来那句“不单独展开”改为指向 #c-struct"
         }
-      ]
+      ],
+      "terms": [
+        "struct",
+        "成员",
+        "访问权限"
+      ],
+      "theme": {
+        "primary": "内存与对象",
+        "tags": []
+      }
     },
     {
       "id": "kp-36",
       "name": "std::array 标准数组",
+      "summary": "长度在编译期固定的标准容器；能整体赋值、传参不丢长度，并提供 size() 等接口。",
+      "group": "数组与字符串",
+      "kind": "工具",
       "stage": 2,
       "part": "02-01",
       "anchor": "p2-01",
       "scene": "长度固定，但想要整体赋值、不想在传参时丢掉长度时。",
       "baseline": "closure",
+      "status": "landed",
       "gap": "改造前 std::array 零命中。",
       "baseline_note": "审计判定为 A；落点从“阶段二 07 避坑”调整到 02-01 数组正文，避坑区不塞知识点。",
       "questions": {
@@ -1697,21 +2319,34 @@
           "form": "尖括号里写类型与长度",
           "disposition": "body",
           "baseline": "missing",
-          "scene": "第一次见到 std::array<int, 5> 这种写法。",
-          "note": "就地一句话解释；模板机制明确留到阶段六 Part 02，并在制作标准补例外条款"
+          "scene": "第一次见到 std::array<int, 5> 这种写法，或被编译器的 constant expression 报错拦住时。",
+          "note": "02-01 正文讲清“长度是类型的一部分、必须编译期定下来”，贴出 std::array<int, n> 的真实报错；模板机制留到阶段六 Part 02"
         },
         {
           "form": "长度运行时才确定的场景",
-          "disposition": "exclude",
+          "disposition": "body",
           "baseline": "covered",
           "scene": "先读入 n 再决定数组多大。",
-          "note": "明确写“阶段七会给出另一种容器”，本节不展开"
+          "note": "02-01 正文给出两条替代路径：编译期已知用 std::array，运行时长度用 vector（阶段二 Part 07 会讲），不再写“阶段七再说”"
         }
-      ]
+      ],
+      "terms": [
+        "std::array",
+        "size()",
+        "编译期常量",
+        "array 头文件"
+      ],
+      "theme": {
+        "primary": "语言基础",
+        "tags": []
+      }
     },
     {
       "id": "kp-37",
       "name": "数组与指针传参",
+      "summary": "数组作为函数参数时会退化成指向首元素的指针；函数里拿不到原长度，必须单独传入。",
+      "group": "数组与字符串",
+      "kind": "语义",
       "stage": 3,
       "part": "03-05",
       "anchor": "p3-05",
@@ -1747,16 +2382,30 @@
           "scene": "阶段六写 maxOf / sumOf 模板函数时。",
           "note": "改为已讲的 const T* data + int n，并回查 #c-array-param"
         }
-      ]
+      ],
+      "terms": [
+        "数组参数",
+        "形参",
+        "实参",
+        "数组退化"
+      ],
+      "theme": {
+        "primary": "语言基础",
+        "tags": []
+      }
     },
     {
       "id": "kp-38",
       "name": "基于范围的 for",
+      "summary": "直接遍历容器或数组全部元素的 for 写法；要修改元素时循环变量必须写成引用。",
+      "group": "流程控制",
+      "kind": "语法",
       "stage": 3,
       "part": "03-03",
       "anchor": "p3-03",
       "scene": "只想把数组从头到尾处理一遍，不需要下标时。",
       "baseline": "closure",
+      "status": "landed",
       "gap": "改造前 for (x : arr) 零命中。",
       "baseline_note": "审计判定为 A。",
       "questions": {
@@ -1775,28 +2424,42 @@
         },
         {
           "form": "要改元素得写 int&",
-          "disposition": "fold",
+          "disposition": "body",
           "baseline": "missing",
           "scene": "给每个成绩加 2 分时。",
-          "note": "折叠区给片段并说明副本与别名的区别"
+          "note": "03-03 正文新增 range_for_copy_ref.cpp：同一数组先按副本改（没变），再按引用改（变了），并解释左边变量默认是副本"
         },
         {
           "form": "不提供下标、不能边遍历边改长度",
-          "disposition": "fold",
+          "disposition": "body",
           "baseline": "missing",
           "scene": "需要打印“第几名”，或想动态增删元素时。",
-          "note": "折叠区说明改用下标 for；可变长度容器留到阶段七"
+          "note": "正文补“循环开始时范围已定，中途增删会对不上”，并指向阶段二 Part 07 的可变长度容器；折叠区只留回指"
         }
-      ]
+      ],
+      "terms": [
+        "基于范围的 for",
+        "循环变量作用域",
+        "循环边界",
+        "范围 for 写法"
+      ],
+      "theme": {
+        "primary": "语言基础",
+        "tags": []
+      }
     },
     {
       "id": "kp-39",
       "name": "switch 内变量定义与 case 块",
+      "summary": "switch 的各个 case 共享同一个作用域；在 case 里定义变量要么加花括号，要么提到 switch 之前。",
+      "group": "流程控制",
+      "kind": "语法",
       "stage": 3,
       "part": "03-02",
       "anchor": "p3-02",
       "scene": "想在某个 case 里临时定义一个变量并初始化时。",
       "baseline": "closure",
+      "status": "landed",
       "gap": "改造前零命中。",
       "baseline_note": "审计判定为 A。",
       "questions": {
@@ -1827,11 +2490,24 @@
           "scene": "多个分支要共用同一个变量时。",
           "note": "正文用一句话给出第二种修法与适用条件"
         }
-      ]
+      ],
+      "terms": [
+        "switch case 作用域",
+        "switch 贯穿"
+      ],
+      "theme": {
+        "primary": "语言基础",
+        "tags": [
+          "避坑"
+        ]
+      }
     },
     {
       "id": "kp-40",
       "name": "iostream 族类关系",
+      "summary": "C++ 输入输出的类层次：ios_base 派生出 istream 与 ostream，cin、cout、文件流同源。",
+      "group": "输入输出",
+      "kind": "工具",
       "stage": 1,
       "part": "01-03",
       "anchor": "p1-03",
@@ -1865,18 +2541,42 @@
           "disposition": "exclude",
           "baseline": "covered",
           "scene": "读文件、写文件时。",
-          "note": "图中只标“阶段八”，正文不展开"
+          "note": "阶段八 05 #p8-05 已展开文件流；阶段一关系图仍只标节点，不重复讲解。"
+        },
+        {
+          "form": "std:: 命名空间与 using 声明",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "写 cout 前先解释 std:: 是什么",
+          "note": "阶段一 02“命名空间：给名字加上姓氏”已独立讲解"
         }
-      ]
+      ],
+      "terms": [
+        "ios_base",
+        "std::cin",
+        "getline",
+        "std::string",
+        "cin.get",
+        "命名空间",
+        "输入输出"
+      ],
+      "theme": {
+        "primary": "语言基础",
+        "tags": []
+      }
     },
     {
       "id": "kp-41",
       "name": "std::cin.get() 读字符",
+      "summary": "按字符读取输入、不跳过空格的成员函数；能读到空格和换行本身，常与 getline 对比使用。",
+      "group": "输入输出",
+      "kind": "工具",
       "stage": 1,
       "part": "01-03",
       "anchor": "p1-03",
       "scene": "需要读到空格、换行本身，而不是让 >> 自动跳过它们时。",
       "baseline": "closure",
+      "status": "landed",
       "gap": "改造前只有 clear() + ignore()，没有 get()。",
       "baseline_note": "审计判定为 A。",
       "questions": {
@@ -1907,7 +2607,1154 @@
           "scene": "读取失败后要恢复输入流时。",
           "note": "折叠区一句话指向已讲的 clear() + ignore() 用法"
         }
-      ]
+      ],
+      "terms": [
+        "cin.get",
+        "getline",
+        "std::cin",
+        "ios_base"
+      ],
+      "theme": {
+        "primary": "语言基础",
+        "tags": [
+          "避坑"
+        ]
+      }
+    },
+    {
+      "id": "kp-42",
+      "name": "STL 三层结构",
+      "summary": "标准库的三层分工：容器负责存数据，迭代器负责定位和遍历，算法负责加工数据。",
+      "group": "标准库与算法",
+      "kind": "工具",
+      "stage": 7,
+      "part": "07-00",
+      "anchor": "p7-00",
+      "scene": "第一次用标准库时，先弄清哪些类型负责存数据、哪些负责走数据、哪些负责加工数据。",
+      "baseline": "closure",
+      "status": "landed",
+      "gap": "阶段七 Part 00 新增正文与三层结构图，Part 02 用它解释迭代器与算法的配合。",
+      "forms": [
+        {
+          "form": "容器 / 迭代器 / 算法三层分工",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "看到 vector、sort、begin() 三个名字时，知道它们分别属于哪一层。",
+          "note": "Part 00 正文 + 图示 D1（三层结构）"
+        },
+        {
+          "form": "三层怎么配合工作",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "想把排序、查找交给库函数时，知道要先用 begin()/end() 围出区间。",
+          "note": "Part 00 表格 + Part 02 示例"
+        },
+        {
+          "form": "头文件与命名空间约定",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "写 #include <vector>、#include <algorithm> 时知道名字从哪来。",
+          "note": "Part 00 正文"
+        }
+      ],
+      "terms": [
+        "STL",
+        "容器",
+        "迭代器"
+      ],
+      "theme": {
+        "primary": "标准库",
+        "tags": []
+      }
+    },
+    {
+      "id": "kp-43",
+      "name": "容器选型：vector / list / deque / map / set / unordered_map",
+      "summary": "按主要操作挑容器：按下标读用 vector，中间增删用 list，按键查找用 map 或 unordered_map。",
+      "group": "标准库与算法",
+      "kind": "实践",
+      "stage": 7,
+      "part": "07-01",
+      "anchor": "p7-01",
+      "scene": "同样是存一堆数据，按下标访问、中间插入、按 key 查找的速度会差很多。",
+      "baseline": "closure",
+      "status": "landed",
+      "gap": "阶段七 Part 01 新增两种容器的可运行示例、一张选型表和折叠区细节。",
+      "forms": [
+        {
+          "form": "vector：连续存放、尾部追加快、可按下标访问",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "存成绩、存日志这类主要从头到尾读的数据。",
+          "note": "Part 01 正文 + container_sequence.cpp"
+        },
+        {
+          "form": "list：双向链表、中间插入删除快",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "频繁在中间插入删除、很少按下标跳着访问时。",
+          "note": "Part 01 正文 + container_sequence.cpp"
+        },
+        {
+          "form": "deque：两头进出都快",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "需要同时从头部和尾部增删元素时。",
+          "note": "Part 01 正文 + container_sequence.cpp"
+        },
+        {
+          "form": "map / set：按 key 有序、查找为对数时间",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "需要按 key 查、或需要有序输出时。",
+          "note": "Part 01 正文 + container_associative.cpp"
+        },
+        {
+          "form": "unordered_map：哈希表、平均查找更快但无序",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "只按 key 查、不在意遍历顺序时。",
+          "note": "Part 01 正文 + container_associative.cpp"
+        },
+        {
+          "form": "一张选型表：按主要操作挑容器",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "拿不准该用哪个容器时，先看主要操作是什么。",
+          "note": "Part 01 正文表格"
+        },
+        {
+          "form": "扩容与 rehash 的均摊代价",
+          "disposition": "fold",
+          "baseline": "missing",
+          "scene": "看到 vector 扩容后迭代器失效、unordered_map 元素变多后变慢时。",
+          "note": "Part 01 折叠区 deep-p7-01"
+        },
+        {
+          "form": "std::array / std::stack / std::queue 等其他容器",
+          "disposition": "exclude",
+          "baseline": "missing",
+          "scene": "读到别人的代码用了本教程没讲的容器时。",
+          "note": "明确不讲；去向：查 cppreference「Containers library」，本教程只覆盖最常用的六种。"
+        }
+      ],
+      "terms": [
+        "std::vector",
+        "push_back",
+        "vector::at()",
+        "insert",
+        "std::list",
+        "std::deque",
+        "std::map",
+        "std::set",
+        "std::unordered_map",
+        "pair / first / second"
+      ],
+      "theme": {
+        "primary": "标准库",
+        "tags": [
+          "避坑"
+        ]
+      }
+    },
+    {
+      "id": "kp-44",
+      "name": "迭代器与迭代器失效",
+      "summary": "指向容器元素、像指针一样移动的遍历工具；插入或删除元素后，旧的迭代器可能失效。",
+      "group": "标准库与算法",
+      "kind": "语义",
+      "stage": 7,
+      "part": "07-02",
+      "anchor": "p7-02",
+      "scene": "想用同一段循环走遍 vector 和 list，或在插入删除后继续用原来的位置。",
+      "baseline": "closure",
+      "status": "landed",
+      "gap": "阶段七 Part 02 新增 begin/end 遍历示例、四类迭代器表与失效示例。",
+      "forms": [
+        {
+          "form": "begin() / end() 与区间遍历",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "自己写循环遍历容器时。",
+          "note": "Part 02 正文 + iterator_walk.cpp"
+        },
+        {
+          "form": "四种迭代器类别点到",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "看到算法要求“随机访问迭代器”这类说明时。",
+          "note": "Part 02 正文表格"
+        },
+        {
+          "form": "const_iterator 与 reverse_iterator",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "只读遍历、或需要倒着走一遍时。",
+          "note": "Part 02 正文 + iterator_walk.cpp"
+        },
+        {
+          "form": "迭代器失效：插入删除后旧位置不能用",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "边遍历边 push_back、或 erase 之后继续 ++ 时。",
+          "note": "Part 02 正文示例 + Part 07 避坑 1、2"
+        },
+        {
+          "form": "迭代器失效的底层原因",
+          "disposition": "fold",
+          "baseline": "missing",
+          "scene": "想弄明白为什么 vector 插入会让所有迭代器失效、list 却不会。",
+          "note": "Part 02 折叠区 deep-p7-02"
+        }
+      ],
+      "terms": [
+        "迭代器",
+        "泛型算法"
+      ],
+      "theme": {
+        "primary": "标准库",
+        "tags": [
+          "避坑"
+        ]
+      }
+    },
+    {
+      "id": "kp-45",
+      "name": "泛型算法：sort / find / count / accumulate / for_each",
+      "summary": "对容器区间做排序、查找、计数、求和等操作的模板函数；用迭代器指定范围，不关心容器类型。",
+      "group": "标准库与算法",
+      "kind": "工具",
+      "stage": 7,
+      "part": "07-02",
+      "anchor": "p7-02",
+      "scene": "想排序、查找、计数、求和或对每个元素做同一件事，却不想手写循环。",
+      "baseline": "closure",
+      "status": "landed",
+      "gap": "阶段七 Part 02 新增五个算法的可运行示例与逐个说明表。",
+      "forms": [
+        {
+          "form": "std::sort：排序并可自定义比较规则",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "按分数、按名字排序时。",
+          "note": "Part 02 正文 + algorithm_basics.cpp"
+        },
+        {
+          "form": "std::find：查找并返回迭代器",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "判断某个值在不在、以及在哪时。",
+          "note": "Part 02 正文 + algorithm_basics.cpp"
+        },
+        {
+          "form": "std::count：统计出现次数",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "数某个分数出现了几次时。",
+          "note": "Part 02 正文 + algorithm_basics.cpp"
+        },
+        {
+          "form": "std::accumulate：累加或自定义合并",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "求总分、求乘积时。",
+          "note": "Part 02 正文 + algorithm_basics.cpp"
+        },
+        {
+          "form": "std::for_each：对每个元素调用函数",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "只想对每个元素做一件事、不产生新容器时。",
+          "note": "Part 02 正文 + algorithm_basics.cpp"
+        },
+        {
+          "form": "自定义比较规则与可调用对象",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "默认排序不满足要求时。",
+          "note": "Part 02 正文 + Part 03 对照"
+        },
+        {
+          "form": "_if / _copy 等同族算法",
+          "disposition": "fold",
+          "baseline": "missing",
+          "scene": "需要“满足条件才计数/复制”时。",
+          "note": "Part 02 折叠区 deep-p7-02"
+        }
+      ],
+      "terms": [
+        "泛型算法",
+        "std::sort",
+        "std::find",
+        "std::count",
+        "std::accumulate",
+        "std::for_each"
+      ],
+      "theme": {
+        "primary": "标准库",
+        "tags": []
+      }
+    },
+    {
+      "id": "kp-46",
+      "name": "Lambda 表达式与捕获列表",
+      "summary": "能在表达式里就地定义的匿名函数；用捕获列表把外部变量带进函数体，常作为算法的比较规则。",
+      "group": "标准库与算法",
+      "kind": "语法",
+      "stage": 7,
+      "part": "07-03",
+      "anchor": "p7-03",
+      "scene": "只想给 sort 传一条临时规则，却不想为它单独写一个函数。",
+      "baseline": "closure",
+      "status": "landed",
+      "gap": "阶段七 Part 03 新增两句完整示例、对照表与捕获坑说明。",
+      "forms": [
+        {
+          "form": "Lambda 基本语法",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "把一小段操作用在调用处、只此一次时。",
+          "note": "Part 03 正文 + lambda_capture.cpp"
+        },
+        {
+          "form": "捕获列表：按值、按引用、具体变量",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "Lambda 里要用外部变量时。",
+          "note": "Part 03 正文 + lambda_capture.cpp"
+        },
+        {
+          "form": "mutable 修改按值捕获的副本",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "按值捕获后还想在 Lambda 里改它时。",
+          "note": "Part 03 正文 + lambda_capture.cpp"
+        },
+        {
+          "form": "auto 参数（泛型 Lambda）",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "同一个 Lambda 要接不同类型参数时。",
+          "note": "Part 03 正文 + lambda_capture.cpp"
+        },
+        {
+          "form": "与函数指针、std::function 的对照",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "看到三种写法不知道怎么选时。",
+          "note": "Part 03 正文对照表 + lambda_function_compare.cpp"
+        },
+        {
+          "form": "捕获引用的生命周期坑",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "Lambda 被存起来、晚于被捕获变量执行时。",
+          "note": "Part 03 正文示例 + Part 07 避坑 4"
+        },
+        {
+          "form": "捕获 this / 初始化捕获",
+          "disposition": "fold",
+          "baseline": "missing",
+          "scene": "在类成员函数里写 Lambda、或想移动捕获 unique_ptr 时。",
+          "note": "Part 03 折叠区 deep-p7-03"
+        }
+      ],
+      "terms": [
+        "Lambda",
+        "捕获列表",
+        "Lambda 写法",
+        "捕获列表写法"
+      ],
+      "theme": {
+        "primary": "标准库",
+        "tags": []
+      }
+    },
+    {
+      "id": "kp-47",
+      "name": "unique_ptr 与独占所有权",
+      "summary": "独占一块堆内存所有权的智能指针；不能拷贝，只能转移，离开作用域时自动 delete。",
+      "group": "指针与内存",
+      "kind": "工具",
+      "stage": 7,
+      "part": "07-04",
+      "anchor": "p7-04",
+      "scene": "用 new 创建对象后，函数中途 return 或抛异常，delete 就被跳过了。",
+      "baseline": "closure",
+      "status": "landed",
+      "gap": "阶段七 Part 04 新增 unique_ptr 完整示例与自定义删除器折叠区。",
+      "forms": [
+        {
+          "form": "独占所有权与 make_unique",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "一个堆对象只该有一个负责人时。",
+          "note": "Part 04 正文 + smart_unique.cpp"
+        },
+        {
+          "form": "不能拷贝，只能 std::move 转移",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "想把所有权交给另一个函数或容器时。",
+          "note": "Part 04 正文 + smart_unique.cpp"
+        },
+        {
+          "form": "release 与 reset 的语义差别",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "需要交出去、或需要提前释放时。",
+          "note": "Part 04 正文 + smart_unique.cpp"
+        },
+        {
+          "form": "自定义删除器",
+          "disposition": "fold",
+          "baseline": "missing",
+          "scene": "管理的不是 new 出来的对象，而是文件句柄、数组等资源时。",
+          "note": "Part 04 折叠区 deep-p7-04"
+        }
+      ],
+      "terms": [
+        "智能指针",
+        "所有权",
+        "std::unique_ptr",
+        "std::make_unique",
+        "std::move"
+      ],
+      "theme": {
+        "primary": "标准库",
+        "tags": [
+          "避坑"
+        ]
+      }
+    },
+    {
+      "id": "kp-48",
+      "name": "shared_ptr 与引用计数",
+      "summary": "用引用计数共享堆内存的智能指针；每多一个副本计数加一，最后一个副本销毁时释放。",
+      "group": "指针与内存",
+      "kind": "工具",
+      "stage": 7,
+      "part": "07-04",
+      "anchor": "p7-04",
+      "scene": "多个对象需要共用同一块数据，但说不清谁该最后 delete。",
+      "baseline": "closure",
+      "status": "landed",
+      "gap": "阶段七 Part 04 新增 shared_ptr 完整示例与 unique→shared 转换。",
+      "forms": [
+        {
+          "form": "引用计数机制与 make_shared",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "多个持有者共享一个对象时。",
+          "note": "Part 04 正文 + smart_shared.cpp"
+        },
+        {
+          "form": "拷贝即共享，use_count 可观察",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "想确认当前有几个持有者时。",
+          "note": "Part 04 正文 + smart_shared.cpp"
+        },
+        {
+          "form": "unique_ptr 转 shared_ptr",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "函数先独占创建、再交给多方共享时。",
+          "note": "Part 04 正文 + smart_shared.cpp"
+        },
+        {
+          "form": "控制块与 make_shared 的开销",
+          "disposition": "fold",
+          "baseline": "missing",
+          "scene": "关心 shared_ptr 额外开销、或想用同一裸指针建两个 shared_ptr 时。",
+          "note": "Part 04 折叠区 deep-p7-04"
+        }
+      ],
+      "terms": [
+        "智能指针",
+        "引用计数",
+        "std::shared_ptr",
+        "std::make_shared",
+        "std::unique_ptr"
+      ],
+      "theme": {
+        "primary": "标准库",
+        "tags": []
+      }
+    },
+    {
+      "id": "kp-49",
+      "name": "weak_ptr 与循环引用",
+      "summary": "不增加引用计数、只观察 shared_ptr 的弱指针；用来打破对象之间的循环引用。",
+      "group": "指针与内存",
+      "kind": "工具",
+      "stage": 7,
+      "part": "07-04",
+      "anchor": "p7-04",
+      "scene": "两个对象互相持有，程序结束后析构函数一次都没执行。",
+      "baseline": "closure",
+      "status": "landed",
+      "gap": "阶段七 Part 04 新增“先泄漏再破环”的前后对照示例。",
+      "forms": [
+        {
+          "form": "循环引用导致对象不释放",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "父子、双向关系里两边都用 shared_ptr 时。",
+          "note": "Part 04 正文 + smart_weak.cpp（可观察析构次数）"
+        },
+        {
+          "form": "用 weak_ptr 破环",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "其中一方只需要观察、不该决定对方生死时。",
+          "note": "Part 04 正文 + smart_weak.cpp"
+        },
+        {
+          "form": "lock() 安全升级",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "使用 weak_ptr 前需要确认对象还在时。",
+          "note": "Part 04 正文 + smart_weak.cpp"
+        },
+        {
+          "form": "缓存、观察者等其他弱引用场景",
+          "disposition": "fold",
+          "baseline": "missing",
+          "scene": "实现缓存或观察者模式时。",
+          "note": "Part 04 折叠区 deep-p7-04"
+        }
+      ],
+      "terms": [
+        "循环引用",
+        "std::weak_ptr",
+        "引用计数",
+        "智能指针"
+      ],
+      "theme": {
+        "primary": "标准库",
+        "tags": [
+          "避坑"
+        ]
+      }
+    },
+    {
+      "id": "kp-50",
+      "name": "移动语义与右值引用",
+      "summary": "把资源从临时对象直接转移给新对象的机制；右值引用和 std::move 让移动代替复制。",
+      "group": "指针与内存",
+      "kind": "语义",
+      "stage": 7,
+      "part": "07-05",
+      "anchor": "p7-05",
+      "scene": "把一个已经有数据的对象交给容器或函数，不想再复制一整块内存。",
+      "baseline": "closure",
+      "status": "landed",
+      "gap": "阶段七 Part 05 新增右值引用语法、移动构造/赋值示例与拷贝移动计数对照。",
+      "forms": [
+        {
+          "form": "右值引用 &&",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "看到函数参数写 T&&、或想区分左值右值时。",
+          "note": "Part 05 正文 + 知识依赖清单 syntax 条目"
+        },
+        {
+          "form": "移动构造与移动赋值",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "自己写的类持有堆资源、想支持高效转手时。",
+          "note": "Part 05 正文 + move_counter.cpp"
+        },
+        {
+          "form": "std::move 只是类型转换",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "以为调用 std::move 就已经把数据搬走了时。",
+          "note": "Part 05 正文 + move_counter.cpp"
+        },
+        {
+          "form": "被移动对象“有效但状态未指定”",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "std::move 之后还想读原对象时。",
+          "note": "Part 05 正文 + Part 07 避坑 7"
+        },
+        {
+          "form": "拷贝与移动的性能对照",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "想知道移动到底省了什么时。",
+          "note": "Part 05 正文 + move_counter.cpp"
+        },
+        {
+          "form": "noexcept 与容器扩容",
+          "disposition": "fold",
+          "baseline": "missing",
+          "scene": "自定义类型放进 vector、扩容时想保证走移动而不是拷贝时。",
+          "note": "Part 05 折叠区 deep-p7-05"
+        }
+      ],
+      "terms": [
+        "移动语义",
+        "右值引用",
+        "std::move",
+        "所有权",
+        "右值引用写法"
+      ],
+      "theme": {
+        "primary": "标准库",
+        "tags": [
+          "避坑"
+        ]
+      }
+    },
+    {
+      "id": "kp-51",
+      "name": "RAII 收束：构造申请、析构释放",
+      "summary": "RAII 的核心规则：构造时申请资源，析构时释放；无论正常 return 还是抛异常，资源都跟着对象走。",
+      "group": "异常与资源管理",
+      "kind": "实践",
+      "stage": 7,
+      "part": "07-06",
+      "anchor": "p7-06",
+      "scene": "资源在函数中途 return 或抛异常时没有释放，想把释放绑到对象生命周期上。",
+      "baseline": "closure",
+      "status": "landed",
+      "gap": "阶段七 Part 06 把阶段五的构造析构、阶段六的异常安全与智能指针串成一个完整示例。",
+      "forms": [
+        {
+          "form": "构造申请、析构释放",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "自己封装文件、连接、锁这类资源时。",
+          "note": "Part 06 正文 + raii_guard.cpp"
+        },
+        {
+          "form": "异常路径也自动释放",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "函数中途 throw，担心中间的资源泄漏时。",
+          "note": "Part 06 正文 + raii_guard.cpp"
+        },
+        {
+          "form": "智能指针就是堆内存的 RAII",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "理解 unique_ptr / shared_ptr 为什么不用手写 delete 时。",
+          "note": "Part 06 正文收束"
+        },
+        {
+          "form": "拷贝、移动对 RAII 类的影响",
+          "disposition": "fold",
+          "baseline": "missing",
+          "scene": "RAII 类被拷贝后，同一资源被释放两次时。",
+          "note": "Part 06 折叠区 deep-p7-06"
+        }
+      ],
+      "terms": [
+        "资源守卫",
+        "智能指针",
+        "所有权"
+      ],
+      "theme": {
+        "primary": "内存与对象",
+        "tags": []
+      }
+    },
+    {
+      "id": "kp-52",
+      "name": "可变参数模板（回指阶段六）",
+      "summary": "让函数或类接受任意个数、任意类型参数的模板写法；用参数包和递归展开逐个处理实参。",
+      "group": "模板与泛型",
+      "kind": "语法",
+      "stage": 7,
+      "part": "07-09",
+      "anchor": "p7-09",
+      "scene": "看到 make_unique 这类函数能接任意个参数，想知道背后的写法。",
+      "baseline": "covered",
+      "gap": "阶段六 deep-p6-01 折叠区已讲；阶段七只在 Part 09 回指，不重复展开。",
+      "forms": [
+        {
+          "form": "参数包与递归展开",
+          "disposition": "exclude",
+          "baseline": "missing",
+          "scene": "想自己写一个接任意参数的函数模板时。",
+          "note": "明确不讲（本阶段只回指）；已在阶段六折叠区 deep-p6-01 讲过，回看 #deep-p6-01。"
+        }
+      ],
+      "terms": [
+        "可变参数模板",
+        "折叠表达式",
+        "模板参数"
+      ],
+      "theme": {
+        "primary": "抽象与复用",
+        "tags": []
+      }
+    },
+    {
+      "id": "kp-53",
+      "name": "并发与并行（第 18 章）",
+      "summary": "让多个线程同时执行任务的能力；线程、互斥锁和原子操作把并行工作组织起来并避免数据竞争。",
+      "group": "工程化与文件",
+      "kind": "语义",
+      "stage": 7,
+      "part": "07-09",
+      "anchor": "p7-09",
+      "scene": "想让程序同时做两件事，或听说多线程能提速时。",
+      "baseline": "exclude",
+      "gap": "全书不涉及并发；Part 09 明确说明为什么现在不讲、以后去哪学。",
+      "forms": [
+        {
+          "form": "std::thread 创建线程",
+          "disposition": "exclude",
+          "baseline": "missing",
+          "scene": "想让两段代码同时跑时。",
+          "note": "明确不讲；去向：《C++ Primer Plus》第 18 章、cppreference「std::thread」。"
+        },
+        {
+          "form": "互斥锁 mutex / lock_guard",
+          "disposition": "exclude",
+          "baseline": "missing",
+          "scene": "多个线程要改同一份数据时。",
+          "note": "明确不讲；去向：cppreference「std::mutex / std::lock_guard」、《C++ Primer Plus》第 18 章。"
+        },
+        {
+          "form": "原子操作 std::atomic",
+          "disposition": "exclude",
+          "baseline": "missing",
+          "scene": "只想让一个计数器线程安全时。",
+          "note": "明确不讲；去向：cppreference「std::atomic」、《C++ Concurrency in Action》第 5 章。"
+        },
+        {
+          "form": "并行算法与线程池",
+          "disposition": "exclude",
+          "baseline": "missing",
+          "scene": "数据量很大、想把循环拆给多核时。",
+          "note": "明确不讲；去向：C++17 并行算法文档与《C++ Concurrency in Action》。"
+        }
+      ],
+      "terms": [],
+      "theme": {
+        "primary": "工程化与调试",
+        "tags": []
+      }
+    },
+    {
+      "id": "kp-54",
+      "name": "多文件项目的文件分工",
+      "summary": "把程序拆成入口、头文件声明和多个源文件实现的组织方式；每个 .cpp 加它包含的头文件是一个编译单元。",
+      "group": "工程化与文件",
+      "kind": "实践",
+      "stage": 8,
+      "part": "08-01",
+      "anchor": "p8-01",
+      "baseline": "closure",
+      "status": "landed",
+      "scene": "程序变长，一个 .cpp 塞不下，想拆成一组文件。",
+      "gap": "阶段八 Part 01 用 greet 三文件建立 main / .h / .cpp 的分工。",
+      "questions": {
+        "problem": "所有代码挤在一个文件里，改一处要翻很久",
+        "minimal": "main.cpp 只放入口，.h 放声明，.cpp 放实现",
+        "forms": "三文件拆分；按职责命名；头文件自包含",
+        "errors": "把实现写进头文件；.cpp 之间互相 include"
+      },
+      "forms": [
+        {
+          "form": "main.cpp 只留入口",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "想知道入口文件该写多薄。",
+          "note": "Part 01 的 greet 示例只有调用与打印。"
+        },
+        {
+          "form": "头文件只放声明",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "别人要调用你写的函数时。",
+          "note": "Part 02 逐行拆 greet.h。"
+        },
+        {
+          "form": "源文件放实现",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "函数体应该放哪里。",
+          "note": "Part 01 的 greet.cpp。"
+        },
+        {
+          "form": "编译单元：一个 .cpp 加它包含的头文件",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "解释为什么多个 .cpp 能合成一个程序",
+          "note": "阶段八 00 前置基础已讲"
+        }
+      ],
+      "terms": [
+        "extern 声明",
+        "变量声明与定义",
+        "编译单元"
+      ],
+      "theme": {
+        "primary": "工程化与调试",
+        "tags": []
+      }
+    },
+    {
+      "id": "kp-55",
+      "name": "头文件的声明与定义分离",
+      "summary": "头文件写声明、源文件写定义的分工；用 #pragma once 或 include guard 防止重复包含。",
+      "group": "工程化与文件",
+      "kind": "实践",
+      "stage": 8,
+      "part": "08-02",
+      "anchor": "p8-02",
+      "baseline": "closure",
+      "status": "landed",
+      "scene": "同一个函数被多个 .cpp 调用，不知道声明该写几份。",
+      "gap": "阶段八 Part 02 讲声明可重复、定义只能一份，并给出头文件保护。",
+      "questions": {
+        "problem": "声明和定义分不清，头文件里写了函数体",
+        "minimal": "声明放 .h 可重复，定义放 .cpp 只一份",
+        "forms": "声明与定义；#pragma once；头文件写函数体",
+        "errors": "重复定义；重复包含；头文件写变量定义"
+      },
+      "forms": [
+        {
+          "form": "声明可重复、定义只一份",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "两个 .cpp 都要调用同一个函数。",
+          "note": "Part 02 正文。"
+        },
+        {
+          "form": "#pragma once 防重复包含",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "头文件被两条路径包含。",
+          "note": "Part 02 正文与折叠区。"
+        },
+        {
+          "form": "头文件写变量定义",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "把 int g = 0; 写进 .h。",
+          "note": "Part 03 错误示例 p8-03-dupdef。"
+        },
+        {
+          "form": "#ifndef / #define / #endif 的 include guard 写法",
+          "disposition": "body",
+          "baseline": "covered",
+          "scene": "不用 #pragma once 时怎么自己防重复包含",
+          "note": "阶段八 02 正文与折叠区已讲"
+        }
+      ],
+      "terms": [
+        "条件编译",
+        "变量声明与定义",
+        "extern 声明",
+        "pragma once",
+        "头文件保护",
+        "#ifndef",
+        "#define",
+        "#endif"
+      ],
+      "theme": {
+        "primary": "工程化与调试",
+        "tags": []
+      }
+    },
+    {
+      "id": "kp-56",
+      "name": "extern 跨文件共享全局变量",
+      "summary": "用 extern 声明告诉编译器某个全局变量在别的源文件里定义，从而实现跨文件共享同一份数据。",
+      "group": "工程化与文件",
+      "kind": "语法",
+      "stage": 8,
+      "part": "08-03",
+      "anchor": "p8-03",
+      "baseline": "closure",
+      "status": "landed",
+      "scene": "两个 .cpp 要读写同一个全局变量。",
+      "gap": "阶段八 Part 03 给出“头文件 extern 声明 + 一处定义”的标准写法。",
+      "questions": {
+        "problem": "每个 .cpp 各写一遍定义，变量互不相干",
+        "minimal": "头文件 extern 声明，一个 .cpp 定义",
+        "forms": "extern 声明；一处定义；const 全局量",
+        "errors": "头文件里写定义；两个 .cpp 各定义一次"
+      },
+      "forms": [
+        {
+          "form": "extern 声明",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "别的文件要用这个变量。",
+          "note": "Part 03 正文与 p8-03-shared 示例。"
+        },
+        {
+          "form": "一处定义",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "真正分配存储的地方。",
+          "note": "config.cpp 里 int g_max_score = 100;"
+        },
+        {
+          "form": "const 全局量的内部链接",
+          "disposition": "fold",
+          "baseline": "missing",
+          "scene": "为什么 const 常量不用 extern 也不报重复定义。",
+          "note": "Part 03 折叠区一句话带过。"
+        }
+      ],
+      "terms": [
+        "链接性",
+        "内部链接",
+        "extern 声明"
+      ],
+      "theme": {
+        "primary": "工程化与调试",
+        "tags": []
+      }
+    },
+    {
+      "id": "kp-57",
+      "name": "static 与内部链接",
+      "summary": "用 static 修饰文件作用域的变量或函数，使其只在本文件可见；局部 static 的生命周期则延长到程序结束。",
+      "group": "工程化与文件",
+      "kind": "语义",
+      "stage": 8,
+      "part": "08-03",
+      "anchor": "p8-03",
+      "baseline": "closure",
+      "status": "landed",
+      "scene": "某个变量或函数只想给自己文件用。",
+      "gap": "阶段八 Part 03 用链接性解释 static 的文件作用域效果。",
+      "questions": {
+        "problem": "辅助函数被别的文件重名，或不该暴露给外面",
+        "minimal": "文件作用域加 static，变内部链接",
+        "forms": "static 变量；static 函数；链接性",
+        "errors": "以为 static 是“静态存储”就随便加；在头文件里加 static 造成每个文件一份"
+      },
+      "forms": [
+        {
+          "form": "文件作用域 static",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "只在本文件使用的计数器。",
+          "note": "Part 03 counter.cpp 片段。"
+        },
+        {
+          "form": "内部链接",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "理解 static 到底改了什么。",
+          "note": "Part 03 正文定义链接性。"
+        },
+        {
+          "form": "局部 static 的生命周期",
+          "disposition": "exclude",
+          "baseline": "covered",
+          "scene": "函数里的 static 变量只初始化一次。",
+          "note": "明确不讲；去向：cppreference「storage duration」。"
+        }
+      ],
+      "terms": [
+        "链接性",
+        "内部链接",
+        "生命周期",
+        "文件作用域 static"
+      ],
+      "theme": {
+        "primary": "工程化与调试",
+        "tags": []
+      }
+    },
+    {
+      "id": "kp-58",
+      "name": "编译阶段与链接阶段的两类错误",
+      "summary": "编译错误是单个源文件的语法或类型问题，链接错误是符号找不到或重复定义；两类错误按阶段分开排查。",
+      "group": "工程化与文件",
+      "kind": "实践",
+      "stage": 8,
+      "part": "08-04",
+      "anchor": "p8-04",
+      "baseline": "closure",
+      "status": "landed",
+      "scene": "多文件程序报错，不知道先查哪个文件。",
+      "gap": "阶段八 Part 04 用三种情形对照编译错误与链接错误。",
+      "questions": {
+        "problem": "把所有报错都当成同一种，改错地方",
+        "minimal": "有行号查声明，无行号查定义与链接文件",
+        "forms": "漏声明；漏定义；重复定义；目标文件与符号",
+        "errors": "拿修编译的办法修链接错误；漏传 .cpp"
+      },
+      "forms": [
+        {
+          "form": "编译错误带文件:行:列",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "提示 was not declared。",
+          "note": "Part 04 情形二 p8-04-nodecl。"
+        },
+        {
+          "form": "链接错误 undefined reference",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "声明了但没定义。",
+          "note": "Part 04 情形三 p8-04-nodef。"
+        },
+        {
+          "form": "重复定义 multiple definition",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "同一个符号定义了两份。",
+          "note": "Part 03 错误示例 + Part 07 坑 1/3。"
+        },
+        {
+          "form": "目标文件与符号",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "想知道链接器到底在拼什么。",
+          "note": "Part 04 图示 03 与正文。"
+        }
+      ],
+      "terms": [
+        "链接性"
+      ],
+      "theme": {
+        "primary": "工程化与调试",
+        "tags": [
+          "避坑"
+        ]
+      }
+    },
+    {
+      "id": "kp-59",
+      "name": "文件流顺序读写",
+      "summary": "用 ofstream 和 ifstream 按顺序把数据写入磁盘或从磁盘读出；getline 可以逐行读取文本。",
+      "group": "工程化与文件",
+      "kind": "工具",
+      "stage": 8,
+      "part": "08-05",
+      "anchor": "p8-05",
+      "baseline": "closure",
+      "status": "landed",
+      "scene": "程序结束数据就丢，想存到磁盘下次再用。",
+      "gap": "阶段八 Part 05 讲 ofstream / ifstream / getline / istringstream。",
+      "questions": {
+        "problem": "不知道怎么写文件、怎么按行读回来",
+        "minimal": "ofstream 配 << 写，ifstream 配 getline 读",
+        "forms": "写后读；逐行解析；追加；打开失败",
+        "errors": "读文件不检查 is_open；追加用错模式；依赖上次运行残留"
+      },
+      "forms": [
+        {
+          "form": "ofstream 写文件",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "把结果存下来。",
+          "note": "Part 05 示例一。"
+        },
+        {
+          "form": "ifstream 读文件",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "下次运行读回数据。",
+          "note": "Part 05 示例一。"
+        },
+        {
+          "form": "getline 逐行读",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "一行一条记录。",
+          "note": "Part 05 示例三。"
+        },
+        {
+          "form": "istringstream 拆字段",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "把“名字 分数”拆开。",
+          "note": "Part 05 示例三。"
+        }
+      ],
+      "terms": [
+        "ofstream",
+        "ifstream",
+        "is_open",
+        "逐行读文件",
+        "istringstream",
+        "文件流"
+      ],
+      "theme": {
+        "primary": "工程化与调试",
+        "tags": []
+      }
+    },
+    {
+      "id": "kp-60",
+      "name": "打开模式与失败检查",
+      "summary": "打开文件时指定 trunc 或 app 等模式，并用 is_open 检查是否成功，避免清空文件或静默读到空数据。",
+      "group": "工程化与文件",
+      "kind": "工具",
+      "stage": 8,
+      "part": "08-05",
+      "anchor": "p8-05",
+      "baseline": "closure",
+      "status": "landed",
+      "scene": "文件内容莫名被清空，或程序静默读到空数据。",
+      "gap": "阶段八 Part 05 给出打开模式表与 is_open 检查。",
+      "questions": {
+        "problem": "想追加却把旧数据清空；路径错了却不报错",
+        "minimal": "追加写 ios::app；打开后查 is_open",
+        "forms": "trunc 与 app；is_open；文本与二进制；seek",
+        "errors": "默认模式当追加；不检查打开状态"
+      },
+      "forms": [
+        {
+          "form": "trunc 与 app",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "决定旧内容留不留。",
+          "note": "Part 05 打开模式表 + 示例二。"
+        },
+        {
+          "form": "is_open 失败检查",
+          "disposition": "body",
+          "baseline": "missing",
+          "scene": "路径写错时。",
+          "note": "Part 05 示例四。"
+        },
+        {
+          "form": "文本与二进制",
+          "disposition": "fold",
+          "baseline": "missing",
+          "scene": "什么时候要 ios::binary。",
+          "note": "Part 05 折叠区，明确后续不讲。"
+        },
+        {
+          "form": "seek 随机访问",
+          "disposition": "exclude",
+          "baseline": "missing",
+          "scene": "想直接跳到文件中间。",
+          "note": "明确不讲；去向：cppreference「seekg / seekp」。"
+        }
+      ],
+      "terms": [
+        "ofstream",
+        "ifstream",
+        "is_open",
+        "逐行读文件",
+        "沙箱",
+        "ios::app",
+        "ios::trunc",
+        "打开模式"
+      ],
+      "theme": {
+        "primary": "工程化与调试",
+        "tags": [
+          "避坑"
+        ]
+      }
     }
   ]
 }

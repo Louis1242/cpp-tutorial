@@ -34,6 +34,32 @@ KEYWORDS = {
     'main', 'std', 'cout', 'cin', 'endl', 'nullptr', 'true', 'false', 'this',
 }
 
+# 未登记新词兜底扫描：预处理指令固定集合，另加“加粗短词 / 小节标题前缀”两种候选形态。
+PREPROCESSOR_DIRECTIVES = {
+    '#include', '#define', '#ifndef', '#ifdef', '#endif', '#pragma',
+    '#undef', '#elif', '#else', '#error',
+}
+# 明显是描述性短语、不算术语的常见字眼
+TERM_STOP_WORDS = {
+    '注意', '提示', '原因', '结果', '写法', '做法', '问题', '情况', '时候',
+    '第一次', '第二次', '下一次', '这一次', '上面', '下面', '前面', '后面',
+    '这里', '那里', '本节', '本课', '本教程', '小结', '总结', '练习', '示例',
+}
+# 标题前缀里这些词说明它是“段落名”而不是术语
+TERM_TITLE_STOP = re.compile(
+    '示例|例子|写法|指南|小结|练习|对照|反例|形态|实操|完整|总结|清单|步骤|'
+    '目录|为什么|是什么|怎么|怎样|如何|注意|提示|动手|示范|选型|第.步')
+TERM_BAD_CHARS = set('的是了在把被让给和与或才就都也很更最只还又再能会要没有不'
+                     '个这那个一上下里外前后：:，,。.；;！!？?“”"\'（）()、')
+
+# 标题前缀白名单：这些是正文标题里的自然词组，不是读者会单独查的术语。
+# 能登记成术语的优先登记；只有“同义重复 / 纯动作描述”才进白名单，并且必须写明理由。
+TITLE_PREFIX_WHITELIST = {
+    '数组传进函数': '标题用口语描述“把数组传给函数”这个动作；同一概念的术语「数组参数」'
+                    '已在 kp-37 登记并被正文认领，再登记会造成同义重复',
+}
+
+
 
 class Part:
     def __init__(self, stage, index, title, card, anchor):
@@ -300,6 +326,9 @@ TEMPLATE_SKIP = {
     'switch', 'case', 'else', 'operator', 'typedef', 'sizeof', 'decltype',
     'static_cast', 'reinterpret_cast', 'const_cast', 'dynamic_cast', 'noexcept',
     'alignof', 'throw', 'catch',
+    # std::array 在阶段二 #c-std-array 就已就地解释尖括号写法（登记在知识依赖清单），
+    # 允许它带“运行时变量长度”的反例出现；模板机制本身仍留到阶段六 Part 02。
+    'std::array',
 }
 TEMPLATE_RE = re.compile(
     r'\b([A-Za-z_][\w:]*)\s*<\s*([A-Za-z_][\w:]*(?:\s*,\s*[A-Za-z_][\w:]*)?)\s*>')
@@ -350,6 +379,522 @@ def check_template_syntax(entries, parts, anchor_order, total):
             })
             break
     return problems
+
+
+# ---------- 回指与首现校验（警告级，默认不阻断） ----------
+CN_STAGE = {'一': '1', '二': '2', '三': '3', '四': '4',
+            '五': '5', '六': '6', '七': '7', '八': '8'}
+
+# 人工核过的合法回指：按句子片段匹配，命中即跳过。宁可漏报，不制造大红。
+BACKREF_OK = [
+    '阶段五的析构函数',
+    '阶段五的拷贝构造',
+    '阶段五的动态绑定',
+]
+
+BACKREF_CLAIM_RE = re.compile(
+    r'阶段([一二三四五六七八\d]+)'
+    r'(?:\s*(?:Part|part)\s*(\d{1,2}))?'
+    r'([^。；\n]{0,40}?)'
+    r'(?:已经?|都|也)?(?:讲过|学过|介绍过|说明过|提到过|提过)')
+GENERIC_BACKREF_RE = re.compile(
+    r'(?:前面|上文|前文|之前|上面|前面几节|前面章节)(?:已经?|都|也)?'
+    r'(?:讲过|学过|介绍过|说明过|提到过|提过)')
+MENTION_RE = re.compile(
+    r'以后会讲|后面会讲|后面再讲|以后再讲|后面学|之后会讲|将在阶段|留到阶段|'
+    r'阶段[一二三四五六七八\d]+[^。；\n]{0,12}(?:会讲|再讲|细讲|展开|介绍|讲)|'
+    r'后续阶段|下一阶段|后面细讲')
+
+
+def build_anchor_meta(parts):
+    """每个 id 属于哪个阶段 / Part，用于核对回指声称的位置。"""
+    meta = {}
+    for part in parts:
+        if part.anchor:
+            meta.setdefault(part.anchor, (part.stage, part.index, part.anchor))
+        for tag in part.card.find_all(id=True):
+            meta.setdefault(tag.get('id'), (part.stage, part.index, part.anchor))
+    return meta
+
+
+def part_prose(part):
+    """把一个 Part 的正文（含行内代码与表格）拼成一段，跳过代码块。"""
+    texts = []
+    for node in part.card.descendants:
+        if not isinstance(node, NavigableString):
+            continue
+        parent = node.parent
+        if parent is None:
+            continue
+        if parent.find_parent('pre') or parent.find_parent('script') or parent.find_parent('style'):
+            continue
+        text = str(node).strip()
+        if text:
+            texts.append(text)
+    return ' '.join(texts)
+
+
+def pick_term(text, entries):
+    """在文本里找清单条目，取命中的最长一项，减少“变量”“函数”这类短词误配。"""
+    best = None
+    for entry in entries:
+        try:
+            m = re.search(entry['match'], text)
+        except re.error:
+            continue
+        if not m:
+            continue
+        if best is None or len(m.group(0)) > len(best[0]):
+            best = (m.group(0), entry)
+    return best[1] if best else None
+
+
+def pick_term_first(text, entries):
+    """取文本里最早出现的清单条目：动词后面的第一个词通常就是被提名的对象。"""
+    best = None
+    for entry in entries:
+        try:
+            m = re.search(entry['match'], text)
+        except re.error:
+            continue
+        if not m:
+            continue
+        if best is None or m.start() < best[0]:
+            best = (m.start(), entry)
+    return best[1] if best else None
+
+
+def pick_term_near(text, center, entries, radius=70):
+    """在指名位置附近挑最近的清单条目，避免整段里“数组”这类高频词盖住真正被提名的词。"""
+    lo, hi = max(0, center - radius), center + radius
+    best = None
+    for entry in entries:
+        try:
+            pat = re.compile(entry['match'])
+        except re.error:
+            continue
+        for m in pat.finditer(text):
+            if m.start() < lo or m.end() > hi:
+                continue
+            dist = abs((m.start() + m.end()) / 2.0 - center)
+            if best is None or dist < best[0]:
+                best = (dist, entry)
+    return best[1] if best else None
+
+
+def check_backrefs(entries, parts, anchor_meta):
+    """核对“阶段X讲过 / 前面学过”是否指对位置。只报有清单条目可核对的，宁漏不误。"""
+    warnings = []
+    for part in parts:
+        for sentence in re.split(r'[。；\n]', part_prose(part)):
+            if any(ok in sentence for ok in BACKREF_OK):
+                continue
+            m = BACKREF_CLAIM_RE.search(sentence)
+            if m:
+                claimed = CN_STAGE.get(m.group(1), m.group(1))
+                claimed_part = m.group(2)
+                entry = pick_term(m.group(3), entries)
+                if not entry:
+                    continue
+                target = entry.get('full_def') or entry.get('first_def', '')
+                meta = anchor_meta.get(target)
+                if not meta:
+                    continue
+                actual_stage, actual_part, _ = meta
+                if claimed != actual_stage or (claimed_part and int(claimed_part) != actual_part):
+                    warnings.append({
+                        'term': entry['term'],
+                        'where': location(part, part.anchor),
+                        'claimed': '阶段%s%s' % (claimed, ' Part %s' % claimed_part if claimed_part else ''),
+                        'def': '#' + target + '（阶段%s / %02d）' % (actual_stage, actual_part),
+                        'snippet': sentence.strip()[:70],
+                    })
+                continue
+            g = GENERIC_BACKREF_RE.search(sentence)
+            if not g:
+                continue
+            entry = pick_term(sentence[g.end():g.end() + 30], entries)
+            if not entry:
+                continue
+            target = entry.get('full_def') or entry.get('first_def', '')
+            meta = anchor_meta.get(target)
+            if not meta:
+                continue
+            actual = (int(meta[0]), meta[1])
+            if actual > (int(part.stage), part.index):
+                warnings.append({
+                    'term': entry['term'],
+                    'where': location(part, part.anchor),
+                    'claimed': '前面/上文',
+                    'def': '#' + target + '（阶段%s / %02d）' % (actual[0], actual[1]),
+                    'snippet': sentence.strip()[:70],
+                })
+    return warnings
+
+
+def check_first_occurrence(entries, parts, anchor_order, anchor_meta):
+    """首现早于 first_def 的候选清单：区分合法提名（mention）与假前提（false-premise）。"""
+    candidates = []
+    for entry in entries:
+        first_def = entry.get('first_def', '')
+        if first_def not in anchor_order:
+            continue
+        def_pos = anchor_order[first_def]
+        pattern = re.compile(entry['match'])
+        occ = None
+        for part in parts:
+            for idx, channel, text, near in part.chunks:
+                if idx >= def_pos:
+                    break
+                if pattern.search(text):
+                    occ = (idx, channel, text, near, part)
+                    break
+            if occ:
+                break
+        if not occ:
+            continue
+        _, channel, text, near, part = occ
+        # 用同一 Part 的正文窗口判断有没有“以后讲 / 阶段X会讲”的提名说明
+        prose = part_prose(part)
+        m = pattern.search(prose)
+        if m:
+            context = prose[max(0, m.start() - 60):m.end() + 60]
+        else:
+            context = text
+        covered = any(
+            str(ex.get('stage')) == str(part.stage) and int(ex.get('part', -1)) == part.index
+            for ex in entry.get('exempt', [])
+        )
+        judgement = 'mention' if (MENTION_RE.search(context) or covered) else 'false-premise'
+        candidates.append({
+            'term': entry['term'],
+            'judgement': judgement,
+            'stage': part.stage,
+            'where': location(part, near),
+            'channel': channel,
+            'def': '#' + first_def,
+            'snippet': text[:60].replace('\n', ' '),
+        })
+    return candidates
+
+
+DEAD_MENTION_OK = [
+    # 人工确认“虽然目的地没直接出现该词，但确实讲到了”的提名，整句写进来兜底。
+    # 阶段五 01 讲的是对象销毁，但没出现“生命周期”四个字；这两条前置清单确实是回查那里。
+    '阶段五的析构函数、拷贝构造与继承（回查 对象生命周期',
+    '阶段五的析构函数、拷贝构造与对象生命周期（回查 对象生命周期',
+]
+
+# 只认明确指向未来的措辞；“讲过”不算，避免把回指当提名。
+DEAD_MENTION_RE = re.compile(
+    r'以后会讲|后面会讲|后面再讲|以后再讲|后面学|之后会讲|将在阶段|留到阶段|'
+    r'阶段[一二三四五六七八\d]+[^。；\n]{0,12}(?:会讲|再讲|细讲|展开|介绍|讲(?!过))|'
+    r'后续阶段|下一阶段|后面细讲')
+
+# 带锚点的“回查/回看/回顾”也是一种指向：声称链接那处讲过某个词。
+BACKREF_LINK_RE = re.compile(r'回查|回看|回顾|参见|详见')
+
+# 纯文字指认：“阶段二 Part 07”“阶段二 05 讲”。
+PART_REF_RE = re.compile(
+    r'阶段([一二三四五六七八\d]+)(?:的)?\s*(?:Part|part)\s*(\d{1,2})'
+    r'|阶段([一二三四五六七八\d]+)(?:的)?\s*(\d{1,2})\s*(?:节|讲|部分)')
+
+
+def _text_with_link_spans(block):
+    """按文档顺序拼出块内文字，并记录每个 <a href> 出现前的字符位置。"""
+    pieces, spans, pos = [], [], 0
+    for node in block.descendants:
+        if isinstance(node, Tag) and node.name == 'a' and node.get('href'):
+            spans.append((pos, node))
+        elif isinstance(node, NavigableString):
+            if node.parent is None or node.parent.find_parent('pre'):
+                continue
+            t = str(node).strip()
+            if not t:
+                continue
+            pieces.append(t)
+            pos += len(t) + 1
+    return ' '.join(pieces), spans
+
+
+def check_dead_mentions(entries, parts, anchor_meta, anchor_order, soup):
+    """提名目标校验：正文里“阶段X会讲 / 后面学 / 留到阶段 / 回查 #锚点”这类指向，
+    若目的地 Part 里根本没出现被提名的词，就报 dead-mention。
+    两种指认都认：句中的锚点链接、以及“阶段二 Part 07”这样的纯文字用法。
+    只在能识别出清单条目时报告，宁漏不误；警告级、默认不阻断。"""
+    warnings = []
+    part_by_key = {(str(p.stage), p.index): p for p in parts}
+    part_of_card = {id(p.card): p for p in parts}
+    seen = set()
+
+    def context(block):
+        """找到块所属的 Part；阶段前置说明不在 Part 里，用段落级标签兜底。"""
+        part = None
+        stage = '?'
+        cur = block
+        while cur is not None:
+            if id(cur) in part_of_card:
+                part = part_of_card[id(cur)]
+            sid = cur.get('id') if getattr(cur, 'attrs', None) else None
+            if cur.name == 'section' and sid and sid.startswith('stage-'):
+                stage = sid[len('stage-'):]
+            cur = cur.parent
+        if part is not None:
+            return part, location(part, part.anchor), part.anchor
+        return None, '阶段%s / 前置说明' % stage, 'stage-%s-intro' % stage
+
+    def report(entry, where_label, where_key, target, target_label, snippet):
+        # 以“完整讲解”位置为准：目的地只是顺带提一句（如避坑区一行“改用 vector”）不算讲过。
+        full = entry.get('full_def') or entry.get('first_def', '')
+        full_meta = anchor_meta.get(full)
+        if full_meta is not None:
+            if (str(full_meta[0]), full_meta[1]) == (str(target.stage), target.index):
+                return
+        elif re.search(entry['match'], target.card.get_text(' ', strip=True)):
+            return
+        key = (entry['term'], where_key, target.anchor)
+        if key in seen:
+            return
+        if any(ok in snippet for ok in DEAD_MENTION_OK):
+            return
+        seen.add(key)
+        warnings.append({
+            'term': entry['term'],
+            'where': where_label,
+            'target': '%s（阶段%s / %02d）' % (target_label, target.stage, target.index),
+            'snippet': snippet,
+        })
+
+    if soup is not None:
+        blocks = soup.find_all(['p', 'li', 'td'])
+    else:
+        blocks = [b for p in parts for b in p.card.find_all(['p', 'li', 'td'])]
+
+    for block in blocks:
+        if block.find_parent('pre'):
+            continue
+        _, where_label, where_key = context(block)
+        text, spans = _text_with_link_spans(block)
+
+        # 一、带锚点链接的指认
+        for start, a in spans:
+            href = a.get('href', '')
+            if not href.startswith('#'):
+                continue
+            tid = href[1:]
+            meta = anchor_meta.get(tid)
+            if not meta:
+                continue
+            target = part_by_key.get((str(meta[0]), meta[1]))
+            if target is None:
+                continue
+            # 只取链接所在的分句：向前到最近的句号/分号，向后带出链接文字
+            seg = re.split(r'[。；\n]', text[:start])[-1]
+            head = seg[-120:]
+            window = head + text[start:start + 70]
+            is_forward = DEAD_MENTION_RE.search(window)
+            is_backref = (BACKREF_LINK_RE.search(window)
+                          and re.search(r'阶段[一二三四五六七八\d]', window))
+            if not (is_forward or is_backref):
+                continue
+            # 链接文字往往就是被指认的词，优先用它；否则再看链接前后的最近条目
+            entry = pick_term(a.get_text(' ', strip=True), entries)
+            if entry is None:
+                entry = pick_term_near(window, len(head), entries)
+            if entry is None:
+                continue
+            report(entry, where_label, where_key, target, '#' + tid, window.strip()[:90])
+
+        # 二、纯文字“阶段X Part NN”，没有链接也要核对目的地
+        for m in PART_REF_RE.finditer(text):
+            stage = CN_STAGE.get(m.group(1) or m.group(3), m.group(1) or m.group(3))
+            number = m.group(2) or m.group(4)
+            target = part_by_key.get((str(stage), int(number)))
+            if target is None:
+                continue
+            # 只认紧跟在 Part 指认后面的前向动词（“提过”“讲完”不算）
+            tail = text[m.end():m.end() + 12]
+            if not re.match(r'\s*(?:的)?\s*(?:会讲|再讲|细讲|展开|介绍)', tail):
+                continue
+            # 被提名的 Y 通常跟在动词后面；若动词后直接收括号，说明 Y 在指认之前
+            after = text[m.end():m.end() + 50]
+            rest = re.sub(r'^\s*(?:的)?\s*(?:会讲|再讲|细讲|展开|介绍)', '', after).lstrip()
+            entry = None if rest[:1] in '）)，。；：、' else pick_term_first(after, entries)
+            if entry is None:
+                left = re.split(r'[。；\n]', text[:m.start()])[-1][-50:]
+                entry = pick_term_near(left, len(left), entries, radius=50)
+            if entry is None:
+                continue
+            snippet = re.split(r'[。；\n]', text[:m.start()])[-1] + text[m.start():m.end()] + after
+            report(entry, where_label, where_key, target,
+                   '阶段%s Part %s 的文字指认' % (stage, number), snippet.strip()[:90])
+    return warnings
+
+
+# ---------- 解释滞后校验（警告级，默认不阻断） ----------
+# 同一个错误出现过两回：术语第一次用在代码里，解释却攒到后一个 Part。
+# 口径：解释性文字（名字后紧跟“：/是/表示/读作”等提示）必须落在首次出现的
+# 同一 Part 或紧邻的下一个 Part；跨度更大就提示，让人工确认是补解释还是改回指。
+LAG_CUE = re.compile(r'[：:]|是|表示|读作|指的是|意思是|一句话')
+LAG_WINDOW = 24
+LAG_MAX_PART_GAP = 1
+
+# 人工核过的合法滞后：写成 (term, 首次所在阶段, 首次所在 Part 序号)。
+LAG_OK = [
+    # 例：('某个词', '3', 2)
+]
+
+
+def term_label(term):
+    """从清单条目名里取出可读名字：优先第一段连续中文，取不到就退回空格前片段。"""
+    m = re.search(r'[\u4e00-\u9fff]{2,}', term)
+    if m:
+        return m.group(0)
+    return term.split(' ')[0]
+
+
+def _part_gap(part_a, part_b):
+    """两个 Part 的跨度：同阶段按序号差，跨阶段放大，避免把“邻 Part”判成合规。"""
+    if str(part_a.stage) != str(part_b.stage):
+        return abs(int(part_a.stage) - int(part_b.stage)) * 10
+    return part_b.index - part_a.index
+
+
+def check_explanation_lag(entries, parts):
+    """首次出现在代码里、解释性文字却落在更后面的 Part，给警告。
+    只在能从条目名里取到可读名字时检查，宁漏不误。"""
+    warnings = []
+    for entry in entries:
+        if entry.get('type') != 'syntax':
+            continue
+        try:
+            pattern = re.compile(entry['match'])
+        except re.error:
+            continue
+        label = term_label(entry['term'])
+        if len(label) < 2:
+            continue
+        first = None
+        for part in parts:
+            for idx, channel, text, near in part.chunks:
+                m = pattern.search(text)
+                if m:
+                    first = (part, idx, channel, text, near, m.start())
+                    break
+            if first:
+                break
+        if first is None or first[2] != 'code':
+            continue
+        part0 = first[0]
+        explain = None
+        for part in parts:
+            for idx, channel, text, near in part.chunks:
+                if idx < first[1]:
+                    continue
+                # 同一块里也要允许：解释常常就写在首次出现的那一行注释里
+                pos = text.find(label)
+                if pos < 0:
+                    continue
+                tail = text[pos + len(label): pos + len(label) + LAG_WINDOW]
+                if LAG_CUE.search(tail):
+                    explain = (part, idx, channel, text, near, pos)
+                    break
+            if explain:
+                break
+        if explain is None:
+            continue
+        if (entry['term'], str(part0.stage), part0.index) in LAG_OK:
+            continue
+        if _part_gap(part0, explain[0]) <= LAG_MAX_PART_GAP:
+            continue
+        warnings.append({
+            'term': entry['term'],
+            'where': location(part0, first[4]),
+            'explain': location(explain[0], explain[4]),
+            'snippet': explain[3][max(0, explain[5] - 20): explain[5] + 50].replace('\n', ' '),
+        })
+    return warnings
+
+
+# ---------- 悬空承诺校验（警告级，默认不阻断） ----------
+# “留到阶段七的补充阅读 / 后面会讲 / 后续章节 / 暂不展开”这类推迟说法，
+# 必须同时给出能落地的去向，否则读者按这句话去找会扑空。
+DANGLING_RE = re.compile(
+    r'留到(?:阶段|后面|后续|第)|留在(?:阶段|后面|后续)|放到(?:阶段|后面)|'
+    r'后续(?:会|再|才|将)(?:讲|细讲|展开|介绍|学|补充)|'
+    r'(?:后面|以后|之后|下一阶段)(?:会|再|才|将)(?:讲|细讲|展开|介绍|学|补充)|'
+    r'后续章节|后续阶段|暂不展开|这里不深究|不再展开')
+DANGLING_PART_RE = re.compile(
+    r'阶段([一二三四五六七八\d]+)(?:的)?\s*(?:Part|part|部分)?\s*(\d{1,2})(?!\d)')
+DANGLING_EXIT_RE = re.compile(r'想深入|可看|参见|查阅|再查|自行|参考')
+
+
+def check_dangling_promises(parts, soup):
+    """扫“留到后面再讲”类承诺，判断有没有真实锚点或明确的免责去向。
+
+    一句里出现推迟说法时，只有满足下面任一条才算有去向：
+    1) 句内有 href="#..."，且该 id 真实存在；
+    2) 句内有「阶段X Part NN / 阶段X NN」，且该 Part 真实存在；
+    3) 句内有查阅类动词（想深入可看 / 查阅 / 再查 / 参考），即明确的免责去向。
+    否则报警告（警告级，不阻断退出码）。
+    """
+    all_ids = {tag.get('id') for tag in soup.find_all(id=True)}
+    part_by_key = {(str(p.stage), p.index): p for p in parts}
+    part_of_card = {id(p.card): p for p in parts}
+    warnings = []
+    seen = set()
+    for block in soup.find_all(['p', 'li', 'td', 'div']):
+        if block.find_parent('pre'):
+            continue
+        # div 只取“叶子块”（阶段导学这类只有文字和内联标签的容器），
+        # 避免把整张卡片的所有文字拼成一段，重复报同一句。
+        if block.name == 'div' and block.find(['p', 'li', 'td', 'div']):
+            continue
+        part = None
+        stage = '?'
+        cur = block
+        while cur is not None:
+            if id(cur) in part_of_card:
+                part = part_of_card[id(cur)]
+            sid = cur.get('id') if getattr(cur, 'attrs', None) else None
+            if cur.name == 'section' and sid and sid.startswith('stage-'):
+                stage = sid[len('stage-'):]
+            cur = cur.parent
+        where = location(part, part.anchor) if part else '阶段%s / 前置说明' % stage
+        text, spans = _text_with_link_spans(block)
+        if not DANGLING_RE.search(text):
+            continue
+        for sm in re.finditer(r'[^。；\n]+', text):
+            seg = sm.group(0)
+            m = DANGLING_RE.search(seg)
+            if not m:
+                continue
+            ok = False
+            for pos, a in spans:
+                href = a.get('href', '')
+                if sm.start() <= pos < sm.end() and href.startswith('#') and href[1:] in all_ids:
+                    ok = True
+                    break
+            if not ok:
+                pm = DANGLING_PART_RE.search(seg)
+                if pm:
+                    st = CN_STAGE.get(pm.group(1), pm.group(1))
+                    if (str(st), int(pm.group(2))) in part_by_key:
+                        ok = True
+            if not ok and DANGLING_EXIT_RE.search(seg):
+                ok = True
+            if ok:
+                continue
+            key = (where, seg.strip()[:50])
+            if key in seen:
+                continue
+            seen.add(key)
+            warnings.append({
+                'where': where,
+                'promise': m.group(0),
+                'snippet': seg.strip()[:90],
+            })
+    return warnings
 
 
 def check_manifest_anchors(entries, anchor_order):
@@ -460,15 +1005,101 @@ def sync_glossary(page, entries):
     return head + start + body + end + tail, count
 
 
+def _directive_registered(word, entries):
+    """预处理指令是否登记过：#pragma 可由 term “pragma once” 覆盖。"""
+    token = word.lower().lstrip('#')
+    for entry in entries:
+        hay = (entry.get('term', '') + ' ' + entry.get('match', '')).lower()
+        if token in hay:
+            return True
+    return False
+
+
+def _term_registered(term, entries):
+    """术语是否登记过：候选词出现在任一条目的 term / match 里就算已登记。
+
+    用包含而不是精确相等，是为了让“static”能命中“static 成员”、
+    “unique_ptr”能命中“std::unique_ptr”，避免把已讲过的词当成漏登。
+    """
+    token = term.strip().lower()
+    if not token:
+        return True
+    for entry in entries:
+        if token in entry.get('term', '').strip().lower():
+            return True
+        if token in entry.get('match', '').strip().lower():
+            return True
+    return False
+
+
+def scan_unregistered_terms(entries, parts, page_text):
+    """兜底扫描：页面里明显是术语、却没登记进清单的新词。
+
+    只做警告，不改退出码。候选形态两类：
+    1) 预处理指令（#include / #define / #ifndef ...）；
+    2) 小节标题冒号前的前缀（“链接性：extern 声明...”这一类，排除“示例/写法”等段落名）。
+
+    这两类都不依赖人工记得“这次新增了哪个词”。
+    """
+    warnings = []
+    seen = set()
+
+    def add(term, kind, part, anchor, snippet):
+        key = (term, kind, part.stage, part.index, anchor)
+        if key in seen:
+            return
+        seen.add(key)
+        warnings.append({
+            'term': term, 'kind': kind,
+            'where': location(part, anchor),
+            'snippet': snippet[:70].replace('\n', ' '),
+        })
+
+    for part in parts:
+        for idx, channel, text, near in part.chunks:
+            for m in re.finditer(r'#[A-Za-z_]+', text):
+                word = m.group(0)
+                if word not in PREPROCESSOR_DIRECTIVES:
+                    continue
+                if _directive_registered(word, entries):
+                    continue
+                add(word, '预处理指令', part, near, text)
+
+        for el in part.card.find_all(['h3', 'h4']):
+            text = el.get_text(' ', strip=True)
+            if '：' not in text:
+                continue
+            prefix = text.split('：', 1)[0].strip()
+            if not (2 <= len(prefix) <= 10):
+                continue
+            if prefix in TERM_STOP_WORDS or TERM_TITLE_STOP.search(prefix):
+                continue
+            if any(ch in TERM_BAD_CHARS for ch in prefix):
+                continue
+            if _term_registered(prefix, entries):
+                continue
+            if prefix in TITLE_PREFIX_WHITELIST:
+                continue
+            if page_text.count(prefix) < 2:
+                continue
+            add(prefix, '标题前缀', part, el.get('id') or part.anchor, prefix)
+
+    return warnings
+
+
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument('--index', default=INDEX,
+                    help='要检查的页面文件；默认 index.html，可指向旧快照做对比')
+    ap.add_argument('--manifest', default=MANIFEST,
+                    help='要使用的知识依赖清单；默认 知识依赖清单.json，可指向旧清单做对比')
     ap.add_argument('--sync-glossary', action='store_true')
     ap.add_argument('--sync-md', action='store_true')
     ap.add_argument('--verbose', action='store_true')
     args = ap.parse_args()
 
-    page = open(INDEX, encoding='utf-8').read()
-    manifest = json.load(open(MANIFEST, encoding='utf-8'))
+    page = open(args.index, encoding='utf-8').read()
+    manifest = json.load(open(args.manifest, encoding='utf-8'))
     entries = manifest['entries']
 
     soup = BeautifulSoup(page, 'lxml')
@@ -480,6 +1111,14 @@ def main():
     table_problems = check_tables(parts, args.verbose)
     code_problems = check_code(parts, args.verbose)
     template_problems = check_template_syntax(entries, parts, anchor_order, total)
+    anchor_meta = build_anchor_meta(parts)
+    backref_warnings = check_backrefs(entries, parts, anchor_meta)
+    first_candidates = check_first_occurrence(entries, parts, anchor_order, anchor_meta)
+    dead_warnings = check_dead_mentions(entries, parts, anchor_meta, anchor_order, soup)
+    lag_warnings = check_explanation_lag(entries, parts)
+    dangling_warnings = check_dangling_promises(parts, soup)
+    page_text = soup.get_text(' ', strip=True)
+    unregistered = scan_unregistered_terms(entries, parts, page_text)
     all_problems = (anchor_problems + term_problems + table_problems
                     + code_problems + template_problems)
 
@@ -498,6 +1137,75 @@ def main():
     print('违规 %d 项（锚点缺失 %d / 先用后讲 %d / 表格 %d / 代码 %d / 模板 %d），豁免 %d 项' % (
         len(all_problems), len(anchor_problems), len(term_problems),
         len(table_problems), len(code_problems), len(template_problems), len(exemptions)))
+
+    # 回指校验：警告级，默认不阻断退出码
+    print('---')
+    print('回指提示 %d 项（警告级，不阻断）' % len(backref_warnings))
+    for w in backref_warnings:
+        print('[提示] 回指指错：%s' % w['term'])
+        print('    出现：%s' % w['where'])
+        print('    声称：%s；实际讲解：%s' % (w['claimed'], w['def']))
+        print('    片段：%s' % w['snippet'])
+        print('    建议：核对这句回指；确属合法回指就把整句加入 BACKREF_OK')
+
+    # 首现位置校验：候选清单，区分合法提名与假前提
+    mention_n = sum(1 for c in first_candidates if c['judgement'] == 'mention')
+    false_n = len(first_candidates) - mention_n
+    print('---')
+    print('首现候选 %d 条（mention %d / false-premise %d，不阻断）' % (
+        len(first_candidates), mention_n, false_n))
+    by_stage = {}
+    for c in first_candidates:
+        if c['judgement'] == 'false-premise':
+            by_stage[c['stage']] = by_stage.get(c['stage'], 0) + 1
+    if by_stage:
+        print('false-premise 分布：%s' % '、'.join(
+            '阶段%s %d 条' % (k, by_stage[k]) for k in sorted(by_stage, key=lambda x: int(x))))
+    for c in first_candidates:
+        if c['judgement'] == 'mention' and not args.verbose:
+            continue
+        print('[候选-%s] %s' % (c['judgement'], c['term']))
+        print('    实际首现：%s（%s）' % (c['where'], c['channel']))
+        print('    登记位置：%s' % c['def'])
+        print('    片段：%s' % c['snippet'])
+
+    # 提名目标校验：警告级，默认不阻断退出码
+    print('---')
+    print('提名目标提示 %d 项（dead-mention，警告级，不阻断）' % len(dead_warnings))
+    for w in dead_warnings:
+        print('[提示] dead-mention：%s' % w['term'])
+        print('    出现：%s' % w['where'])
+        print('    指向：%s，但该 Part 里找不到这个词' % w['target'])
+        print('    片段：%s' % w['snippet'])
+        print('    建议：改指真正讲解该词的位置；确属合法提名就写进 DEAD_MENTION_OK')
+
+    # 解释滞后校验：警告级，默认不阻断退出码
+    print('---')
+    print('解释滞后提示 %d 项（警告级，不阻断）' % len(lag_warnings))
+    for w in lag_warnings:
+        print('[提示] 解释滞后：%s' % w['term'])
+        print('    首次出现：%s' % w['where'])
+        print('    解释位置：%s' % w['explain'])
+        print('    片段：%s' % w['snippet'])
+        print('    建议：把解释移到首次出现的那一段（或紧邻的一段）；确属合法就写进 LAG_OK')
+
+    # 悬空承诺校验：警告级，默认不阻断退出码
+    print('---')
+    print('悬空承诺提示 %d 项（警告级，不阻断）' % len(dangling_warnings))
+    for w in dangling_warnings:
+        print('[提示] 悬空承诺：%s' % w['promise'])
+        print('    位置：%s' % w['where'])
+        print('    片段：%s' % w['snippet'])
+        print('    建议：补可点击锚点或明确的「阶段X Part NN」，或改写成“本书不讲，因为……，想深入可看 X”')
+
+    # 未登记新词兜底扫描：警告级，默认不阻断退出码
+    print('---')
+    print('未登记新词提示 %d 项（警告级，不阻断）' % len(unregistered))
+    for w in unregistered:
+        print('[提示] 未登记新词：%s（%s）' % (w['term'], w['kind']))
+        print('    位置：%s' % w['where'])
+        print('    片段：%s' % w['snippet'])
+        print('    建议：确认它是不是术语；是的话登记进 知识依赖清单.json，first_def 不得晚于首次使用')
 
     if args.sync_glossary:
         page2, count = sync_glossary(page, entries)

@@ -1,0 +1,426 @@
+{
+  "_note": "2026-11-06 收尾批：84 条存量孤儿术语的 A/B/C 分档；A 档已挂知识点，B/C 仍留术语表。tier 与 reason 供基线与人工复核追溯。",
+  "_generated": "2026-11-06",
+  "terms": {
+    "变量": {
+      "tier": "A",
+      "kp": "kp-04",
+      "reason": "阶段一 01 已正式讲“三个词”；最近的知识点是作用域与遮蔽，补一条“变量与语句”正文形态"
+    },
+    "语句": {
+      "tier": "A",
+      "kp": "kp-04",
+      "reason": "与变量同属“读代码前先认识三个词”，kp-04 补同一条正文形态"
+    },
+    "表达式": {
+      "tier": "A",
+      "kp": "kp-05",
+      "reason": "kp-05 本名即“表达式与运算符”，现有形态已覆盖"
+    },
+    "运算符": {
+      "tier": "A",
+      "kp": "kp-05",
+      "reason": "kp-05 的自增、逗号、三目等形态已覆盖"
+    },
+    "函数": {
+      "tier": "A",
+      "kp": "kp-09",
+      "reason": "kp-09 即“函数：声明、栈帧与返回”，形态已覆盖"
+    },
+    "返回值": {
+      "tier": "A",
+      "kp": "kp-09",
+      "reason": "kp-09 的声明/定义/调用与返回形态已覆盖"
+    },
+    "return": {
+      "tier": "A",
+      "kp": "kp-09",
+      "reason": "与返回值同属 kp-09 的返回形态"
+    },
+    "命名空间": {
+      "tier": "A",
+      "kp": "kp-40",
+      "reason": "阶段一 02 有独立 Part 正式讲解；kp-40 补一条“std:: 命名空间”正文形态"
+    },
+    "指针": {
+      "tier": "A",
+      "kp": "kp-12",
+      "reason": "kp-12 指针基础与动态内存，形态已覆盖"
+    },
+    "数组": {
+      "tier": "A",
+      "kp": "kp-10",
+      "reason": "kp-10 数组声明、初始化与长度，形态已覆盖"
+    },
+    "值传递": {
+      "tier": "A",
+      "kp": "kp-09",
+      "reason": "kp-09 形态“值传递与栈帧”已覆盖"
+    },
+    "地址传递": {
+      "tier": "A",
+      "kp": "kp-15",
+      "reason": "阶段四 00 前置基础已讲过三种传参；kp-15 补一条“三种参数传递”正文形态"
+    },
+    "引用传递": {
+      "tier": "A",
+      "kp": "kp-15",
+      "reason": "与地址传递同一条“三种参数传递”正文形态"
+    },
+    "对象": {
+      "tier": "A",
+      "kp": "kp-18",
+      "reason": "kp-18 类、对象与 static 成员，形态已覆盖"
+    },
+    "构造函数": {
+      "tier": "A",
+      "kp": "kp-19",
+      "reason": "kp-19 默认构造与带参构造，形态已覆盖"
+    },
+    "封装": {
+      "tier": "A",
+      "kp": "kp-18",
+      "reason": "kp-18 public / private 访问权限形态已覆盖"
+    },
+    "函数重载": {
+      "tier": "A",
+      "kp": "kp-16",
+      "reason": "kp-16 重载决议与歧义，形态已覆盖"
+    },
+    "默认参数": {
+      "tier": "A",
+      "kp": "kp-17",
+      "reason": "kp-17 默认参数从右往左，形态已覆盖"
+    },
+    "析构函数": {
+      "tier": "A",
+      "kp": "kp-20",
+      "reason": "kp-20 析构时机与生命周期，形态已覆盖"
+    },
+    "拷贝构造": {
+      "tier": "A",
+      "kp": "kp-21",
+      "reason": "kp-21 默认逐成员拷贝，形态已覆盖"
+    },
+    "浅拷贝": {
+      "tier": "A",
+      "kp": "kp-21",
+      "reason": "kp-21 浅拷贝的坑，形态已覆盖"
+    },
+    "深拷贝": {
+      "tier": "A",
+      "kp": "kp-21",
+      "reason": "kp-21 深拷贝与 operator=，形态已覆盖"
+    },
+    "运算符重载": {
+      "tier": "A",
+      "kp": "kp-22",
+      "reason": "kp-22 operator+ / operator<<，形态已覆盖"
+    },
+    "继承": {
+      "tier": "A",
+      "kp": "kp-23",
+      "reason": "kp-23 public 继承，形态已覆盖"
+    },
+    "基类": {
+      "tier": "A",
+      "kp": "kp-23",
+      "reason": "kp-23 基类 / 派生类关系，形态已覆盖"
+    },
+    "派生类": {
+      "tier": "A",
+      "kp": "kp-23",
+      "reason": "kp-23 基类 / 派生类关系，形态已覆盖"
+    },
+    "多态": {
+      "tier": "A",
+      "kp": "kp-24",
+      "reason": "kp-24 virtual / override，形态已覆盖"
+    },
+    "虚函数": {
+      "tier": "A",
+      "kp": "kp-24",
+      "reason": "kp-24 virtual / override，形态已覆盖"
+    },
+    "模板": {
+      "tier": "A",
+      "kp": "kp-25",
+      "reason": "kp-25 函数模板声明与调用，形态已覆盖"
+    },
+    "try-catch": {
+      "tier": "A",
+      "kp": "kp-27",
+      "reason": "kp-27 try / catch 配对，形态已覆盖"
+    },
+    "RAII": {
+      "tier": "A",
+      "kp": "kp-29",
+      "reason": "kp-29 构造申请、析构释放，形态已覆盖"
+    },
+    "class": {
+      "tier": "A",
+      "kp": "kp-18",
+      "reason": "kp-18 struct 与 class 的差别，形态已覆盖"
+    },
+    "public": {
+      "tier": "A",
+      "kp": "kp-18",
+      "reason": "kp-18 public / private 访问权限，形态已覆盖"
+    },
+    "private": {
+      "tier": "A",
+      "kp": "kp-18",
+      "reason": "kp-18 public / private 访问权限，形态已覆盖"
+    },
+    "strcmp": {
+      "tier": "A",
+      "kp": "kp-11",
+      "reason": "kp-11 形态“比较：== 与 strcmp”已覆盖"
+    },
+    "初始化列表调用基类构造": {
+      "tier": "A",
+      "kp": "kp-23",
+      "reason": "kp-23 构造 / 析构顺序，形态已覆盖"
+    },
+    "普通成员初始化列表": {
+      "tier": "A",
+      "kp": "kp-19",
+      "reason": "kp-19 形态“成员初始化列表”已覆盖"
+    },
+    "范围 for 写法": {
+      "tier": "A",
+      "kp": "kp-38",
+      "reason": "kp-38 基于范围的 for，形态已覆盖"
+    },
+    "函数模板": {
+      "tier": "A",
+      "kp": "kp-25",
+      "reason": "kp-25 函数模板声明与调用，形态已覆盖"
+    },
+    "类模板": {
+      "tier": "A",
+      "kp": "kp-26",
+      "reason": "kp-26 类模板与显式实参，形态已覆盖"
+    },
+    "异常": {
+      "tier": "A",
+      "kp": "kp-27",
+      "reason": "kp-27 throw 抛出异常，形态已覆盖"
+    },
+    "noexcept": {
+      "tier": "A",
+      "kp": "kp-28",
+      "reason": "kp-28 noexcept，形态已覆盖"
+    },
+    "函数模板声明": {
+      "tier": "A",
+      "kp": "kp-25",
+      "reason": "kp-25 声明与调用，形态已覆盖"
+    },
+    "类模板显式实参": {
+      "tier": "A",
+      "kp": "kp-26",
+      "reason": "kp-26 显式实参，形态已覆盖"
+    },
+    "类模板实例化": {
+      "tier": "A",
+      "kp": "kp-26",
+      "reason": "kp-26 显式实参，形态已覆盖"
+    },
+    "函数模板实例化": {
+      "tier": "A",
+      "kp": "kp-25",
+      "reason": "kp-25 声明与调用，形态已覆盖"
+    },
+    "throw 语句": {
+      "tier": "A",
+      "kp": "kp-27",
+      "reason": "kp-27 throw 抛出异常，形态已覆盖"
+    },
+    "try-catch 配对": {
+      "tier": "A",
+      "kp": "kp-27",
+      "reason": "kp-27 try / catch 配对，形态已覆盖"
+    },
+    "catch 按值": {
+      "tier": "A",
+      "kp": "kp-28",
+      "reason": "kp-28 多 catch 与按值/按引用对照，形态已覆盖"
+    },
+    "catch 按引用": {
+      "tier": "A",
+      "kp": "kp-28",
+      "reason": "kp-28 catch (const X&) 形态已覆盖"
+    },
+    "catch 全捕获": {
+      "tier": "A",
+      "kp": "kp-28",
+      "reason": "kp-28 catch (...) 形态已覆盖"
+    },
+    "std::function": {
+      "tier": "A",
+      "kp": "kp-26",
+      "reason": "kp-26 可调用对象 std::function，形态已覆盖"
+    },
+    "Lambda 写法": {
+      "tier": "A",
+      "kp": "kp-46",
+      "reason": "kp-46 Lambda 基本语法，形态已覆盖"
+    },
+    "捕获列表写法": {
+      "tier": "A",
+      "kp": "kp-46",
+      "reason": "kp-46 捕获列表，形态已覆盖"
+    },
+    "右值引用写法": {
+      "tier": "A",
+      "kp": "kp-50",
+      "reason": "kp-50 右值引用 &&，形态已覆盖"
+    },
+    "三目运算符 ? :": {
+      "tier": "A",
+      "kp": "kp-05",
+      "reason": "kp-05 形态“三目运算符 ? : 的读法与取值”已覆盖"
+    },
+    "向上转型": {
+      "tier": "A",
+      "kp": "kp-24",
+      "reason": "kp-24 对象切片 / 向上转型，形态已覆盖"
+    },
+    "T() 零值构造": {
+      "tier": "A",
+      "kp": "kp-31",
+      "reason": "kp-31 练习的“循环与初值”形态已覆盖"
+    },
+    "十六进制 0x": {
+      "tier": "A",
+      "kp": "kp-12",
+      "reason": "kp-12 指针基础里用地址编号讲解，形态已覆盖"
+    },
+    "文件作用域 static": {
+      "tier": "A",
+      "kp": "kp-57",
+      "reason": "kp-57 文件作用域 static，形态已覆盖"
+    },
+    "编译单元": {
+      "tier": "A",
+      "kp": "kp-54",
+      "reason": "kp-54 文件分工；补一条“编译单元”正文形态"
+    },
+    "ios::app": {
+      "tier": "A",
+      "kp": "kp-60",
+      "reason": "kp-60 形态“trunc 与 app”已覆盖"
+    },
+    "ios::trunc": {
+      "tier": "A",
+      "kp": "kp-60",
+      "reason": "kp-60 形态“trunc 与 app”已覆盖"
+    },
+    "pragma once": {
+      "tier": "A",
+      "kp": "kp-55",
+      "reason": "kp-55 形态“#pragma once 防重复包含”已覆盖"
+    },
+    "头文件保护": {
+      "tier": "A",
+      "kp": "kp-55",
+      "reason": "kp-55 同一形态已覆盖"
+    },
+    "#ifndef": {
+      "tier": "A",
+      "kp": "kp-55",
+      "reason": "kp-55 补一条 include guard 正文形态"
+    },
+    "#define": {
+      "tier": "A",
+      "kp": "kp-55",
+      "reason": "include guard 的组成部分，与 #ifndef / #endif 同一条形态"
+    },
+    "#endif": {
+      "tier": "A",
+      "kp": "kp-55",
+      "reason": "include guard 的组成部分，与 #ifndef / #define 同一条形态"
+    },
+    "#include": {
+      "tier": "B",
+      "kp": "",
+      "reason": "预处理指令写法，读者查词即可"
+    },
+    "iostream": {
+      "tier": "B",
+      "kp": "",
+      "reason": "标准库头文件名"
+    },
+    "std::cout": {
+      "tier": "B",
+      "kp": "",
+      "reason": "标准库输出对象名"
+    },
+    "std::endl": {
+      "tier": "B",
+      "kp": "",
+      "reason": "标准库操纵符"
+    },
+    "std::fixed": {
+      "tier": "B",
+      "kp": "",
+      "reason": "输出格式操纵符"
+    },
+    "std::setprecision": {
+      "tier": "B",
+      "kp": "",
+      "reason": "输出精度操纵符"
+    },
+    "cstddef": {
+      "tier": "B",
+      "kp": "",
+      "reason": "标准库头文件（size_t 来源）"
+    },
+    "climits": {
+      "tier": "B",
+      "kp": "",
+      "reason": "标准库头文件（整数极值）"
+    },
+    "limits": {
+      "tier": "B",
+      "kp": "",
+      "reason": "标准库头文件（numeric_limits）"
+    },
+    "std::boolalpha": {
+      "tier": "B",
+      "kp": "",
+      "reason": "bool 输出格式操纵符"
+    },
+    "-c 只编译": {
+      "tier": "B",
+      "kp": "",
+      "reason": "编译器命令行选项"
+    },
+    "-I 头文件搜索路径": {
+      "tier": "B",
+      "kp": "",
+      "reason": "编译器命令行选项"
+    },
+    "按位或": {
+      "tier": "B",
+      "kp": "",
+      "reason": "仅用于组合打开模式；标准已明确不讲位运算细节"
+    },
+    "if (auto x = ...) 条件内声明": {
+      "tier": "C",
+      "kp": "",
+      "reason": "页面只在 weak_ptr 示例的代码注释里出现“固定写法”，未正式讲条件内声明的作用域"
+    },
+    "new int[n]() 值初始化": {
+      "tier": "C",
+      "kp": "",
+      "reason": "正文只讲 new int[n] 不初始化，未讲加括号清零这一形态"
+    },
+    "一行逗号声明多个变量": {
+      "tier": "C",
+      "kp": "",
+      "reason": "只在代码与阶段图标签里出现，正文没有正式讲这个写法"
+    }
+  }
+}

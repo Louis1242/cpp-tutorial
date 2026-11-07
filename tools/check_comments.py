@@ -14,6 +14,8 @@
     - 无信息注释（// 输出、// 结束 等）
     - 非中文注释
     - 注释里出现前文未讲的术语
+      （位置按文档序：代码块自身 Tag 位置 vs first_def 锚点元素位置，
+        不拿 Part 标题当代码位置；折叠区代码块同样按自身位置判定）
     - 错误示例缺少“错在哪 / 为什么错”的说明
 
 提示项（不计违规、不影响退出码）：
@@ -27,10 +29,10 @@ import os
 import re
 import sys
 
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from check_deps import ROOT, INDEX, MANIFEST, load_parts, build_chunks, anchor_index
+from check_deps import ROOT, INDEX, MANIFEST, load_parts
 
 TYPE_LABEL = {
     'complete': '完整示例',
@@ -82,7 +84,7 @@ def has_top_block(text):
 
 
 class Block:
-    def __init__(self, name, kind, text, stage, part, anchor, tag):
+    def __init__(self, name, kind, text, stage, part, anchor, tag, pos=None):
         self.name = name
         self.kind = kind
         self.text = text
@@ -90,6 +92,7 @@ class Block:
         self.part = part
         self.anchor = anchor
         self.tag = tag
+        self.pos = pos  # 代码块自己在文档里的位置（Tag 顺序号），用于术语先后比较
         self.comments = []  # (line_no, comment_text)
 
     @property
@@ -109,6 +112,24 @@ def part_of(el, parts):
     return None
 
 
+def document_positions(soup):
+    """按文档顺序给每个 Tag 编一个递增位置号，并记下 id 属性首次出现的位置。
+
+    代码块用它自己的 Tag 位置，术语讲解用 first_def 锚点元素的位置；两者直接
+    按文档序比较。不再拿 Part 标题当代码位置——那会把“同一 Part 里先讲后写码”
+    误判成先用后讲，也会让折叠区代码块被迫特殊处理。
+    """
+    tag_pos, id_pos = {}, {}
+    for i, node in enumerate(soup.descendants):
+        if not isinstance(node, Tag):
+            continue
+        tag_pos[id(node)] = i
+        aid = node.get('id')
+        if aid and aid not in id_pos:
+            id_pos[aid] = i
+    return tag_pos, id_pos
+
+
 def classify(name, text, in_answer):
     if in_answer:
         return 'answer'
@@ -119,7 +140,7 @@ def classify(name, text, in_answer):
     return 'snippet'
 
 
-def collect(soup, parts):
+def collect(soup, parts, tag_pos):
     blocks = []
     # 练习初始代码（textarea）
     for ta in soup.find_all('textarea', class_='practice-editor'):
@@ -131,7 +152,8 @@ def collect(soup, parts):
         name = name or '练习初始代码'
         p = part_of(ta, parts)
         blocks.append(Block(name, 'practice', ta.get_text(), p.stage if p else '?',
-                            '%02d' % p.index if p else '?', p.anchor if p else '', ta))
+                            '%02d' % p.index if p else '?', p.anchor if p else '', ta,
+                            tag_pos.get(id(ta))))
     # 代码块
     for code in soup.find_all('code'):
         if not code.get('class'):
@@ -148,6 +170,12 @@ def collect(soup, parts):
         in_answer = bool(code.find_parent('details', id=re.compile('^answer-')))
         cat = classify(name, text, in_answer)
         p = part_of(code, parts)
+        # 折叠区里的代码块也用自己在文档里的位置判定（见 document_positions）；
+        # 这里取折叠区 id 只用于报错时显示位置，不参与先后比较。
+        # 注意折叠区的外壳是 div（里层才是 details），所以按 id 认，不按标签认。
+        fold = code.find_parent(
+            lambda t: t.get('id') and re.match(r'^deep-p\d+-\d+$', t.get('id')))
+        block_anchor = fold.get('id') if fold else (p.anchor if p else '')
         # 没写文件名的片段：用代码里的“错”注释或文件名提示判断类型
         if not name:
             name = TYPE_LABEL[cat]
@@ -155,7 +183,8 @@ def collect(soup, parts):
                 cat = 'error'
                 name = '片段（含错误标记）'
         blocks.append(Block(name, cat, text, p.stage if p else '?',
-                            '%02d' % p.index if p else '?', p.anchor if p else '', code))
+                            '%02d' % p.index if p else '?', block_anchor, code,
+                            tag_pos.get(id(code))))
     return blocks
 
 
@@ -177,7 +206,7 @@ def parse_comments(text, allow_hash=False):
     return out
 
 
-def check_block(b, entries, anchor_order):
+def check_block(b, entries, id_pos):
     problems = []
     comments = b.comments
     code_lines = b.code_lines
@@ -206,17 +235,15 @@ def check_block(b, entries, anchor_order):
             problems.append({'type': '错因未标注', 'block': b,
                              'msg': '错误示例缺少“错在哪/为什么错”的注释',
                              'fix': '在出错行旁加 // 错：… 说明原因'})
-    # 注释里的概念必须已在前文讲
-    pos = anchor_index(b.anchor, anchor_order, 10 ** 9) if b.anchor else 0
-    if pos is None:
-        pos = 0
+    # 注释里的概念必须已在前文讲：代码块位置 vs 术语首次讲解位置的文档序比较。
+    pos = b.pos if b.pos is not None else 0
     for ln, c in comments:
         for e in entries:
             if e['type'] != 'concept':
                 continue
             if not re.search(e['match'], c):
                 continue
-            d = anchor_index(e.get('first_def', ''), anchor_order, 10 ** 9)
+            d = id_pos.get(e.get('first_def', ''))
             if d is not None and d > pos:
                 problems.append({'type': '注释术语未讲', 'block': b,
                                  'msg': '第 %d 行注释用到“%s”，讲解在 #%s（更靠后）' % (ln, e['term'], e['first_def']),
@@ -233,9 +260,9 @@ def main():
     html = open(INDEX, encoding='utf-8').read()
     soup = BeautifulSoup(html, 'lxml')
     parts = load_parts(soup)
-    total, anchor_order = build_chunks(parts)
+    tag_pos, id_pos = document_positions(soup)
     entries = json.load(open(MANIFEST, encoding='utf-8'))['entries']
-    blocks = collect(soup, parts)
+    blocks = collect(soup, parts, tag_pos)
 
     stats = {k: {'n': 0, 'with': 0, 'comments': 0, 'lines': 0, 'short': []} for k in TYPE_LABEL}
     for b in blocks:
@@ -261,7 +288,7 @@ def main():
     problems = []
     hints = []
     for b in blocks:
-        problems.extend(check_block(b, entries, anchor_order))
+        problems.extend(check_block(b, entries, id_pos))
         need = hint_count(b.kind, len(b.code_lines))
         if len(b.comments) < need:
             hints.append((b, need))

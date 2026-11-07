@@ -1,0 +1,17 @@
+{
+  "id": "./",
+  "name": "零基础 C++ 图解教程",
+  "short_name": "C++ 教程",
+  "description": "面向零基础学习者的 C++ 可视化教程，可在页面里直接运行示例代码。",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#4f46e5",
+  "theme_color": "#4f46e5",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
