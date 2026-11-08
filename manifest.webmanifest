@@ -1,7 +1,7 @@
 {
   "id": "./",
-  "name": "零基础 C++ 教程",
-  "short_name": "C++ 教程",
+  "name": "c++零基础学习平台--从入门到入土",
+  "short_name": "C++ 学习平台",
   "description": "面向零基础学习者的 C++ 可视化教程，可在页面里直接运行示例代码。",
   "lang": "zh-CN",
   "start_url": "./",
