@@ -143,6 +143,7 @@
       --c-scrim: rgba(15, 23, 42, .35);   /* 抽屉遮罩：术语抽屉背景 */
       --c-shadow-soft: rgba(15, 23, 42, .08);   /* 轻阴影：术语按钮 */
       --c-shadow-chip: rgba(15, 23, 42, .12);   /* 药丸阴影：选中标签 */
+      --c-shadow-hairline: rgba(15, 23, 42, .04); /* 发丝阴影：卡片 1px 细影 */
       --c-shadow-card: rgba(15, 23, 42, .18);   /* 卡片阴影色：iOS 安装卡 */
       --c-shadow-dock: rgba(15, 23, 42, .35);   /* 浮动条阴影色：移动端底部操作条 */
       --c-shadow-panel: rgba(15, 23, 42, .45);  /* 面板阴影色：术语面板 */
@@ -1528,7 +1529,7 @@
           </div>
 
           <!-- 导学 -->
-          <div class="mt-6 rounded-2xl border border-indigo-100 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+          <div class="mt-6 rounded-2xl border border-indigo-100 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
             <div class="flex items-start gap-3">
               <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">导</span>
               <div class="min-w-0">
@@ -1596,7 +1597,7 @@
           </div>
 
           <!-- 阶段一开场图：知识全览（叶子 data-covers 由 build_index.py 校验） -->
-          <div class="mt-6 rounded-2xl border border-indigo-200 bg-gradient-to-br from-indigo-50/80 to-white p-4 sm:p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
+          <div class="mt-6 rounded-2xl border border-indigo-200 bg-gradient-to-br from-indigo-50/80 to-white p-4 sm:p-6 shadow-[0_1px_2px_var(--c-shadow-hairline)]"
                data-diagram data-stage-map="1" data-map-kind="open">
             <div class="flex flex-wrap items-center gap-2 mb-3">
               <span class="text-[10px] font-bold tracking-[0.18em] text-indigo-600">阶段开场 · 知识全览</span>
@@ -1684,7 +1685,7 @@ flowchart LR
             <div class="space-y-6 stage-parts" data-part-stage="1">
 
             <!-- 00 前置基础 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">00</span>
                 <div class="min-w-0">
@@ -1906,7 +1907,7 @@ g++ hello.cpp -o hello.exe -std=c++17 -Wall -Wextra
             </div>
 
             <!-- 01 第一个程序 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">01</span>
                 <div class="min-w-0">
@@ -2105,7 +2106,7 @@ g++ hello.cpp -o hello.exe -std=c++17 -Wall -Wextra
             </div>
 
             <!-- 02 命名空间 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">02</span>
                 <div class="min-w-0">
@@ -2235,7 +2236,7 @@ int main() {
             </div>
 
             <!-- 03 输入输出 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">03</span>
                 <div class="min-w-0">
@@ -2840,7 +2841,7 @@ getline 读到 [def]</pre>
             </div>
 
             <!-- 04 基础类型 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">04</span>
                 <div class="min-w-0">
@@ -3712,7 +3713,7 @@ std::cout &lt;&lt; c &lt;&lt; "\n"; // 常见输出 0.30000000000000004</code></
             </div>
 
             <!-- 05 auto -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">05</span>
                 <div class="min-w-0">
@@ -3893,7 +3894,7 @@ auto p = arr; // auto 只拿到首地址，sizeof(p) 是指针大小，不是整
             </div>
 
             <!-- 06 代码实操 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">06</span>
                 <div class="min-w-0">
@@ -4110,7 +4111,7 @@ int main() {
             </div>
 
             <!-- 07 避坑指南 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-rose-500 to-orange-500 text-white text-[11px] font-bold grid place-items-center shadow-sm">07</span>
                 <div class="min-w-0">
@@ -4334,7 +4335,7 @@ int main() {
             </div>
 
             <!-- 08 动手练习 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 text-white text-[11px] font-bold grid place-items-center shadow-sm">08</span>
                 <div class="min-w-0">
@@ -4832,7 +4833,7 @@ int main() {
           </div>
 
           <aside class="hidden xl:block" aria-label="阶段一板块导航">
-            <nav class="sticky top-24 rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <nav class="sticky top-24 rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="px-2 pb-2">
                 <p class="text-[11px] font-bold tracking-wider text-slate-500">本阶段目录</p>
                 <p class="text-[10px] text-slate-400 mt-0.5">阶段一 · 点击跳转</p>
@@ -4843,7 +4844,7 @@ int main() {
         </div>
 
         <!-- 阶段一结尾图：学完自查（板块与状态由 build_index.py 校验） -->
-        <div class="mt-8 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50/70 to-white p-4 sm:p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
+        <div class="mt-8 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50/70 to-white p-4 sm:p-6 shadow-[0_1px_2px_var(--c-shadow-hairline)]"
              data-diagram data-stage-map="1" data-map-kind="close">
           <div class="flex flex-wrap items-center gap-2 mb-3">
             <span class="text-[10px] font-bold tracking-[0.18em] text-amber-600">阶段收尾 · 学完自查</span>
@@ -4917,7 +4918,7 @@ flowchart LR
           </div>
 
           <!-- 导学 -->
-          <div class="mt-6 rounded-2xl border border-indigo-100 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+          <div class="mt-6 rounded-2xl border border-indigo-100 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
             <div class="flex items-start gap-3">
               <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">导</span>
               <div class="min-w-0">
@@ -4986,7 +4987,7 @@ flowchart LR
           </div>
 
           <!-- 阶段2开场图：知识全览（叶子 data-covers 由 build_index.py 校验） -->
-          <div class="mt-6 rounded-2xl border border-indigo-200 bg-gradient-to-br from-indigo-50/80 to-white p-4 sm:p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
+          <div class="mt-6 rounded-2xl border border-indigo-200 bg-gradient-to-br from-indigo-50/80 to-white p-4 sm:p-6 shadow-[0_1px_2px_var(--c-shadow-hairline)]"
                data-diagram data-stage-map="2" data-map-kind="open">
             <div class="flex flex-wrap items-center gap-2 mb-3">
               <span class="text-[10px] font-bold tracking-[0.18em] text-indigo-600">阶段开场 · 知识全览</span>
@@ -5062,7 +5063,7 @@ flowchart LR
             <div class="space-y-6 stage-parts" data-part-stage="2">
 
             <!-- 00 前置基础 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">00</span>
                 <div class="min-w-0">
@@ -5226,7 +5227,7 @@ flowchart TB
             </div>
 
             <!-- 01 数组 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">01</span>
                 <div class="min-w-0">
@@ -5522,7 +5523,7 @@ std::array 元素个数：5
             </div>
 
             <!-- 02 遍历与越界 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">02</span>
                 <div class="min-w-0">
@@ -5756,7 +5757,7 @@ std::cout &lt;&lt; grid[1][2] &lt;&lt; "\n"; // 第二行第三列，结果是 6
             </div>
 
             <!-- 03 字符数组 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">03</span>
                 <div class="min-w-0">
@@ -5891,7 +5892,7 @@ std::cin &gt;&gt; name;   // 如果输入 Alexander（9 个字符），会写到
             </div>
 
             <!-- 04 std::string -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">04</span>
                 <div class="min-w-0">
@@ -6224,7 +6225,7 @@ std::cout &lt;&lt; s.capacity() &lt;&lt; "\n"; // capacity 是已分配空间，
             </div>
 
             <!-- 05 指针与 new / delete -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">05</span>
                 <div class="min-w-0">
@@ -6676,7 +6677,7 @@ int* const p2 = &amp;value; // 指针本身只读，p2 不能再改指向，但�
             </div>
 
             <!-- 06 代码实操 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">06</span>
                 <div class="min-w-0">
@@ -6864,7 +6865,7 @@ int main() {
             </div>
 
             <!-- 07 避坑指南 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-rose-500 to-orange-500 text-white text-[11px] font-bold grid place-items-center shadow-sm">07</span>
                 <div class="min-w-0">
@@ -7031,7 +7032,7 @@ int main() {
             </div>
 
             <!-- 08 动手练习 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 text-white text-[11px] font-bold grid place-items-center shadow-sm">08</span>
                 <div class="min-w-0">
@@ -7458,7 +7459,7 @@ int main() {
             </div>
 
             <aside class="hidden xl:block" aria-label="阶段二板块导航">
-              <nav class="sticky top-24 rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+              <nav class="sticky top-24 rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
                 <div class="px-2 pb-2">
                   <p class="text-[11px] font-bold tracking-wider text-slate-500">本阶段目录</p>
                   <p class="text-[10px] text-slate-400 mt-0.5">阶段二 · 点击跳转</p>
@@ -7468,7 +7469,7 @@ int main() {
             </aside>
           </div>
           <!-- 阶段2结尾图：学完自查（板块与状态由 build_index.py 校验） -->
-          <div class="mt-8 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50/70 to-white p-4 sm:p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
+          <div class="mt-8 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50/70 to-white p-4 sm:p-6 shadow-[0_1px_2px_var(--c-shadow-hairline)]"
                data-diagram data-stage-map="2" data-map-kind="close">
             <div class="flex flex-wrap items-center gap-2 mb-3">
               <span class="text-[10px] font-bold tracking-[0.18em] text-amber-600">阶段收尾 · 学完自查</span>
@@ -7543,7 +7544,7 @@ flowchart LR
           </div>
 
           <!-- 导学 -->
-          <div class="mt-6 rounded-2xl border border-indigo-100 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+          <div class="mt-6 rounded-2xl border border-indigo-100 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
             <div class="flex items-start gap-3">
               <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">导</span>
               <div class="min-w-0">
@@ -7612,7 +7613,7 @@ flowchart LR
           </div>
 
           <!-- 阶段3开场图：知识全览（叶子 data-covers 由 build_index.py 校验） -->
-          <div class="mt-6 rounded-2xl border border-indigo-200 bg-gradient-to-br from-indigo-50/80 to-white p-4 sm:p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
+          <div class="mt-6 rounded-2xl border border-indigo-200 bg-gradient-to-br from-indigo-50/80 to-white p-4 sm:p-6 shadow-[0_1px_2px_var(--c-shadow-hairline)]"
                data-diagram data-stage-map="3" data-map-kind="open">
             <div class="flex flex-wrap items-center gap-2 mb-3">
               <span class="text-[10px] font-bold tracking-[0.18em] text-indigo-600">阶段开场 · 知识全览</span>
@@ -7688,7 +7689,7 @@ flowchart LR
             <div class="space-y-6 stage-parts" data-part-stage="3">
 
             <!-- 00 前置基础 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">00</span>
                 <div class="min-w-0">
@@ -7861,7 +7862,7 @@ int b = ++i; // 前置：先把 i 加到 3，再把新值 3 给 b</code></pre>
             </div>
 
             <!-- 01 分支 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">01</span>
                 <div class="min-w-0">
@@ -7974,7 +7975,7 @@ int main() {
             </div>
 
             <!-- 02 switch -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">02</span>
                 <div class="min-w-0">
@@ -8243,7 +8244,7 @@ int main() {
             </div>
 
             <!-- 03 循环 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">03</span>
                 <div class="min-w-0">
@@ -8570,7 +8571,7 @@ int main() {
             </div>
 
             <!-- 04 循环控制 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">04</span>
                 <div class="min-w-0">
@@ -8695,7 +8696,7 @@ int main() {
             </div>
 
             <!-- 05 函数 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">05</span>
                 <div class="min-w-0">
@@ -9046,7 +9047,7 @@ int factorial(int n) {
             </div>
 
             <!-- 06 代码实操 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">06</span>
                 <div class="min-w-0">
@@ -9239,7 +9240,7 @@ int main() {
             </div>
 
             <!-- 07 避坑 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">07</span>
                 <div class="min-w-0">
@@ -9353,7 +9354,7 @@ int main() {
             </div>
 
             <!-- 08 动手练习 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 text-white text-[11px] font-bold grid place-items-center shadow-sm">08</span>
                 <div class="min-w-0">
@@ -9677,7 +9678,7 @@ bool isPrime(int n) {
             </div>
 
             <!-- 09 小结 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">09</span>
                 <div class="min-w-0">
@@ -9735,7 +9736,7 @@ bool isPrime(int n) {
             </div>
 
             <aside class="hidden xl:block" aria-label="阶段三板块导航">
-              <nav class="sticky top-24 rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+              <nav class="sticky top-24 rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
                 <div class="px-2 pb-2">
                   <p class="text-[11px] font-bold tracking-wider text-slate-500">本阶段目录</p>
                   <p class="text-[10px] text-slate-400 mt-0.5">阶段三 · 点击跳转</p>
@@ -9745,7 +9746,7 @@ bool isPrime(int n) {
             </aside>
           </div>
           <!-- 阶段3结尾图：学完自查（板块与状态由 build_index.py 校验） -->
-          <div class="mt-8 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50/70 to-white p-4 sm:p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
+          <div class="mt-8 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50/70 to-white p-4 sm:p-6 shadow-[0_1px_2px_var(--c-shadow-hairline)]"
                data-diagram data-stage-map="3" data-map-kind="close">
             <div class="flex flex-wrap items-center gap-2 mb-3">
               <span class="text-[10px] font-bold tracking-[0.18em] text-amber-600">阶段收尾 · 学完自查</span>
@@ -9818,7 +9819,7 @@ flowchart LR
           </div>
 
           <!-- 导学 -->
-          <div class="mt-6 rounded-2xl border border-indigo-100 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+          <div class="mt-6 rounded-2xl border border-indigo-100 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
             <div class="flex items-start gap-3">
               <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">导</span>
               <div class="min-w-0">
@@ -9887,7 +9888,7 @@ flowchart LR
           </div>
 
           <!-- 阶段4开场图：知识全览（叶子 data-covers 由 build_index.py 校验） -->
-          <div class="mt-6 rounded-2xl border border-indigo-200 bg-gradient-to-br from-indigo-50/80 to-white p-4 sm:p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
+          <div class="mt-6 rounded-2xl border border-indigo-200 bg-gradient-to-br from-indigo-50/80 to-white p-4 sm:p-6 shadow-[0_1px_2px_var(--c-shadow-hairline)]"
                data-diagram data-stage-map="4" data-map-kind="open">
             <div class="flex flex-wrap items-center gap-2 mb-3">
               <span class="text-[10px] font-bold tracking-[0.18em] text-indigo-600">阶段开场 · 知识全览</span>
@@ -9963,7 +9964,7 @@ flowchart LR
             <div class="space-y-6 stage-parts" data-part-stage="4">
 
             <!-- 00 前置基础 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">00</span>
                 <div class="min-w-0">
@@ -10163,7 +10164,7 @@ int main() {
             </div>
 
             <!-- 01 引用参数 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">01</span>
                 <div class="min-w-0">
@@ -10354,7 +10355,7 @@ void printName(const std::string&amp; name) {
             </div>
 
             <!-- 02 函数重载 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">02</span>
                 <div class="min-w-0">
@@ -10509,7 +10510,7 @@ void show(int a, int b = 0); // 版本二：第二个参数有默认值
             </div>
 
             <!-- 03 默认参数 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">03</span>
                 <div class="min-w-0">
@@ -10784,7 +10785,7 @@ collect2: error: ld returned 1 exit status</code></pre>
             </div>
 
             <!-- 04 class 初探 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">04</span>
                 <div class="min-w-0">
@@ -11254,7 +11255,7 @@ Grid::Cell Grid::at(int index) const { return Cell{index}; }
             </div>
 
             <!-- 05 构造函数与封装 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">05</span>
                 <div class="min-w-0">
@@ -11672,7 +11673,7 @@ Student group[3] = {Student(1), Student(2), Student(3)}; // 三个元素各自�
             </div>
 
             <!-- 06 代码实操 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">06</span>
                 <div class="min-w-0">
@@ -11887,7 +11888,7 @@ int main() {
             </div>
 
             <!-- 07 避坑指南 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-rose-500 to-pink-500 text-white text-[11px] font-bold grid place-items-center shadow-sm">07</span>
                 <div class="min-w-0">
@@ -12024,7 +12025,7 @@ int main() {
             </div>
 
             <!-- 08 动手练习 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 text-white text-[11px] font-bold grid place-items-center shadow-sm">08</span>
                 <div class="min-w-0">
@@ -12427,7 +12428,7 @@ int main() {
             </div>
 
             <!-- 09 阶段小结 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">09</span>
                 <div class="min-w-0">
@@ -12501,7 +12502,7 @@ int main() {
             </div>
 
             <aside class="hidden xl:block" aria-label="阶段四板块导航">
-              <nav class="sticky top-24 rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+              <nav class="sticky top-24 rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
                 <div class="px-2 pb-2">
                   <p class="text-[11px] font-bold tracking-wider text-slate-500">本阶段目录</p>
                   <p class="text-[10px] text-slate-400 mt-0.5">阶段四 · 点击跳转</p>
@@ -12511,7 +12512,7 @@ int main() {
             </aside>
           </div>
           <!-- 阶段4结尾图：学完自查（板块与状态由 build_index.py 校验） -->
-          <div class="mt-8 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50/70 to-white p-4 sm:p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
+          <div class="mt-8 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50/70 to-white p-4 sm:p-6 shadow-[0_1px_2px_var(--c-shadow-hairline)]"
                data-diagram data-stage-map="4" data-map-kind="close">
             <div class="flex flex-wrap items-center gap-2 mb-3">
               <span class="text-[10px] font-bold tracking-[0.18em] text-amber-600">阶段收尾 · 学完自查</span>
@@ -12584,7 +12585,7 @@ flowchart LR
           </div>
 
           <!-- 导学 -->
-          <div class="mt-6 rounded-2xl border border-indigo-100 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+          <div class="mt-6 rounded-2xl border border-indigo-100 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
             <div class="flex items-start gap-3">
               <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">导</span>
               <div class="min-w-0">
@@ -12654,7 +12655,7 @@ flowchart LR
           </div>
 
           <!-- 阶段5开场图：知识全览（叶子 data-covers 由 build_index.py 校验） -->
-          <div class="mt-6 rounded-2xl border border-indigo-200 bg-gradient-to-br from-indigo-50/80 to-white p-4 sm:p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
+          <div class="mt-6 rounded-2xl border border-indigo-200 bg-gradient-to-br from-indigo-50/80 to-white p-4 sm:p-6 shadow-[0_1px_2px_var(--c-shadow-hairline)]"
                data-diagram data-stage-map="5" data-map-kind="open">
             <div class="flex flex-wrap items-center gap-2 mb-3">
               <span class="text-[10px] font-bold tracking-[0.18em] text-indigo-600">阶段开场 · 知识全览</span>
@@ -12738,7 +12739,7 @@ flowchart LR
             <div class="space-y-6 stage-parts" data-part-stage="5">
 
             <!-- 00 前置基础 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">00</span>
                 <div class="min-w-0">
@@ -12875,7 +12876,7 @@ main 即将结束</pre>
             </div>
 
             <!-- 01 析构函数与对象生命周期 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">01</span>
                 <div class="min-w-0">
@@ -13092,7 +13093,7 @@ p = nullptr; // delete 后指针悬空，置空防止误用</code></pre>
             </div>
 
             <!-- 02 拷贝构造与赋值运算符 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">02</span>
                 <div class="min-w-0">
@@ -13510,7 +13511,7 @@ third：90 85 70
             </div>
 
             <!-- 03 运算符重载 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">03</span>
                 <div class="min-w-0">
@@ -13966,7 +13967,7 @@ Distance a(2.5);   // 对：显式构造
             </div>
 
             <!-- 04 继承与派生 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">04</span>
                 <div class="min-w-0">
@@ -14439,7 +14440,7 @@ public:
             </div>
 
             <!-- 05 多态与虚函数 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">05</span>
                 <div class="min-w-0">
@@ -14961,7 +14962,7 @@ p 不是矩形，转换返回空指针</pre>
             </div>
 
             <!-- 06 代码实操 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">06</span>
                 <div class="min-w-0">
@@ -15139,7 +15140,7 @@ int main() {
             </div>
 
             <!-- 07 避坑指南 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-rose-500 to-amber-500 text-white text-[11px] font-bold grid place-items-center shadow-sm">07</span>
                 <div class="min-w-0">
@@ -15284,7 +15285,7 @@ int main() {
             </div>
 
             <!-- 08 动手练习 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 text-white text-[11px] font-bold grid place-items-center shadow-sm">08</span>
                 <div class="min-w-0">
@@ -15733,7 +15734,7 @@ int main() {   // ④ 主函数：读四个数、造两个对象、用基类指�
             </div>
 
             <!-- 09 阶段小结 -->
-            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">09</span>
                 <div class="min-w-0">
@@ -15848,7 +15849,7 @@ int main() {   // ④ 主函数：读四个数、造两个对象、用基类指�
             </div>
 
             <aside class="hidden xl:block" aria-label="阶段五板块导航">
-              <nav class="sticky top-24 rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+              <nav class="sticky top-24 rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
                 <div class="px-2 pb-2">
                   <p class="text-[11px] font-bold tracking-wider text-slate-500">本阶段目录</p>
                   <p class="text-[10px] text-slate-400 mt-0.5">阶段五 · 点击跳转</p>
@@ -15858,7 +15859,7 @@ int main() {   // ④ 主函数：读四个数、造两个对象、用基类指�
             </aside>
           </div>
           <!-- 阶段5结尾图：学完自查（板块与状态由 build_index.py 校验） -->
-          <div class="mt-8 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50/70 to-white p-4 sm:p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
+          <div class="mt-8 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50/70 to-white p-4 sm:p-6 shadow-[0_1px_2px_var(--c-shadow-hairline)]"
                data-diagram data-stage-map="5" data-map-kind="close">
             <div class="flex flex-wrap items-center gap-2 mb-3">
               <span class="text-[10px] font-bold tracking-[0.18em] text-amber-600">阶段收尾 · 学完自查</span>
@@ -15931,7 +15932,7 @@ flowchart LR
           </div>
 
           <!-- 导学 -->
-          <div class="mt-6 rounded-2xl border border-indigo-100 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+          <div class="mt-6 rounded-2xl border border-indigo-100 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
             <div class="flex items-start gap-3">
               <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">导</span>
               <div class="min-w-0">
@@ -16000,7 +16001,7 @@ flowchart LR
           </div>
 
           <!-- 阶段6开场图：知识全览（叶子 data-covers 由 build_index.py 校验） -->
-          <div class="mt-6 rounded-2xl border border-indigo-200 bg-gradient-to-br from-indigo-50/80 to-white p-4 sm:p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
+          <div class="mt-6 rounded-2xl border border-indigo-200 bg-gradient-to-br from-indigo-50/80 to-white p-4 sm:p-6 shadow-[0_1px_2px_var(--c-shadow-hairline)]"
                data-diagram data-stage-map="6" data-map-kind="open">
             <div class="flex flex-wrap items-center gap-2 mb-3">
               <span class="text-[10px] font-bold tracking-[0.18em] text-indigo-600">阶段开场 · 知识全览</span>
@@ -16080,7 +16081,7 @@ flowchart LR
             <div class="space-y-6 stage-parts" data-part-stage="6">
 
             <!-- 00 前置基础 -->
-            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">00</span>
                 <div class="min-w-0">
@@ -16204,7 +16205,7 @@ flowchart LR
             </div>
 
             <!-- 01 函数模板 -->
-            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">01</span>
                 <div class="min-w-0">
@@ -16433,7 +16434,7 @@ void printAll(Args... args) {
             </div>
 
             <!-- 02 类模板 -->
-            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">02</span>
                 <div class="min-w-0">
@@ -16785,7 +16786,7 @@ void demo() {
             </div>
 
             <!-- 03 异常基础 -->
-            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">03</span>
                 <div class="min-w-0">
@@ -16991,7 +16992,7 @@ int main() {
             </div>
 
             <!-- 04 异常进阶 -->
-            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">04</span>
                 <div class="min-w-0">
@@ -17238,7 +17239,7 @@ void handle() {
             </div>
 
             <!-- 05 RAII -->
-            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">05</span>
                 <div class="min-w-0">
@@ -17442,7 +17443,7 @@ public:
             </div>
 
             <!-- 06 代码实操 -->
-            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white text-[11px] font-bold grid place-items-center shadow-sm">06</span>
                 <div class="min-w-0">
@@ -17566,7 +17567,7 @@ int main() {
             </div>
 
             <!-- 07 避坑指南 -->
-            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-rose-500 to-amber-500 text-white text-[11px] font-bold grid place-items-center shadow-sm">07</span>
                 <div class="min-w-0">
@@ -17732,7 +17733,7 @@ public:
             </div>
 
             <!-- 08 动手练习 -->
-            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 text-white text-[11px] font-bold grid place-items-center shadow-sm">08</span>
                 <div class="min-w-0">
@@ -18106,7 +18107,7 @@ int main() {
             </div>
 
             <!-- 09 阶段小结 -->
-            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 text-white text-[11px] font-bold grid place-items-center shadow-sm">09</span>
                 <div class="min-w-0">
@@ -18179,7 +18180,7 @@ int main() {
             </div>
 
             <aside class="hidden xl:block" aria-label="阶段六板块导航">
-              <nav class="sticky top-24 rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+              <nav class="sticky top-24 rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
                 <div class="px-2 pb-2">
                   <p class="text-[11px] font-bold tracking-wider text-slate-500">本阶段目录</p>
                   <p class="text-[10px] text-slate-400 mt-0.5">阶段六 · 点击跳转</p>
@@ -18189,7 +18190,7 @@ int main() {
             </aside>
           </div>
           <!-- 阶段6结尾图：学完自查（板块与状态由 build_index.py 校验） -->
-          <div class="mt-8 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50/70 to-white p-4 sm:p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
+          <div class="mt-8 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50/70 to-white p-4 sm:p-6 shadow-[0_1px_2px_var(--c-shadow-hairline)]"
                data-diagram data-stage-map="6" data-map-kind="close">
             <div class="flex flex-wrap items-center gap-2 mb-3">
               <span class="text-[10px] font-bold tracking-[0.18em] text-amber-600">阶段收尾 · 学完自查</span>
@@ -18265,7 +18266,7 @@ flowchart LR
           </div>
 
           <!-- 导学 -->
-          <div class="mt-6 rounded-2xl border border-indigo-100 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+          <div class="mt-6 rounded-2xl border border-indigo-100 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
             <div class="flex items-start gap-3">
               <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">导</span>
               <div class="min-w-0">
@@ -18337,7 +18338,7 @@ flowchart LR
           </div>
 
           <!-- 阶段7开场图：知识全览（叶子 data-covers 由 build_index.py 校验） -->
-          <div class="mt-6 rounded-2xl border border-indigo-200 bg-gradient-to-br from-indigo-50/80 to-white p-4 sm:p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
+          <div class="mt-6 rounded-2xl border border-indigo-200 bg-gradient-to-br from-indigo-50/80 to-white p-4 sm:p-6 shadow-[0_1px_2px_var(--c-shadow-hairline)]"
                data-diagram data-stage-map="7" data-map-kind="open">
             <div class="flex flex-wrap items-center gap-2 mb-3">
               <span class="text-[10px] font-bold tracking-[0.18em] text-indigo-600">阶段开场 · 知识全览</span>
@@ -18422,7 +18423,7 @@ flowchart LR
           <div class="mt-8 xl:grid xl:grid-cols-[minmax(0,1fr)_188px] xl:gap-6">
             <div class="space-y-6 stage-parts" data-part-stage="7">
               <!-- 00 前置基础 -->
-              <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)] scroll-mt-24" id="stage-7-part-0">
+              <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)] scroll-mt-24" id="stage-7-part-0">
                 <div class="flex items-start gap-3">
                   <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">00</span>
                   <div class="min-w-0">
@@ -18563,7 +18564,7 @@ flowchart TB
               </div>
 
               <!-- 01 容器 -->
-              <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)] scroll-mt-24" id="stage-7-part-1">
+              <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)] scroll-mt-24" id="stage-7-part-1">
                 <div class="flex items-start gap-3">
                   <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">01</span>
                   <div class="min-w-0">
@@ -18920,7 +18921,7 @@ unordered_map: apple=2, size=3</pre>
               </div>
 
               <!-- 02 迭代器与泛型算法 -->
-              <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)] scroll-mt-24" id="stage-7-part-2">
+              <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)] scroll-mt-24" id="stage-7-part-2">
                 <div class="flex items-start gap-3">
                   <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">02</span>
                   <div class="min-w-0">
@@ -19277,7 +19278,7 @@ std::cout &lt;&lt; *it &lt;&lt; "\n";              // 错在哪：it 已失效�
               </div>
 
               <!-- 03 Lambda -->
-              <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)] scroll-mt-24" id="stage-7-part-3">
+              <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)] scroll-mt-24" id="stage-7-part-3">
                 <div class="flex items-start gap-3">
                   <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">03</span>
                   <div class="min-w-0">
@@ -19565,7 +19566,7 @@ std::function: 95 88 79 72 60
               </div>
 
               <!-- 04 智能指针 -->
-              <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)] scroll-mt-24" id="stage-7-part-4">
+              <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)] scroll-mt-24" id="stage-7-part-4">
                 <div class="flex items-start gap-3">
                   <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">04</span>
                   <div class="min-w-0">
@@ -20087,7 +20088,7 @@ flowchart TB
               </div>
 
               <!-- 05 移动语义 -->
-              <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)] scroll-mt-24" id="stage-7-part-5">
+              <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)] scroll-mt-24" id="stage-7-part-5">
                 <div class="flex items-start gap-3">
                   <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">05</span>
                   <div class="min-w-0">
@@ -20303,7 +20304,7 @@ target 内容: hello，copy_made 长度: 0
               </div>
 
               <!-- 06 代码实操：RAII 收束 -->
-              <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)] scroll-mt-24" id="stage-7-part-6">
+              <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)] scroll-mt-24" id="stage-7-part-6">
                 <div class="flex items-start gap-3">
                   <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">06</span>
                   <div class="min-w-0">
@@ -20481,7 +20482,7 @@ int main() {
               </div>
 
               <!-- 07 避坑指南 -->
-              <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)] scroll-mt-24" id="stage-7-part-7">
+              <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)] scroll-mt-24" id="stage-7-part-7">
                 <div class="flex items-start gap-3">
                   <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">07</span>
                   <div class="min-w-0">
@@ -20671,7 +20672,7 @@ std::cout &lt;&lt; "标题长度: " &lt;&lt; title.size();   // 错在哪：titl
               </div>
 
               <!-- 08 动手练习 -->
-              <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)] scroll-mt-24" id="stage-7-part-8">
+              <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)] scroll-mt-24" id="stage-7-part-8">
                 <div class="flex items-start gap-3">
                   <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">08</span>
                   <div class="min-w-0">
@@ -21084,7 +21085,7 @@ int main() {
               </div>
 
               <!-- 09 阶段小结 -->
-              <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)] scroll-mt-24" id="stage-7-part-9">
+              <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)] scroll-mt-24" id="stage-7-part-9">
                 <div class="flex items-start gap-3">
                   <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">09</span>
                   <div class="min-w-0">
@@ -21198,7 +21199,7 @@ int main() {
             </div>
 
             <aside class="hidden xl:block" aria-label="阶段七板块导航">
-              <nav class="sticky top-24 rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+              <nav class="sticky top-24 rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
                 <div class="px-2 pb-2">
                   <p class="text-[11px] font-bold tracking-wider text-slate-500">本阶段目录</p>
                   <p class="text-[10px] text-slate-400 mt-0.5">阶段七 · 点击跳转</p>
@@ -21208,7 +21209,7 @@ int main() {
             </aside>
           </div>
           <!-- 阶段7结尾图：学完自查（板块与状态由 build_index.py 校验） -->
-          <div class="mt-8 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50/70 to-white p-4 sm:p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
+          <div class="mt-8 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50/70 to-white p-4 sm:p-6 shadow-[0_1px_2px_var(--c-shadow-hairline)]"
                data-diagram data-stage-map="7" data-map-kind="close">
             <div class="flex flex-wrap items-center gap-2 mb-3">
               <span class="text-[10px] font-bold tracking-[0.18em] text-amber-600">阶段收尾 · 学完自查</span>
@@ -21287,7 +21288,7 @@ flowchart LR
           </div>
 
           <!-- 阶段8开场图：知识全览（叶子 data-covers 由 build_index.py 校验） -->
-          <div class="mt-6 rounded-2xl border border-indigo-200 bg-gradient-to-br from-indigo-50/80 to-white p-4 sm:p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
+          <div class="mt-6 rounded-2xl border border-indigo-200 bg-gradient-to-br from-indigo-50/80 to-white p-4 sm:p-6 shadow-[0_1px_2px_var(--c-shadow-hairline)]"
                data-diagram data-stage-map="8" data-map-kind="open">
             <div class="flex flex-wrap items-center gap-2 mb-3">
               <span class="text-[10px] font-bold tracking-[0.18em] text-indigo-600">阶段开场 · 知识全览</span>
@@ -21369,7 +21370,7 @@ flowchart LR
             <div class="space-y-6 stage-parts" data-part-stage="8">
 
             <!-- 00 前置基础 -->
-            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)] scroll-mt-24" id="stage-8-part-0">
+            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)] scroll-mt-24" id="stage-8-part-0">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">00</span>
                 <div class="min-w-0">
@@ -21524,7 +21525,7 @@ flowchart LR
             </div>
 
             <!-- 01 头文件放声明、源文件放定义 -->
-            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)] scroll-mt-24" id="stage-8-part-1">
+            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)] scroll-mt-24" id="stage-8-part-1">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">01</span>
                 <div class="min-w-0">
@@ -21815,7 +21816,7 @@ const std::string&amp; BankAccount::owner() const {
             </div>
 
             <!-- 02 头文件保护 -->
-            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)] scroll-mt-24" id="stage-8-part-2">
+            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)] scroll-mt-24" id="stage-8-part-2">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">02</span>
                 <div class="min-w-0">
@@ -21993,7 +21994,7 @@ greet.h:4:8: note: previous definition of 'struct Greeting'
             </div>
 
             <!-- 03 链接性 -->
-            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)] scroll-mt-24" id="stage-8-part-3">
+            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)] scroll-mt-24" id="stage-8-part-3">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">03</span>
                 <div class="min-w-0">
@@ -22349,7 +22350,7 @@ collect2: error: ld returned 1 exit status</code></pre>
             </div>
 
             <!-- 04 多个 .cpp 怎么拼起来 -->
-            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)] scroll-mt-24" id="stage-8-part-4">
+            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)] scroll-mt-24" id="stage-8-part-4">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">04</span>
                 <div class="min-w-0">
@@ -22742,7 +22743,7 @@ collect2: error: ld returned 1 exit status</code></pre>
             </div>
 
             <!-- 05 文件流 -->
-            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)] scroll-mt-24" id="stage-8-part-5">
+            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)] scroll-mt-24" id="stage-8-part-5">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">05</span>
                 <div class="min-w-0">
@@ -23130,7 +23131,7 @@ int main() {
             </div>
 
             <!-- 06 代码实操 -->
-            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)] scroll-mt-24" id="stage-8-part-6">
+            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)] scroll-mt-24" id="stage-8-part-6">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">06</span>
                 <div class="min-w-0">
@@ -23313,7 +23314,7 @@ g++ -std=c++17 -Wall -Wextra main.cpp scores.cpp -o scores_app
             </div>
 
             <!-- 07 避坑指南 -->
-            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)] scroll-mt-24" id="stage-8-part-7">
+            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)] scroll-mt-24" id="stage-8-part-7">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">07</span>
                 <div class="min-w-0">
@@ -23489,7 +23490,7 @@ if (!out) { std::cerr &lt;&lt; "写入失败\n"; }           // 2. 查“写入�
             </div>
 
             <!-- 08 动手练习 -->
-            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)] scroll-mt-24" id="stage-8-part-8">
+            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)] scroll-mt-24" id="stage-8-part-8">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">08</span>
                 <div class="min-w-0">
@@ -23723,7 +23724,7 @@ int main() {
             </div>
 
             <!-- 09 阶段小结 -->
-            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)] scroll-mt-24" id="stage-8-part-9">
+            <div class="part-section rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-[0_1px_2px_var(--c-shadow-hairline)] scroll-mt-24" id="stage-8-part-9">
               <div class="flex items-start gap-3">
                 <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">09</span>
                 <div class="min-w-0">
@@ -23831,7 +23832,7 @@ int main() {
             </div>
 
             <aside class="hidden xl:block" aria-label="阶段八板块导航">
-              <nav class="sticky top-24 rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+              <nav class="sticky top-24 rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_1px_2px_var(--c-shadow-hairline)]">
                 <div class="px-2 pb-2">
                   <p class="text-[11px] font-bold tracking-wider text-slate-500">本阶段目录</p>
                   <p class="text-[10px] text-slate-400 mt-0.5">阶段八 · 点击跳转</p>
@@ -23841,7 +23842,7 @@ int main() {
             </aside>
           </div>
           <!-- 阶段8结尾图：学完自查（板块与状态由 build_index.py 校验） -->
-          <div class="mt-8 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50/70 to-white p-4 sm:p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
+          <div class="mt-8 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50/70 to-white p-4 sm:p-6 shadow-[0_1px_2px_var(--c-shadow-hairline)]"
                data-diagram data-stage-map="8" data-map-kind="close">
             <div class="flex flex-wrap items-center gap-2 mb-3">
               <span class="text-[10px] font-bold tracking-[0.18em] text-amber-600">阶段收尾 · 学完自查</span>
