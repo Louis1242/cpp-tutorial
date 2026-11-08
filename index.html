@@ -1225,9 +1225,11 @@
       padding-bottom: env(safe-area-inset-bottom, 0);
     }
     #ios-install-hint[hidden] { display: none; }
-    /* 窄屏底部有“目录 / 索引 / 回顶”入口，引导卡片抬到它上方，避免遮住 */
+    /* 窄屏底部有“目录 / 索引 / 回顶”入口，引导卡片抬到它上方，避免遮住；
+       底栏展开时面板更高，再抬一档，保证两态都不与底栏相交 */
     @media (max-width: 639.98px) {
       #ios-install-hint { bottom: calc(4.9rem + env(safe-area-inset-bottom, 0)); }
+      body.dock-open #ios-install-hint { bottom: calc(15rem + env(safe-area-inset-bottom, 0px)); }
     }
     .ios-install-card { position: relative;
       border: 1px solid var(--c-brand-border-soft); border-radius: 1rem; background: var(--c-surface);
@@ -26599,6 +26601,8 @@ flowchart LR
       function setOpen(open) {
         actions.hidden = !open;
         btn.setAttribute('aria-expanded', String(open));
+        // 底栏展开时给 iOS 安装引导卡让位，避免面板与卡片重叠
+        document.body.classList.toggle('dock-open', open);
       }
 
       btn.addEventListener('click', function () { setOpen(actions.hidden); });
