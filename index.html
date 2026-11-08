@@ -1237,7 +1237,7 @@
       display: grid; place-items: center; border-radius: var(--radius-pill);
       background: var(--c-brand-light); color: var(--c-brand-hover); font-size: var(--fs-dense); font-weight: 700;
     }
-    .ios-step-ico { flex: none; width: 1.1rem; height: 1.1rem; margin-top: .2rem; color: var(--c-brand); }
+    .ios-step-ico { flex: none; width: 1rem; height: 1rem; margin-top: .2rem; color: var(--c-brand); }
     .ios-install-note { margin: .65rem 0 0; padding-top: .6rem;
       border-top: 1px dashed var(--c-border); font-size: var(--fs-dense); line-height: 1.6; color: var(--c-text-muted);
     }
@@ -25002,7 +25002,7 @@ flowchart LR
           '<span>当前文件 <span class="run-meta-file font-mono" data-role="meta-file"></span> · <span data-role="meta-count"></span></span>' +
           '<span class="flex items-center gap-2">' +
             '<button type="button" class="run-btn" data-role="run">' +
-              '<svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg><span class="run-label">运行</span>' +
+              '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg><span class="run-label">运行</span>' +
             '</button>' +
             '<button type="button" class="file-reset-btn" data-role="reset">重置整组</button>' +
           '</span>';
@@ -25187,7 +25187,7 @@ flowchart LR
         btn.className = 'run-btn';
         btn.setAttribute('aria-label', '运行 ' + fileName);
         btn.title = '运行 ' + fileName;
-        btn.innerHTML = '<svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg><span class="run-label">运行</span>';
+        btn.innerHTML = '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg><span class="run-label">运行</span>';
 
         const copyBtn = header.querySelector('.copy-btn');
         if (copyBtn) header.insertBefore(btn, copyBtn);
