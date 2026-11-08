@@ -1321,7 +1321,7 @@
     <!-- 桌面版网站提示：仅在小屏 + 桌面布局时由 JS 显示，关闭后记住 -->
     <div id="desktop-mode-hint" hidden>
       <div class="desktop-mode-hint-inner">
-        <p><strong>当前显示的是电脑版页面</strong>：浏览器按电脑宽度排版后整体缩小，文字会偏小。想恢复大字号，可在浏览器菜单里关闭“桌面版网站 / 请求桌面网站”。</p>
+        <p><strong>当前显示的是电脑版页面</strong>：浏览器按电脑宽度排版后整体缩小，文字会偏小。想要大字号，去浏览器菜单里关掉“桌面版网站 / 请求桌面网站”就行。</p>
         <button type="button" id="desktop-mode-hint-close">知道了</button>
       </div>
     </div>
@@ -1330,7 +1330,7 @@
     <div id="ios-install-hint" role="dialog" aria-label="添加到主屏幕" hidden>
       <div class="ios-install-card">
         <button type="button" id="ios-install-close" aria-label="关闭">×</button>
-        <p class="ios-install-title">装到桌面，打开就是全屏教程</p>
+        <p class="ios-install-title">装到桌面，点开就是全屏，不用再输网址</p>
         <ol>
           <li>
             <span class="ios-step-n">1</span>
@@ -1338,7 +1338,7 @@
               <path d="M12 3v10M8 7l4-4 4 4"></path>
               <path d="M5 12v8h14v-8"></path>
             </svg>
-            <span>点 Safari 底部的<strong>分享</strong>按钮</span>
+            <span>在 Safari 底部点<strong>分享</strong>按钮</span>
           </li>
           <li>
             <span class="ios-step-n">2</span>
@@ -1346,14 +1346,14 @@
               <rect x="4" y="4" width="16" height="16" rx="3"></rect>
               <path d="M12 8v8M8 12h8"></path>
             </svg>
-            <span>在菜单里选<strong>添加到主屏幕</strong></span>
+            <span>在菜单里选<strong>添加到主屏幕</strong>，别选成“添加书签”</span>
           </li>
           <li>
             <span class="ios-step-n">3</span>
             <svg class="ios-step-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M5 12l4 4 10-10"></path>
             </svg>
-            <span>右上角点<strong>添加</strong>，回到桌面就能打开</span>
+            <span>右上角点<strong>添加</strong>，回到桌面就能看到它</span>
           </li>
         </ol>
         <p class="ios-install-note">注意：装到桌面后是独立窗口，<strong>练习记录与输入从零开始</strong>，和浏览器里已有的进度不互通。</p>
@@ -1373,14 +1373,13 @@
           </div>
           <h1 class="mt-4 text-2xl sm:text-[32px] font-bold tracking-tight text-slate-900 leading-tight">零基础 C++ 教程</h1>
           <p class="mt-3 text-sm sm:text-[15px] leading-7 text-slate-500 max-w-2xl">
-            从“代码是怎么变成程序的”讲起，沿内存模型、调用栈、虚函数表一路走到标准库与智能指针，
-            最后学会把代码拆成一组文件、把数据写进文件再读回来。
-            每个阶段都由前置铺垫、核心知识、可运行代码、避坑指南和动手练习组成。
+            你会从“代码是怎么变成程序的”开始，沿着内存模型、调用栈、虚函数表一路走到标准库与智能指针；
+            敲完八个阶段，你能把代码拆成一组文件，也能把数据写进文件再读回来。每个阶段都是先铺垫、再讲核心知识，配可运行代码、避坑指南和动手练习，看完就能上手改。
           </p>
           <div class="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[12px] text-slate-500">
-            <span class="inline-flex items-center gap-1.5"><span class="w-1 h-1 rounded-full bg-indigo-500"></span>左侧导航 · 平滑定位</span>
-            <span class="inline-flex items-center gap-1.5"><span class="w-1 h-1 rounded-full bg-indigo-500"></span>代码一键复制</span>
-            <span class="inline-flex items-center gap-1.5"><span class="w-1 h-1 rounded-full bg-indigo-500"></span>底层原理图解</span>
+            <span class="inline-flex items-center gap-1.5"><span class="w-1 h-1 rounded-full bg-indigo-500"></span>左侧目录点一下就到对应章节</span>
+            <span class="inline-flex items-center gap-1.5"><span class="w-1 h-1 rounded-full bg-indigo-500"></span>代码块一键复制，直接粘去跑</span>
+            <span class="inline-flex items-center gap-1.5"><span class="w-1 h-1 rounded-full bg-indigo-500"></span>内存、调用栈、虚函数表都配图</span>
           </div>
           <div class="mt-4 flex gap-3 rounded-xl border border-sky-100 bg-sky-50/80 p-3.5">
             <svg class="w-5 h-5 shrink-0 text-sky-500 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1390,11 +1389,11 @@
             <p class="text-[12px] leading-6 text-sky-900/90">
               <span class="font-semibold">运行说明：</span>
               完整示例右上角有“运行”按钮，使用 Wandbox（GCC 13.2 / C++17）在线编译；需要联网，代码会发送到 Wandbox。
-              程序需要输入时，先在结果面板的“标准输入”里填写。
+              你写的程序要输入时，现在结果面板的“标准输入”里填好，再点“运行”。
             </p>
           </div>
           <p class="mt-3 text-[12px] leading-6 text-slate-500 sm:hidden">
-            手机上：顶部 Part 目录可以左右滑动；代码块比屏幕宽，长行也能在代码区左右拖动查看。
+            手机上：顶部 Part 目录可以左右滑动；代码块比屏幕宽时，长行在代码区左右拖动就能看完。
           </p>
         </div>
       </div>
@@ -1411,8 +1410,7 @@
 
           <h2 class="mt-4 text-2xl sm:text-[32px] font-bold tracking-tight text-slate-900 leading-tight">学会写出第一个程序</h2>
           <p class="mt-3 text-[15px] leading-7 text-slate-500 max-w-3xl">
-            这一章从零开始，按“看懂 → 照敲 → 运行 → 改一改”的顺序带你入门。
-            你不需要先懂底层原理，只要跟着每一节敲代码、对输出、看报错，就能把基础打扎实。
+            你会从零开始，按“看懂 → 照敲 → 运行 → 改一改”的顺序走一遍；不用先懂底层原理，跟着每一节敲代码、对输出、看报错，就能把基础打扎实。
           </p>
           <div class="mt-4 flex flex-wrap gap-2">
             <span class="text-[11px] px-2.5 py-1 rounded-full border border-slate-200 bg-white text-slate-500">程序怎么跑起来</span>
@@ -1428,8 +1426,8 @@
             <div class="flex items-start gap-3">
               <span class="shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white text-[13px] font-bold grid place-items-center shadow-sm">导</span>
               <div class="min-w-0">
-                <h3 class="text-lg font-bold text-slate-900 leading-9">开始之前：这一章怎么学</h3>
-                <p class="text-[11px] text-slate-400">不要只看不敲，编程是手上功夫</p>
+                <h3 class="text-lg font-bold text-slate-900 leading-9">开始之前：先看这一章怎么用</h3>
+                <p class="text-[11px] text-slate-400">别光看，敲一遍比读三遍有用</p>
               </div>
             </div>
 
@@ -4801,8 +4799,8 @@ flowchart LR
 
           <h2 class="mt-4 text-2xl sm:text-[32px] font-bold tracking-tight text-slate-900 leading-tight">学会用数组和指针存数据</h2>
           <p class="mt-3 text-[15px] leading-7 text-slate-500 max-w-3xl">
-            上一章让程序“会说话”，这一章让程序“会记事”：同样类型的多个数据怎么排成一排、一段文字怎么保存、
-            变量到底住在内存的哪个位置。学完这一章，你会第一次真正接触“地址”和“堆内存”。
+            上一章让程序会说话，这一章你会让它记事：同样类型的多个数据怎么排成一排、一段文字怎么保存、
+            变量到底住在内存的哪个位置。敲完这一章，你会第一次真正接触“地址”和“堆内存”。
           </p>
           <div class="mt-4 flex flex-wrap gap-2">
             <span class="text-[11px] px-2.5 py-1 rounded-full border border-slate-200 bg-white text-slate-500">内存四区</span>
@@ -7432,8 +7430,8 @@ flowchart LR
 
           <h2 class="mt-4 text-2xl sm:text-[32px] font-bold tracking-tight text-slate-900 leading-tight">学会写判断、循环和函数</h2>
           <p class="mt-3 text-[15px] leading-7 text-slate-500 max-w-3xl">
-            上一章让程序“会记事”，这一章让程序“会做决定、会重复干活”。
-            同样是那些变量和数组，加上分支、循环和函数之后，程序才开始像一个真正的小工具。
+            上一章程序学会了记事，这一章你会让它做决定、重复干活。
+            还是那些变量和数组，加上分支、循环和函数之后，程序才像一个真正能用的小工具。
           </p>
           <div class="mt-4 flex flex-wrap gap-2">
             <span class="text-[11px] px-2.5 py-1 rounded-full border border-slate-200 bg-white text-slate-500">bool 与条件</span>
@@ -9718,7 +9716,7 @@ flowchart LR
 
           <h2 class="mt-4 text-2xl sm:text-[32px] font-bold tracking-tight text-slate-900 leading-tight">学会用引用和类改造函数</h2>
           <p class="mt-3 text-[15px] leading-7 text-slate-500 max-w-3xl">
-            阶段三解决了“函数能调用、能返回”，这一章解决“函数更好用、数据更整齐”。
+            阶段三你已经能让函数调用、返回，这一章让函数更好用、数据更整齐：
             先让函数直接修改外面的变量、按参数自动挑选版本、用默认值简化调用；
             再把数据和对数据的操作装进同一个 <code class="inline-code">class</code>，第一次体会“对象”是什么。
           </p>
@@ -12497,9 +12495,9 @@ flowchart LR
 
           <h2 class="mt-4 text-2xl sm:text-[32px] font-bold tracking-tight text-slate-900 leading-tight">学会管好对象、继承和多态</h2>
           <p class="mt-3 text-[15px] leading-7 text-slate-500 max-w-3xl">
-            阶段四让数据和对数据的操作住进了同一个 <code class="inline-code">class</code>，但对象出生时分配的资源还没有人负责收尾。
-            这一章先把“对象怎么活、怎么死”讲清楚：析构函数、拷贝、赋值、运算符重载；
-            再让类之间建立父子关系，用继承复用代码，用虚函数让同一个接口处理不同对象。
+            阶段四你把数据和对数据的操作放进了同一个 <code class="inline-code">class</code>，但对象出生时拿到的资源还没人收尾。
+            这一章先讲清“对象怎么活、怎么死”：析构函数、拷贝、赋值、运算符重载；
+            再让类之间结成父子关系，用继承复用代码，用虚函数让同一个接口处理不同对象。
           </p>
           <div class="mt-4 flex flex-wrap gap-2">
             <span class="text-[11px] px-2.5 py-1 rounded-full border border-slate-200 bg-white text-slate-500">析构函数</span>
@@ -15854,10 +15852,8 @@ flowchart LR
 
           <h2 class="mt-4 text-2xl sm:text-[32px] font-bold tracking-tight text-slate-900 leading-tight">学会复用代码并处理异常</h2>
           <p id="c-s6-intro" class="concept-anchor mt-3 text-[15px] leading-7 text-slate-600 max-w-3xl">
-            阶段四、五都在解决“一个类怎么写好”，但代码里还有两类重复：同一段逻辑要分别适配 <code class="inline-code">int</code>、<code class="inline-code">double</code>、<code class="inline-code">std::string</code>，只能复制好几份；
-            出错时用返回值层层上报，只要有一层忘了检查，错误数据就继续往下跑。这一章用两条新工具收掉这两类重复：
-            <b>模板</b>把类型留成空位，用时再填；<b>异常</b>让出错处直接交给上层，由上层统一接住；
-            最后用 <b>RAII</b> 把“申请资源、释放资源”绑在对象的构造与析构上。
+            阶段四、五你已经在学“一个类怎么写好”，但代码里还留着两类重复：同一段逻辑要分别适配 <code class="inline-code">int</code>、<code class="inline-code">double</code>、<code class="inline-code">std::string</code>，只能复制好几份；出错时靠返回值层层上报，哪一层忘了检查，错误数据就继续往下跑。
+            这一章用两个工具收掉它们：<b>模板</b>把类型留成空位、用时再填，<b>异常</b>让出错处直接交给上层统一接住，最后用 <b>RAII</b> 把“申请资源、释放资源”绑在对象的构造与析构上。
           </p>
           <div class="mt-4 flex flex-wrap gap-2">
             <span class="text-[11px] px-2.5 py-1 rounded-full border border-slate-200 bg-white text-slate-500">函数模板</span>
@@ -18188,9 +18184,9 @@ flowchart LR
 
           <h2 class="mt-4 text-2xl sm:text-[32px] font-bold tracking-tight text-slate-900 leading-tight">学会用标准库和智能指针</h2>
           <p id="c-s7-intro" class="concept-anchor mt-3 text-[15px] leading-7 text-slate-600 max-w-3xl">
-            前六个阶段里，数组、排序、查找、释放堆内存大多是自己手写。标准库（STL）已经把“存数据、走数据、加工数据”做成现成组件：
-            <b>容器</b>负责存，<b>迭代器</b>负责走，<b>算法</b>负责加工。这一章再补上三件资源管理工具：
-            <b>Lambda</b> 把一小段操作用在调用处，<b>智能指针</b>把 delete 交给析构函数，<b>移动语义</b>让资源转手时不必整块复制。
+            前六个阶段，数组、排序、查找、释放堆内存大多是你自己手写；标准库（STL）其实已经把“存数据、走数据、加工数据”做成了现成组件——
+            <b>容器</b>负责存，<b>迭代器</b>负责走，<b>算法</b>负责加工。这一章再给你三件资源管理工具：
+            <b>Lambda</b> 把一小段操作用在调用处，<b>智能指针</b>把 delete 交给析构函数，<b>移动语义</b>让资源转手时不必整块复制，
             最后用 <b>RAII</b> 把阶段五的构造析构、阶段六的异常安全与这些工具串成一条线。
           </p>
           <div class="mt-4 flex flex-wrap gap-2">
@@ -21164,8 +21160,7 @@ flowchart LR
           <h2 class="mt-4 text-2xl sm:text-[32px] font-bold tracking-tight text-slate-900 leading-tight">学会拆分文件并让数据落盘</h2>
           <p id="c-s8-intro" class="concept-anchor mt-3 text-[15px] leading-7 text-slate-600 max-w-3xl">
             前面七个阶段的示例都装在一个 <code class="inline-code">.cpp</code> 文件里：写完、编译、运行，一个文件说了算。
-            真实项目按职责拆成多个文件合作，程序一关内存里的数据也会消失。这一章补上两件事：
-            <b>把代码拆成多个文件</b>并讲清编译与链接怎么把它们拼起来，再用<b>文件流</b>让数据在程序结束后还能读回来。
+            真实项目会按职责拆成多个文件，而且程序一关，内存里的数据就没了——这一章补上两件事：<b>把代码拆成多个文件</b>，讲清编译与链接怎么把它们拼起来；再用<b>文件流</b>让数据在程序结束后还能读回来。
           </p>
           <div class="mt-4 flex flex-wrap gap-2">
             <span class="text-[11px] px-2.5 py-1 rounded-full border border-slate-200 bg-white text-slate-500">拆分文件</span>
@@ -25840,7 +25835,7 @@ flowchart LR
         var wrap = document.createElement('div');
         wrap.className = 'kp-empty';
         var line = document.createElement('p');
-        line.textContent = '没有找到“' + q + '”';
+        line.textContent = '没找到“' + q + '”，换个关键词试试';
         wrap.appendChild(line);
 
         var actions = document.createElement('div');
@@ -26208,7 +26203,7 @@ flowchart LR
         } else {
           scene = document.createElement('p');
           scene.className = 'kp-detail-scene';
-          scene.textContent = p.scene || '暂无使用场景。';
+          scene.textContent = p.scene || '这一节暂时没有补充使用场景。';
         }
 
         var jump = document.createElement('button');
