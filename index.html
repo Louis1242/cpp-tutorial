@@ -1079,8 +1079,11 @@
     .kp-result:hover, .kp-result.is-active { background: var(--c-brand-light); color: var(--c-brand-dark); }
     .kp-result:focus-visible { outline: 2px solid var(--c-brand-border); outline-offset: -2px; }
     .kp-result-name { flex: 1 1 auto; min-width: 0; }
+    .kp-result-badge { flex: none; padding: 0 .25rem; border-radius: .25rem; background: var(--c-brand-light); color: var(--c-brand-hover); font-size: var(--fs-micro); font-weight: 600; white-space: nowrap; }
     .kp-result-meta { flex: none; color: var(--c-text-faint); font-size: var(--fs-micro); white-space: nowrap; }
-    .kp-more { padding: .3rem .7rem .45rem; font-size: var(--fs-micro); color: var(--c-text-faint); }
+    .kp-more { display: block; margin: 0; border: 0; background: none; cursor: pointer; padding: .3rem .7rem .45rem; font-size: var(--fs-micro); color: var(--c-text-faint); text-align: left; }
+    .kp-more:hover { color: var(--c-brand-hover); }
+    .kp-more:focus-visible { outline: 2px solid var(--c-brand-border); outline-offset: 1px; }
     .kp-empty-actions { display: flex; flex-wrap: wrap; gap: .4rem; justify-content: center; margin-top: .6rem; }
     .kp-empty-actions button { padding: .3rem .6rem; border-radius: var(--radius-pill); border: 1px solid var(--c-border); background: var(--c-surface); font-size: var(--fs-meta); color: var(--c-text-strong); }
     .kp-empty-actions button:hover { border-color: var(--c-brand-border-soft); color: var(--c-brand-hover); }
@@ -25632,9 +25635,18 @@ flowchart LR
         });
       }
 
+      function aliasHitFor(t, q) {
+        var list = t.aliases || [];
+        for (var i = 0; i < list.length; i++) {
+          if (norm(list[i]).indexOf(q) >= 0) return list[i];
+        }
+        return '';
+      }
       function rankTerms(q) {
         return termEntries.map(function (t) {
-          return { t: t, score: termScore(t, q) };
+          // 只有规范名没命中、靠别名才搜到时，才标记为“别名命中”
+          var alias = norm(t.name).indexOf(q) === -1 ? aliasHitFor(t, q) : '';
+          return { t: t, score: termScore(t, q), alias: alias };
         }).filter(function (x) { return x.score > 0; }).sort(function (a, b) {
           if (b.score !== a.score) return b.score - a.score;
           return a.t.order - b.t.order;
@@ -25674,6 +25686,33 @@ flowchart LR
         resultItems[i].scrollIntoView({ block: 'nearest' });
       }
 
+      function makeResult(hit, pick) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'kp-result';
+        btn.id = 'kp-res-' + (++resultSeq);
+        btn.setAttribute('role', 'option');
+        btn.setAttribute('aria-selected', 'false');
+
+        var nameEl = document.createElement('span');
+        nameEl.className = 'kp-result-name';
+        nameEl.textContent = hit.name;
+        var metaEl = document.createElement('span');
+        metaEl.className = 'kp-result-meta';
+        metaEl.textContent = hit.meta;
+        btn.appendChild(nameEl);
+        if (hit.alias) {
+          var badge = document.createElement('span');
+          badge.className = 'kp-result-badge';
+          badge.textContent = '别名';
+          badge.title = '命中别名：' + hit.alias;
+          btn.appendChild(badge);
+        }
+        btn.appendChild(metaEl);
+        btn.addEventListener('click', function () { pick(hit); });
+        return btn;
+      }
+
       function appendGroup(title, hits, cap, pick) {
         if (!hits.length) return;
         var head = document.createElement('div');
@@ -25683,30 +25722,29 @@ flowchart LR
         resultsBox.appendChild(head);
 
         hits.slice(0, cap).forEach(function (hit) {
-          var btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = 'kp-result';
-          btn.id = 'kp-res-' + (++resultSeq);
-          btn.setAttribute('role', 'option');
-          btn.setAttribute('aria-selected', 'false');
-
-          var nameEl = document.createElement('span');
-          nameEl.className = 'kp-result-name';
-          nameEl.textContent = hit.name;
-          var metaEl = document.createElement('span');
-          metaEl.className = 'kp-result-meta';
-          metaEl.textContent = hit.meta;
-          btn.appendChild(nameEl);
-          btn.appendChild(metaEl);
-          btn.addEventListener('click', function () { pick(hit); });
+          var btn = makeResult(hit, pick);
           resultsBox.appendChild(btn);
           resultItems.push(btn);
         });
 
         if (hits.length > cap) {
-          var more = document.createElement('p');
+          var rest = hits.slice(cap);
+          var more = document.createElement('button');
+          more.type = 'button';
           more.className = 'kp-more';
-          more.textContent = '还有 ' + (hits.length - cap) + ' 条';
+          more.textContent = '展开更多（' + rest.length + '）';
+          more.addEventListener('click', function () {
+            var activeEl = activeIndex >= 0 ? resultItems[activeIndex] : null;
+            var frag = document.createDocumentFragment();
+            rest.forEach(function (hit) {
+              frag.appendChild(makeResult(hit, pick));
+            });
+            resultsBox.insertBefore(frag, more);
+            more.remove();
+            resultItems = Array.prototype.slice.call(resultsBox.querySelectorAll('.kp-result'));
+            var idx = activeEl ? resultItems.indexOf(activeEl) : -1;
+            if (idx >= 0) setActive(idx);
+          });
           resultsBox.appendChild(more);
         }
       }
@@ -25720,7 +25758,7 @@ flowchart LR
 
         var actions = document.createElement('div');
         actions.className = 'kp-empty-actions';
-        (data.themes || []).slice(0, 3).forEach(function (th) {
+        (data.themes || []).forEach(function (th) {
           var btn = document.createElement('button');
           btn.type = 'button';
           btn.textContent = th.name;
@@ -25730,6 +25768,7 @@ flowchart LR
             themeFilter = th.name;
             syncChips();
             renderPoints();
+            renderTerms();
             setTab('points');
             var chip = Array.prototype.filter.call(chipsBox.children, function (c) {
               return c.dataset.theme === th.name;
@@ -25774,7 +25813,7 @@ flowchart LR
         }), 8, function (hit) { jumpTo(hit.p); });
 
         appendGroup('概念', terms.map(function (x) {
-          return { t: x.t, name: x.t.name,
+          return { t: x.t, name: x.t.name, alias: x.alias,
                    meta: (x.t.kind || '概念') + (x.t.theme ? ' · ' + x.t.theme : '') };
         }), 8, function (hit) { jumpToTerm(hit.t); });
 
