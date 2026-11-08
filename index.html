@@ -12642,9 +12642,8 @@ flowchart LR
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                阶段四的 <code class="inline-code">class</code> 让数据有了自己的“家”：构造函数负责在对象出生时把数据准备好。
-                可对象不只有“出生”，还有“离开”。它占用的内存什么时候释放？如果构造函数里用 <code class="inline-code">new</code> 申请过资源，谁来还？
-                这一节先把栈对象和堆对象的生命周期摆在一起对照。
+                阶段四的 <code class="inline-code">class</code> 让数据有了自己的“家”，构造函数负责在对象出生时把数据准备好；可对象不只有“出生”，还有“离开”——它占用的内存什么时候释放？如果构造函数里用 <code class="inline-code">new</code> 申请过资源，谁来还？
+                你会先把栈对象和堆对象的生命周期摆在一起对照。
               </p>
 
               <p class="mt-4 text-sm leading-7 text-slate-600">
@@ -12997,12 +12996,8 @@ p = nullptr; // delete 后指针悬空，置空防止误用</code></pre>
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                对象也会被复制，复制分两种情形：用一个已有对象创建新对象，叫<b class="text-slate-800">拷贝构造</b>；
-                两个对象都已经存在，把右边的内容写进左边，叫<b class="text-slate-800">赋值</b>，负责这件事的函数名叫 <code class="inline-code">operator=</code>。
-                给符号写函数叫<b class="text-slate-800">运算符重载</b>，函数名统一写成 <code class="inline-code">operator</code> 加那个符号，所以赋值运算符就叫 <code class="inline-code">operator=</code>（就是把赋值号写进函数名）。
-                如果类里只有普通成员（<code class="inline-code">int</code>、<code class="inline-code">double</code>、<code class="inline-code">std::string</code>），
-                编译器生成的默认版本会逐个成员复制，够用。
-                但只要类里有一个指向堆内存的指针成员，默认复制就会把“地址”也抄过去，两个对象共用同一块内存。
+                对象也会被复制：用一个已有对象创建新对象，叫<b class="text-slate-800">拷贝构造</b>；两个对象都已经存在，把右边的内容写进左边，叫<b class="text-slate-800">赋值</b>，负责这件事的函数名叫 <code class="inline-code">operator=</code>。
+                给符号写函数叫<b class="text-slate-800">运算符重载</b>，函数名统一写成 <code class="inline-code">operator</code> 加那个符号（所以赋值运算符就叫 <code class="inline-code">operator=</code>，就是把赋值号写进函数名）——如果类里只有普通成员（<code class="inline-code">int</code>、<code class="inline-code">double</code>、<code class="inline-code">std::string</code>），编译器生成的默认版本会逐个成员复制，够用；但只要类里有一个指向堆内存的指针成员，默认复制就会把“地址”也抄过去，两个对象共用同一块内存。
               </p>
 
               <div class="mt-5 table-wrap">
@@ -14870,10 +14865,8 @@ p 不是矩形，转换返回空指针</pre>
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                阶段四写过一个 <code class="inline-code">BankAccount</code>。现在把它拆成两层：
-                <code class="inline-code">BankAccount</code> 负责余额、存款和普通取款；
-                <code class="inline-code">CreditAccount</code> 继承它，只重写“取款”这一条规则，允许透支到信用额度。
-                最后用一个基类指针数组，让同一段循环分别调用两个版本的 <code class="inline-code">type()</code>。
+                阶段四你写过一个 <code class="inline-code">BankAccount</code>，现在把它拆成两层：<code class="inline-code">BankAccount</code> 负责余额、存款和普通取款，<code class="inline-code">CreditAccount</code> 继承它、只重写“取款”这一条规则，允许透支到信用额度。
+                最后你会用一个基类指针数组，让同一段循环分别调用两个版本的 <code class="inline-code">type()</code>。
               </p>
 
               <div class="mt-4 rounded-xl border border-indigo-100 bg-indigo-50/60 p-4">
@@ -15991,8 +15984,8 @@ flowchart LR
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                这一节不写新语法，只把两个“疼点”摆出来：一个是同一种逻辑被类型逼着复制好几份，一个是出错时靠返回值层层上报。
-                看清这两件事，后面的模板和异常才知道各自在替我们省哪一步。
+                先不写新语法，只把两个“疼点”摆出来：一个是同一种逻辑被类型逼着复制好几份，一个是出错时靠返回值层层上报。
+                看清这两件事，后面的模板和异常才知道各自在替你省哪一步。
               </p>
 
               <h4 class="mt-6 flex items-center gap-2 text-sm font-bold text-slate-800">
@@ -16696,9 +16689,8 @@ void demo() {
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                Part 00 的错误码方案，每一层都要自己判断、自己往上传，漏一层就断链。异常换了分工：发现问题的那一层只负责<b>把问题交出去</b>，
-                调用链上层的某一处统一接住并处理。正常流程里于是不用层层写 <code class="inline-code">if</code>，错误处理集中在一处。
-                这一节只做一件事：把三个关键字的位置和配对讲清楚。
+                Part 00 的错误码方案，每一层都要自己判断、自己往上传，漏一层就断链；异常换了分工：发现问题的那一层只负责<b>把问题交出去</b>，调用链上层的某一处统一接住并处理，正常流程里于是不用层层写 <code class="inline-code">if</code>，错误处理集中在一处。
+                你只要把三个关键字的位置和配对记清楚就行。
               </p>
 
               <p id="c-s6-throw" class="concept-anchor mt-4 text-sm leading-7 text-slate-600">
@@ -18018,9 +18010,8 @@ int main() {
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                这一章没有并列的三块知识，而是一条从上到下的链条：
-                模板解决“同一段逻辑复制多份”，异常解决“错误层层上报容易断链”，RAII 解决“资源在多条路径上忘了归还”。
-                三者一合，就是 <code class="inline-code">SafeArray&lt;T&gt;</code> 那个例子：模板给通用性，异常给错误处理，析构给资源安全。
+                这三块知识不是并列的，而是一条从上到下的链条：模板解决“同一段逻辑复制多份”，异常解决“错误层层上报容易断链”，RAII 解决“资源在多条路径上忘了归还”。
+                三者一合，就是 <code class="inline-code">SafeArray&lt;T&gt;</code> 那个例子——模板给通用性，异常给错误处理，析构给资源安全。
               </p>
 
               <div class="mt-4 table-wrap overflow-x-auto rounded-xl border border-slate-200">
@@ -22992,8 +22983,7 @@ int main() {
                 </div>
               </div>
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                这一节把前面学的东西拼成一个小程序：<b>3 个文件 + 文件流</b>。
-                它读一组内存里的成绩，算出总分和平均分，再把成绩写进 <code class="inline-code">scores.txt</code>，最后从文件读回来核对。
+                你会把前面学的东西拼成一个小程序：<b>3 个文件 + 文件流</b>；它读一组内存里的成绩，算出总分和平均分，再把成绩写进 <code class="inline-code">scores.txt</code>，最后从文件读回来核对。
                 这正是真实小项目最常见的骨架——一个文件管入口，一个文件放声明，一个文件放实现与落盘。
               </p>
               <div class="mt-4 table-wrap">
@@ -23586,7 +23576,7 @@ int main() {
                 </div>
               </div>
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                这一阶段解决的是“程序变大以后怎么办”。从只能跑一个文件，到能把代码拆成一组文件、还能把结果存到磁盘，链路已经完整。
+                从只能跑一个文件，到能把代码拆成一组文件、还能把结果存到磁盘，“程序变大以后怎么办”这条链路你已经走完。
                 下面五条结论，建议对照自己的代码逐条确认。
               </p>
 
