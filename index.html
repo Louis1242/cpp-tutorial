@@ -1021,12 +1021,17 @@
       .index-panel { width: 42rem; max-height: 84vh; }
     }
     .index-tabs { display: flex; gap: .35rem; padding: .25rem; background: var(--c-surface-muted); border-radius: .6rem; flex: none; }
-    .index-tab { flex: 1; padding: .45rem .6rem; border-radius: .45rem; font-size: var(--fs-dense); font-weight: 600; color: var(--c-text-muted); }
+    .index-tab { flex: 1; display: flex; align-items: center; justify-content: center; gap: .3rem; padding: .45rem .6rem; border-radius: .45rem; font-size: var(--fs-dense); font-weight: 600; color: var(--c-text-muted); }
     .index-tab[aria-selected="true"] { background: var(--c-surface); color: var(--c-brand-dark); box-shadow: 0 1px 2px var(--c-shadow-chip); }
     .index-tab:focus-visible { outline: 2px solid var(--c-brand-border); outline-offset: 1px; }
-    .kp-chips { display: flex; gap: .4rem; overflow-x: auto; padding: .15rem 0 .35rem; scrollbar-width: thin; flex: none; }
+    .index-tab-count { font-size: var(--fs-micro); font-weight: 600; color: var(--c-text-faint); }
+    .index-tab[aria-selected="true"] .index-tab-count { color: var(--c-brand-hover); }
+    .kp-chips { display: flex; gap: .35rem; overflow-x: auto; padding: .1rem 0 .25rem; scrollbar-width: thin; flex: none; }
     .kp-chips[hidden] { display: none; }
-    .kp-chip { flex: none; padding: .3rem .6rem; border-radius: var(--radius-pill); border: 1px solid var(--c-border); background: var(--c-surface); font-size: var(--fs-meta); color: var(--c-text-muted); white-space: nowrap; }
+    .kp-chips[data-fade="start"] { -webkit-mask-image: linear-gradient(to right, transparent, #000 18px); mask-image: linear-gradient(to right, transparent, #000 18px); }
+    .kp-chips[data-fade="end"] { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 18px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 18px), transparent); }
+    .kp-chips[data-fade="both"] { -webkit-mask-image: linear-gradient(to right, transparent, #000 18px, #000 calc(100% - 18px), transparent); mask-image: linear-gradient(to right, transparent, #000 18px, #000 calc(100% - 18px), transparent); }
+    .kp-chip { flex: none; padding: .3rem .55rem; border-radius: var(--radius-pill); border: 1px solid var(--c-border); background: var(--c-surface); font-size: var(--fs-meta); color: var(--c-text-muted); white-space: nowrap; }
     .kp-chip:hover { border-color: var(--c-brand-border-soft); color: var(--c-brand-hover); }
     .kp-chip[aria-pressed="true"] { background: var(--c-brand); border-color: var(--c-brand); color: var(--c-on-dark-strong); }
     .kp-chip:focus-visible { outline: 2px solid var(--c-brand-border); outline-offset: 1px; }
@@ -1058,15 +1063,6 @@
     .kp-entry-dims { display: flex; align-items: center; gap: .3rem; margin-top: .1rem; font-size: var(--fs-micro); color: var(--c-text-faint); line-height: 1.5; }
     .kp-entry-num { color: var(--c-text-muted); font-weight: 600; }
     .kp-entry-dot { color: var(--c-on-dark-muted); }
-    /* 索引浮层维度切换：知识点 / 概念 */
-    .kp-dims { display: flex; gap: .4rem; padding: .1rem 0 .25rem; flex: none; }
-    .kp-dims[hidden] { display: none; }
-    .kp-dim { display: flex; align-items: center; gap: .35rem; flex: 1 1 0; min-width: 0; padding: .4rem .6rem; border: 1px solid var(--c-border); border-radius: var(--radius-md); background: var(--c-surface); color: var(--c-text-muted); font-size: var(--fs-dense); text-align: left; }
-    .kp-dim:hover { border-color: var(--c-brand-border-soft); color: var(--c-brand-hover); }
-    .kp-dim[aria-pressed="true"] { background: var(--c-brand-light); border-color: var(--c-brand-border-soft); color: var(--c-brand-dark); font-weight: 600; }
-    .kp-dim:focus-visible { outline: 2px solid var(--c-brand-border); outline-offset: 1px; }
-    .kp-dim-count { margin-left: auto; padding: 0 .3rem; border-radius: .25rem; background: var(--c-surface-muted); color: var(--c-text-muted); font-size: var(--fs-micro); font-weight: 600; }
-    .kp-dim[aria-pressed="true"] .kp-dim-count { background: var(--c-surface); color: var(--c-brand-hover); }
     .hit-flash { outline: 3px solid var(--c-brand-border); outline-offset: 4px; border-radius: .35rem; }
     /* ---------- 索引检索 ---------- */
     .kp-search { flex: none; }
@@ -1090,7 +1086,6 @@
     .kp-empty-actions button:focus-visible { outline: 2px solid var(--c-brand-border); outline-offset: 1px; }
 
     /* ---------- 主题脉络 / 单点详情 / 覆盖视图 ---------- */
-    .kp-graph-themes { flex: none; display: flex; flex-wrap: wrap; gap: .35rem; padding: .55rem 0 .5rem; }
     .kp-graph-card { border: 1px solid var(--c-border); border-radius: .7rem; background: var(--c-surface-tint); padding: .55rem; }
     .kp-graph-card .diagram-canvas { min-height: 170px; overflow-x: auto; }
     .kp-graph-note { margin-top: .45rem; font-size: var(--fs-micro); line-height: 1.6; color: var(--c-text-faint); }
@@ -1161,9 +1156,6 @@
       .kp-search { position: sticky; top: 0; z-index: 3; background: var(--c-surface); padding: .1rem 0 .35rem; }
       .kp-search input { font-size: 15px; padding: .65rem .75rem; }
       .kp-chip { font-size: 12.5px; min-height: 34px; padding: .4rem .7rem; }
-      .kp-dims { gap: .45rem; }
-      .kp-dim { font-size: 13.5px; min-height: 42px; padding: .45rem .65rem; }
-      .kp-dim-count { font-size: 11.5px; }
       .kp-stage > summary { font-size: 14.5px; min-height: 44px; padding: .6rem .7rem; }
       .kp-stage-count { font-size: 12px; }
       .kp-item { font-size: 14.5px; padding: .62rem .7rem; }
@@ -23971,22 +23963,17 @@ flowchart LR
         <button type="button" id="glossary-close" class="text-[11px] text-slate-500 border border-slate-200 rounded-md px-2 py-1">关闭</button>
       </div>
       <div class="index-tabs" role="tablist" aria-label="知识索引视图">
-        <button type="button" class="index-tab" id="kp-tab-points" role="tab" aria-selected="true" aria-controls="kp-points-panel" data-index-tab="points">知识点</button>
-        <button type="button" class="index-tab" id="kp-tab-terms" role="tab" aria-selected="false" aria-controls="kp-terms-panel" data-index-tab="terms" tabindex="-1">概念</button>
-        <button type="button" class="index-tab" id="kp-tab-graphs" role="tab" aria-selected="false" aria-controls="kp-graphs-panel" data-index-tab="graphs" tabindex="-1">脉络</button>
+        <button type="button" class="index-tab" id="kp-tab-points" role="tab" aria-selected="true" aria-controls="kp-points-panel" data-index-tab="points">知识点 <span class="index-tab-count" data-tab-count="points">—</span></button>
+        <button type="button" class="index-tab" id="kp-tab-terms" role="tab" aria-selected="false" aria-controls="kp-terms-panel" data-index-tab="terms" tabindex="-1">概念 <span class="index-tab-count" data-tab-count="terms">—</span></button>
+        <button type="button" class="index-tab" id="kp-tab-graphs" role="tab" aria-selected="false" aria-controls="kp-graphs-panel" data-index-tab="graphs" tabindex="-1">脉络 <span class="index-tab-count" data-tab-count="graphs">—</span></button>
       </div>
       <div class="kp-search">
         <input id="kp-search-input" type="search" role="combobox" aria-expanded="false" aria-controls="kp-results" aria-autocomplete="list" aria-activedescendant="" aria-label="搜索知识点与概念" placeholder="搜知识点或概念，如 vector、内存" autocomplete="off" spellcheck="false" />
       </div>
+      <div id="kp-theme-chips" class="kp-chips" role="group" aria-label="按主题筛选"></div>
       <div id="kp-points-panel" class="kp-scroll" role="tabpanel" aria-labelledby="kp-tab-points">
-        <div id="kp-dim-switch" class="kp-dims" role="group" aria-label="切换索引维度">
-          <button type="button" class="kp-dim" data-kp-dim="points" aria-pressed="true">知识点 <span class="kp-dim-count" data-kp-dim-count="points">—</span></button>
-          <button type="button" class="kp-dim" data-kp-dim="concepts" aria-pressed="false">概念 <span class="kp-dim-count" data-kp-dim-count="concepts">—</span></button>
-        </div>
-        <div id="kp-theme-chips" class="kp-chips" role="group" aria-label="按主题筛选"></div>
         <div id="kp-detail" class="kp-detail" hidden></div>
         <div id="kp-stage-list"></div>
-        <div id="kp-concept-list" hidden></div>
       </div>
       <div id="kp-terms-panel" class="kp-scroll" role="tabpanel" aria-labelledby="kp-tab-terms" hidden>
       <div id="glossary-list" class="mt-2">
@@ -24292,7 +24279,6 @@ flowchart LR
       </div>
       </div>
       <div id="kp-graphs-panel" class="kp-scroll" role="tabpanel" aria-labelledby="kp-tab-graphs" hidden>
-        <div id="kp-graph-themes" class="kp-graph-themes" role="group" aria-label="按主题查看脉络"></div>
         <div id="kp-graph-host"></div>
       </div>
       <div id="kp-coverage-panel" class="kp-scroll" role="tabpanel" aria-label="覆盖视图（编者）" hidden></div>
@@ -25738,12 +25724,9 @@ flowchart LR
       var termsPanel = document.getElementById('kp-terms-panel');
       var chipsBox = document.getElementById('kp-theme-chips');
       var stageList = document.getElementById('kp-stage-list');
-      var conceptList = document.getElementById('kp-concept-list');
-      var dimSwitch = document.getElementById('kp-dim-switch');
       var tabs = Array.prototype.slice.call(document.querySelectorAll('[data-index-tab]'));
       var currentTab = 'points';
       var themeFilter = '全部';
-      var dimFilter = 'points';
       var openStages = {};
       var lastFocus = null;
       var searchInput = document.getElementById('kp-search-input');
@@ -25755,7 +25738,6 @@ flowchart LR
       var resultItems = [];
       var resultSeq = 0;
       var graphsPanel = document.getElementById('kp-graphs-panel');
-      var graphsThemes = document.getElementById('kp-graph-themes');
       var graphsHost = document.getElementById('kp-graph-host');
       var detailBox = document.getElementById('kp-detail');
       var coveragePanel = document.getElementById('kp-coverage-panel');
@@ -25794,12 +25776,39 @@ flowchart LR
           themeFilter = item.name;
           syncChips();
           renderPoints();
+          // 脉络共用同一排胶囊：切换主题时丢弃旧图，下次进入「脉络」按当前主题重绘
+          graphTheme = (item.name === '全部' || !GRAPH_GROUPS[item.name]) ? '' : item.name;
+          if (graphsHost) graphsHost.innerHTML = '';
+          if (currentTab === 'graphs') scheduleGraphs();
         });
         chipsBox.appendChild(chip);
       });
       function syncChips() {
         Array.prototype.forEach.call(chipsBox.children, function (chip) {
           chip.setAttribute('aria-pressed', chip.dataset.theme === themeFilter ? 'true' : 'false');
+        });
+      }
+      // 胶囊溢出时给出左右渐隐提示：贴左只提示右侧，贴右只提示左侧，中间两侧都提示
+      function updateChipFade() {
+        if (!chipsBox || chipsBox.hidden) return;
+        var max = chipsBox.scrollWidth - chipsBox.clientWidth;
+        if (max <= 1) { chipsBox.dataset.fade = 'none'; return; }
+        var x = chipsBox.scrollLeft;
+        chipsBox.dataset.fade = x <= 1 ? 'end' : (x >= max - 1 ? 'start' : 'both');
+      }
+      chipsBox.addEventListener('scroll', updateChipFade);
+      window.addEventListener('resize', updateChipFade);
+
+      // 三个 tab 的数量全部来自派生数据，不手写
+      function updateTabCounts() {
+        var counts = {
+          points: data.points.length,
+          terms: (data.concepts || []).length,
+          graphs: (data.themes || []).length
+        };
+        tabs.forEach(function (btn) {
+          var el = btn.querySelector('[data-tab-count]');
+          if (el) el.textContent = counts[btn.dataset.indexTab];
         });
       }
 
@@ -25998,6 +26007,7 @@ flowchart LR
         termsPanel.hidden = true;
         graphsPanel.hidden = true;
         coveragePanel.hidden = true;
+        chipsBox.hidden = true;
         resultsBox.hidden = false;
         clearResults();
 
@@ -26023,12 +26033,14 @@ flowchart LR
         searchMode = false;
         clearResults();
         resultsBox.hidden = true;
+        chipsBox.hidden = false;
         searchInput.setAttribute('aria-expanded', 'false');
         searchInput.removeAttribute('aria-activedescendant');
         pointsPanel.hidden = currentTab !== 'points';
         termsPanel.hidden = currentTab !== 'terms';
         graphsPanel.hidden = currentTab !== 'graphs';
         coveragePanel.hidden = !coverageMode;
+        updateChipFade();
         if (currentTab === 'graphs') scheduleGraphs();
       }
 
@@ -26082,79 +26094,6 @@ flowchart LR
         closeDrawer();
         if (t.anchor && window.revealAnchor) window.revealAnchor(t.anchor);
       }
-
-      /* ---------- 维度切换：知识点 / 概念 ---------- */
-      function currentCounts() {
-        return {
-          kp: data.points.filter(function (p) {
-            return themeFilter === '全部' || p.theme === themeFilter;
-          }).length,
-          concept: conceptCountFor(themeFilter)
-        };
-      }
-      function syncDims() {
-        var counts = currentCounts();
-        Array.prototype.forEach.call(dimSwitch.querySelectorAll('.kp-dim'), function (btn) {
-          var dim = btn.dataset.kpDim;
-          btn.setAttribute('aria-pressed', dim === dimFilter ? 'true' : 'false');
-        });
-        var kpEl = dimSwitch.querySelector('[data-kp-dim-count="points"]');
-        var conEl = dimSwitch.querySelector('[data-kp-dim-count="concepts"]');
-        if (kpEl) kpEl.textContent = counts.kp;
-        if (conEl) conEl.textContent = counts.concept;
-      }
-      function renderConcepts() {
-        conceptList.innerHTML = '';
-        var items = (data.concepts || []).filter(function (c) {
-          return themeFilter === '全部' || c.theme === themeFilter;
-        });
-        items.forEach(function (c) {
-          var item = document.createElement('button');
-          item.type = 'button';
-          item.className = 'kp-item kp-concept';
-          item.title = c.brief || c.name;
-          var name = document.createElement('span');
-          name.className = 'kp-item-name';
-          name.textContent = c.name;
-          var tags = document.createElement('span');
-          tags.className = 'kp-item-tags';
-          tags.textContent = (TYPE_LABEL[c.type] || '概念') + (themeFilter === '全部' && c.theme ? ' · ' + c.theme : '');
-          item.appendChild(name);
-          item.appendChild(tags);
-          if (c.brief) {
-            var brief = document.createElement('span');
-            brief.className = 'kp-item-brief';
-            brief.textContent = c.brief;
-            item.appendChild(brief);
-          }
-          if (c.aliases && c.aliases.length) {
-            var alias = document.createElement('span');
-            alias.className = 'kp-item-alias';
-            alias.textContent = '别名：' + c.aliases.join('、');
-            item.appendChild(alias);
-          }
-          item.addEventListener('click', function () { jumpToTerm(c); });
-          conceptList.appendChild(item);
-        });
-        if (!items.length) {
-          var empty = document.createElement('div');
-          empty.className = 'kp-empty';
-          empty.textContent = '这个主题下暂时没有概念';
-          conceptList.appendChild(empty);
-        }
-      }
-      function applyDim() {
-        syncDims();
-        stageList.hidden = dimFilter !== 'points';
-        conceptList.hidden = dimFilter !== 'concepts';
-        if (dimFilter === 'concepts') renderConcepts();
-      }
-      Array.prototype.forEach.call(dimSwitch.querySelectorAll('.kp-dim'), function (btn) {
-        btn.addEventListener('click', function () {
-          dimFilter = btn.dataset.kpDim;
-          resetDetail();
-        });
-      });
 
       /* ---------- 阶段折叠列表 ---------- */
       function renderPoints() {
@@ -26215,7 +26154,6 @@ flowchart LR
           empty.textContent = '这个主题下暂时没有知识点';
           stageList.appendChild(empty);
         }
-        applyDim();
       }
 
       /* ---------- 跳转：优先术语首现，再回退 Part 标题 ---------- */
@@ -26243,16 +26181,11 @@ flowchart LR
         if (!detailBox) return;
         detailBox.hidden = true;
         detailBox.innerHTML = '';
-        chipsBox.hidden = false;
-        dimSwitch.hidden = false;
-        applyDim();
+        stageList.hidden = false;
       }
       function openPointDetail(p) {
         if (!detailBox) return;
-        chipsBox.hidden = true;
-        dimSwitch.hidden = true;
         stageList.hidden = true;
-        conceptList.hidden = true;
         detailBox.hidden = false;
         detailBox.innerHTML = '';
 
@@ -26439,23 +26372,6 @@ flowchart LR
       function graphPointCount(theme) {
         return data.points.filter(function (p) { return p.theme === theme; }).length;
       }
-      function ensureGraphChips() {
-        if (!graphsThemes || graphsThemes.children.length) return;
-        (data.themes || []).forEach(function (th) {
-          var chip = document.createElement('button');
-          chip.type = 'button';
-          chip.className = 'kp-chip';
-          chip.dataset.graphTheme = th.name;
-          chip.textContent = th.name + ' ' + th.count;
-          chip.addEventListener('click', function () { renderGraph(th.name); });
-          graphsThemes.appendChild(chip);
-        });
-      }
-      function syncGraphChips() {
-        Array.prototype.forEach.call(graphsThemes.children, function (chip) {
-          chip.setAttribute('aria-pressed', chip.dataset.graphTheme === graphTheme ? 'true' : 'false');
-        });
-      }
       function buildGraphSource(theme) {
         var groups = GRAPH_GROUPS[theme] || [];
         var color = themeColor(theme);
@@ -26473,9 +26389,7 @@ flowchart LR
       }
       function renderGraph(theme) {
         if (!graphsHost || !GRAPH_GROUPS[theme]) return;
-        ensureGraphChips();
         graphTheme = theme;
-        syncGraphChips();
         var groups = GRAPH_GROUPS[theme];
         var color = themeColor(theme);
         graphsHost.innerHTML = '';
@@ -26543,7 +26457,6 @@ flowchart LR
         if (window.scheduleVisibleDiagrams) window.scheduleVisibleDiagrams(graphsHost);
       }
       function scheduleGraphs() {
-        ensureGraphChips();
         if (!graphTheme) {
           graphTheme = (themeFilter !== '全部' && GRAPH_GROUPS[themeFilter]) ? themeFilter
             : (data.themes && data.themes[0] ? data.themes[0].name : '');
@@ -26732,9 +26645,7 @@ flowchart LR
           setTab(btn.dataset.indexTab);
           var first = currentTab === 'terms'
             ? termsPanel.querySelector('.glossary-item')
-            : (currentTab === 'graphs'
-              ? graphsThemes.querySelector('.kp-chip[aria-pressed="true"]')
-              : chipsBox.querySelector('.kp-chip[aria-pressed="true"]'));
+            : chipsBox.querySelector('.kp-chip[aria-pressed="true"]');
           if (first) first.focus();
         });
         btn.addEventListener('keydown', function (e) {
@@ -26762,7 +26673,7 @@ flowchart LR
         if (searchMode) leaveSearch();
         if (theme) {
           themeFilter = theme;
-          dimFilter = 'points';
+          resetDetail();
           syncChips();
           renderPoints();
         } else {
@@ -26775,11 +26686,10 @@ flowchart LR
         document.body.style.overflow = 'hidden';
         setTab(tab || readSavedTab(), false);
         window.requestAnimationFrame(function () {
+          updateChipFade();
           var target = currentTab === 'terms'
             ? (termsPanel.querySelector('.glossary-item') || closeBtn)
-            : (currentTab === 'graphs'
-              ? (graphsThemes.querySelector('.kp-chip[aria-pressed="true"]') || closeBtn)
-              : (chipsBox.querySelector('.kp-chip[aria-pressed="true"]') || closeBtn));
+            : (chipsBox.querySelector('.kp-chip[aria-pressed="true"]') || closeBtn);
           if (target && target.focus) target.focus();
         });
       }
@@ -26857,6 +26767,7 @@ flowchart LR
 
       renderPoints();
       syncChips();
+      updateTabCounts();
       setTab(readSavedTab(), false);
     })();
   </script>
