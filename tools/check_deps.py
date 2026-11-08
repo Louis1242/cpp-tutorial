@@ -3,15 +3,13 @@
 
 用法：
     python tools/check_deps.py              # 只检查，违规时退出码 1
-    python tools/check_deps.py --sync-glossary   # 检查并刷新页面术语表
+    python tools/check_deps.py --sync-glossary   # 已停用：仅提示改用 build_index.py
     python tools/check_deps.py --verbose    # 额外打印豁免与统计
 
-清单：知识依赖清单.json（单一事实来源，页面术语表由它生成）
+清单：知识依赖清单.json（单一事实来源，页面概念列表读取由它生成的派生索引）
 """
 import argparse
-import html as html_mod
 import json
-import locale
 import os
 import re
 import sys
@@ -954,57 +952,6 @@ def gen_markdown(entries):
     return '\n'.join(lines)
 
 
-def term_sort_key(term):
-    """按拼音排序（pypinyin 可选；没装时退回系统中文排序，保证脚本仍可跑）。"""
-    try:
-        from pypinyin import lazy_pinyin
-        return (''.join(lazy_pinyin(term)).lower(), term)
-    except ImportError:
-        try:
-            locale.setlocale(locale.LC_COLLATE, 'Chinese_China.936')
-        except Exception:
-            pass
-        return (locale.strxfrm(term), term)
-
-
-def build_glossary(entries):
-    items = []
-    for entry in entries:
-        if entry.get('type') == 'syntax':
-            continue
-        brief = entry.get('brief', '').strip()
-        anchor = entry.get('full_def') or entry.get('first_def')
-        if not brief or not anchor:
-            continue
-        items.append((entry['term'], brief, anchor, entry['type']))
-    items.sort(key=lambda x: term_sort_key(x[0]))
-    out = []
-    for term, brief, anchor, typ in items:
-        label = '概念' if typ == 'concept' else '名称'
-        out.append(
-            '        <a class="glossary-item" href="#%s" data-glossary>'
-            '<span class="glossary-term">%s</span>'
-            '<span class="glossary-brief">%s</span>'
-            '<span class="glossary-kind">%s</span></a>' % (
-                html_mod.escape(anchor), html_mod.escape(term),
-                html_mod.escape(brief), label)
-        )
-    return '\n'.join(out), len(items)
-
-
-def sync_glossary(page, entries):
-    generated, count = build_glossary(entries)
-    start = '<!-- GLOSSARY:LIST:START -->'
-    end = '<!-- GLOSSARY:LIST:END -->'
-    if start not in page or end not in page:
-        print('! 页面缺少术语表标记，跳过生成')
-        return page, 0
-    head, rest = page.split(start, 1)
-    _, tail = rest.split(end, 1)
-    body = '\n' + generated + '\n        '
-    return head + start + body + end + tail, count
-
-
 def _directive_registered(word, entries):
     """预处理指令是否登记过：#pragma 可由 term “pragma once” 覆盖。"""
     token = word.lower().lstrip('#')
@@ -1093,7 +1040,8 @@ def main():
                     help='要检查的页面文件；默认 index.html，可指向旧快照做对比')
     ap.add_argument('--manifest', default=MANIFEST,
                     help='要使用的知识依赖清单；默认 知识依赖清单.json，可指向旧清单做对比')
-    ap.add_argument('--sync-glossary', action='store_true')
+    ap.add_argument('--sync-glossary', action='store_true',
+                    help='已停用：概念列表改由派生索引渲染，保留参数仅提示')
     ap.add_argument('--sync-md', action='store_true')
     ap.add_argument('--verbose', action='store_true')
     args = ap.parse_args()
@@ -1208,10 +1156,8 @@ def main():
         print('    建议：确认它是不是术语；是的话登记进 知识依赖清单.json，first_def 不得晚于首次使用')
 
     if args.sync_glossary:
-        page2, count = sync_glossary(page, entries)
-        if count:
-            open(INDEX, 'w', encoding='utf-8', newline='\n').write(page2)
-            print('术语表已刷新：%d 条' % count)
+        print('--sync-glossary 已停用：概念列表改由页面读取派生索引.json 运行时渲染，')
+        print('请运行 python tools/build_index.py 重新生成派生数据。')
 
     if args.sync_md:
         usage_locations(entries, parts)

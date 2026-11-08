@@ -1002,6 +1002,7 @@
     }
     .glossary-item { display: block; padding: .5rem .6rem; border-radius: var(--radius-md); }
     .glossary-item:hover { background: var(--c-brand-light); }
+    .glossary-item:focus-visible { outline: 2px solid var(--c-brand-border); outline-offset: 1px; }
     .glossary-term { font-weight: 700; color: var(--c-text); font-size: var(--fs-secondary); }
     .glossary-brief { display: block; margin-top: .1rem; color: var(--c-text-muted); font-size: var(--fs-dense); line-height: 1.6; }
     .glossary-kind { display: inline-block; margin-top: .2rem; padding: 0 .35rem; border-radius: .25rem; background: var(--c-surface-muted); color: var(--c-text-faint); font-size: var(--fs-micro); }
@@ -23976,307 +23977,7 @@ flowchart LR
         <div id="kp-stage-list"></div>
       </div>
       <div id="kp-terms-panel" class="kp-scroll" role="tabpanel" aria-labelledby="kp-tab-terms" hidden>
-      <div id="glossary-list" class="mt-2">
-        <!-- GLOSSARY:LIST:START -->
-        <a class="glossary-item" href="#p1-00" data-glossary><span class="glossary-term">#include</span><span class="glossary-brief">预处理指令：把别的文件内容包含进来。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-std-array" data-glossary><span class="glossary-term">array 头文件</span><span class="glossary-brief">提供 std::array 的头文件。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-ascii" data-glossary><span class="glossary-term">ASCII</span><span class="glossary-brief">字符与 0～127 编号的对照表；&#x27;A&#x27; 是 65，&#x27;a&#x27; 是 97，大小写差 32。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p1-05" data-glossary><span class="glossary-term">auto</span><span class="glossary-brief">让编译器根据初始值推导类型。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-auto-const" data-glossary><span class="glossary-term">auto 丢失只读属性</span><span class="glossary-brief">auto 推导为普通 int 副本，副本仍可修改。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-inherit-access" data-glossary><span class="glossary-term">保护继承</span><span class="glossary-brief">以 protected 方式继承：基类的 public 与 protected 成员在派生类里都变成 protected。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-variable" data-glossary><span class="glossary-term">变量</span><span class="glossary-brief">一块有名字的存储空间，用来存数据。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p8-03" data-glossary><span class="glossary-term">变量声明与定义</span><span class="glossary-brief">定义分配存储且全项目只有一份；声明只告诉编译器名字和类型，可以重复。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p1-00" data-glossary><span class="glossary-term">编译</span><span class="glossary-brief">把 C++ 源码翻译成汇编/机器码的步骤，编译器顺带检查语法和类型。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-function-preview" data-glossary><span class="glossary-term">编译错误</span><span class="glossary-brief">编译器在翻译阶段发现的语法或类型错误，通常带文件名和行号。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p8-00" data-glossary><span class="glossary-term">编译单元</span><span class="glossary-brief">一个 .cpp 加上它 include 进来的头文件，构成编译器处理的一个整体。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-std-array" data-glossary><span class="glossary-term">编译期</span><span class="glossary-brief">代码还没运行、编译器处理源码的阶段；数组长度和 constexpr 必须在这步定下来。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-std-array" data-glossary><span class="glossary-term">编译期常量</span><span class="glossary-brief">写代码时就固定、编译阶段就能算出的值；std::array 的长度必须用它，运行时变量不行。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-expression" data-glossary><span class="glossary-term">表达式</span><span class="glossary-brief">由变量、数字、运算符组成、能算出一个值的式子。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-s6-catchbase" data-glossary><span class="glossary-term">标准异常</span><span class="glossary-brief">标准库 stdexcept 里定义的一组异常类型，如 std::runtime_error、std::out_of_range。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-s6-trycatch" data-glossary><span class="glossary-term">捕获</span><span class="glossary-brief">catch 接住抛出的异常，并按括号里的类型决定谁来处理。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-capture" data-glossary><span class="glossary-term">捕获列表</span><span class="glossary-brief">Lambda 开头方括号里的部分，声明能访问哪些外部变量、按值还是按引用。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-static-cast" data-glossary><span class="glossary-term">C 风格转换</span><span class="glossary-brief">用 (目标类型)值 的圆括号写法做强制转换；不区分四种 cast，static_cast 拒绝时会退到 reinterpret_cast 硬来。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-cstr" data-glossary><span class="glossary-term">c_str</span><span class="glossary-brief">把 std::string 转成只读的 C 风格字符串。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p3-05" data-glossary><span class="glossary-term">参数列表</span><span class="glossary-brief">函数名括号里那串参数，写清每个参数的类型和名字。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p1-04" data-glossary><span class="glossary-term">cfloat</span><span class="glossary-brief">提供 FLT_MAX、DBL_MAX 等小数范围常量的头文件。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-suffix" data-glossary><span class="glossary-term">常量</span><span class="glossary-brief">程序中固定不变的值：字面量、const 变量，以及头文件里预定义的范围常量。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-member" data-glossary><span class="glossary-term">成员</span><span class="glossary-brief">类内部的变量或函数，归这个类（及它的对象）所有。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-initlist" data-glossary><span class="glossary-term">成员初始化列表</span><span class="glossary-brief">构造函数冒号后直接初始化成员；const、引用、无默认构造时必须用。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-member" data-glossary><span class="glossary-term">成员函数</span><span class="glossary-brief">定义在类里的函数，通过对象调用，能访问成员变量。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-member-template" data-glossary><span class="glossary-term">成员模板</span><span class="glossary-brief">类里面的成员函数自带模板：函数前再写一行 template，它能接收与类参数无关的另一种类型。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-abstract" data-glossary><span class="glossary-term">抽象类</span><span class="glossary-brief">含纯虚函数的类，不能创建对象，只能作为派生类的接口合同。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-pure-virtual" data-glossary><span class="glossary-term">纯虚函数</span><span class="glossary-brief">声明 = 0 的虚函数，使类成为抽象类，派生类必须实现。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-cin-get" data-glossary><span class="glossary-term">cin.get</span><span class="glossary-brief">从输入流读一个字符，不跳过空格和换行。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-class" data-glossary><span class="glossary-term">class</span><span class="glossary-brief">定义类的关键字：把数据和操作打包。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p1-04" data-glossary><span class="glossary-term">climits</span><span class="glossary-brief">提供 INT_MAX、LLONG_MAX 等各类型范围常量的头文件。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-const-member" data-glossary><span class="glossary-term">const 成员函数</span><span class="glossary-brief">在参数列表后加 const，承诺不修改成员；const 对象只能调用这类函数。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p4-01" data-glossary><span class="glossary-term">const 引用参数</span><span class="glossary-brief">只读地绑定原对象，避免复制大参数。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-const-pointer" data-glossary><span class="glossary-term">const 与指针</span><span class="glossary-brief">const 在 * 左限制指向的值，在 * 右限制指针本身。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-const" data-glossary><span class="glossary-term">const 只读</span><span class="glossary-brief">只读限定：初始化后不能再改。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-size-t" data-glossary><span class="glossary-term">cstddef</span><span class="glossary-brief">提供 std::size_t 的头文件。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p1-04" data-glossary><span class="glossary-term">cstdint</span><span class="glossary-brief">提供 SIZE_MAX 等整数上限常量的头文件。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p8-05" data-glossary><span class="glossary-term">打开模式</span><span class="glossary-brief">打开文件时说明覆盖还是追加；ios::trunc 覆盖，ios::app 追加。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p2-05" data-glossary><span class="glossary-term">delete</span><span class="glossary-brief">把 new 申请的内存还给系统。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-stackframe" data-glossary><span class="glossary-term">调用栈</span><span class="glossary-brief">函数调用时一层层压入栈帧的结构；出错时能看出谁调用了谁。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p7-02" data-glossary><span class="glossary-term">迭代器</span><span class="glossary-brief">指向容器中某个元素的对象，用 ++ 走到下一个，用 * 取元素。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-algorithm" data-glossary><span class="glossary-term">迭代器失效</span><span class="glossary-brief">容器扩容或删除元素后，原来指向旧位置的迭代器不能再用。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-recursion" data-glossary><span class="glossary-term">递归</span><span class="glossary-brief">函数自己调用自己，必须有终止条件。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-pass" data-glossary><span class="glossary-term">地址传递</span><span class="glossary-brief">把变量地址传给函数，函数通过指针改原变量。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-rtti" data-glossary><span class="glossary-term">动态类型</span><span class="glossary-brief">指针或引用当前实际指向的对象类型，运行到那一句时才知道。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-comma" data-glossary><span class="glossary-term">逗号表达式</span><span class="glossary-brief">从左往右计算，整个表达式的值是最后一项。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-class" data-glossary><span class="glossary-term">对象</span><span class="glossary-brief">按类创建出来的具体个体。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-slicing" data-glossary><span class="glossary-term">对象切片</span><span class="glossary-brief">派生类对象按值赋给基类对象时，派生部分被切掉。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p5-01" data-glossary><span class="glossary-term">对象生命周期</span><span class="glossary-brief">对象从构造出生、使用、到析构销毁的整个过程。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-object-array" data-glossary><span class="glossary-term">对象数组</span><span class="glossary-brief">一排同类对象，每个元素都会各自构造。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p3-02" data-glossary><span class="glossary-term">多分支</span><span class="glossary-brief">一个值对上多条路径；C++ 用 switch / case 写，别忘 break。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#deep-p5-04" data-glossary><span class="glossary-term">多继承与虚继承</span><span class="glossary-brief">多继承是一个类写多个基类；虚继承用于消除菱形继承里的重复基类，本书只给多继承最小写法。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-polymorphism" data-glossary><span class="glossary-term">多态</span><span class="glossary-brief">同一调用按对象实际类型执行不同版本。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-rtti" data-glossary><span class="glossary-term">dynamic_cast</span><span class="glossary-brief">在多态类型间安全转换；指针转换失败返回空指针。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-empty-back" data-glossary><span class="glossary-term">empty 与 back</span><span class="glossary-brief">empty 判断空串，back 取最后一个字符。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-string-erase" data-glossary><span class="glossary-term">erase</span><span class="glossary-brief">删除一段：s.erase(起点, 个数) 直接改原串，不返回新串。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p8-05" data-glossary><span class="glossary-term">二进制文件</span><span class="glossary-brief">按字节原样存数据、记事本打不开的文件；读写要用 ios::binary。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-multidim" data-glossary><span class="glossary-term">二维数组</span><span class="glossary-brief">数组的数组，用两个下标访问，按行连续存放。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-explicit" data-glossary><span class="glossary-term">explicit</span><span class="glossary-brief">加在单参数构造函数上，禁止隐式转换，必须显式构造。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p8-03" data-glossary><span class="glossary-term">extern 声明</span><span class="glossary-brief">只声明“这个名字在别的文件里定义过”，不分配存储；定义仍然只能有一处。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-access" data-glossary><span class="glossary-term">访问权限</span><span class="glossary-brief">public / protected / private，决定谁能访问成员。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-return-ref" data-glossary><span class="glossary-term">返回引用</span><span class="glossary-brief">返回原变量本身而非副本；不能返回局部变量。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p3-05" data-glossary><span class="glossary-term">返回值</span><span class="glossary-brief">函数执行完后交回给调用方的结果，return 后面那个值。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-algorithm" data-glossary><span class="glossary-term">泛型算法</span><span class="glossary-brief">只接收迭代器区间、不挑容器类型的算法，如 sort、find。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#deep-p6-01" data-glossary><span class="glossary-term">非类型模板参数</span><span class="glossary-brief">模板参数不一定类型，也可以是整数等编译期常量，如 Box&lt;int, 5&gt; 里的 5。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-enclosure" data-glossary><span class="glossary-term">封装</span><span class="glossary-brief">把数据藏进 private，只留 public 接口给外面用。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p3-01" data-glossary><span class="glossary-term">分支</span><span class="glossary-brief">按条件走不同代码路径；C++ 用 if / else 写。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-final" data-glossary><span class="glossary-term">final</span><span class="glossary-brief">禁止派生类继续重写虚函数或继承该类。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-string-find" data-glossary><span class="glossary-term">find</span><span class="glossary-brief">查找位置：s.find(&quot;x&quot;) 返回第一次出现的下标，找不到返回 std::string::npos。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#deep-p1-04" data-glossary><span class="glossary-term">浮点精度</span><span class="glossary-brief">二进制只能近似表示多数小数，累加会产生误差。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p5-02" data-glossary><span class="glossary-term">赋值运算符</span><span class="glossary-brief">= 把右边的值写进左边；对对象来说由 operator= 负责重新赋值。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p1-03" data-glossary><span class="glossary-term">getline</span><span class="glossary-brief">读入一整行文字，能保留空格。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-construct" data-glossary><span class="glossary-term">构造函数</span><span class="glossary-brief">对象创建时自动执行、用来准备初始数据的函数。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p1-04" data-glossary><span class="glossary-term">关键字</span><span class="glossary-brief">C++ 里有特殊含义的单词，如 int、return、class，不能拿来当变量名。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p3-05" data-glossary><span class="glossary-term">函数</span><span class="glossary-brief">一段有名字、可以被反复调用的代码。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p3-05" data-glossary><span class="glossary-term">函数定义</span><span class="glossary-brief">声明加上函数体，真正实现函数做什么。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-std-function" data-glossary><span class="glossary-term">函数对象</span><span class="glossary-brief">能像函数一样调用的对象，通常是重载了 operator() 的类对象。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-s6-func-template" data-glossary><span class="glossary-term">函数模板</span><span class="glossary-brief">把参数类型写成占位符 T，调用时由编译器按实参类型替换。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p3-05" data-glossary><span class="glossary-term">函数声明</span><span class="glossary-brief">只写返回类型、函数名和参数列表，以分号结尾，告诉编译器函数怎么用。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#deep-p6-02" data-glossary><span class="glossary-term">函数指针</span><span class="glossary-brief">指向函数的指针，类型写作 int (*p)(int)；本书只要求看懂读法，日常改用 Lambda 或 std::function。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p4-02" data-glossary><span class="glossary-term">函数重载</span><span class="glossary-brief">同名函数靠参数个数或类型区分版本。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-vector" data-glossary><span class="glossary-term">哈希表</span><span class="glossary-brief">按 key 直接算出位置的存储结构，平均查找接近常数时间；std::unordered_map 用它。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p8-02" data-glossary><span class="glossary-term">宏</span><span class="glossary-brief">预处理器在编译前的文本替换：用 #define 定义一个名字，用到它的地方被原样替换，不检查类型；完整用法在阶段八 02 头文件保护。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#cin-recover" data-glossary><span class="glossary-term">缓冲区</span><span class="glossary-brief">输入输出暂时存放数据的内存区；cin 读失败时坏字符会留在缓冲区。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p1-00" data-glossary><span class="glossary-term">汇编</span><span class="glossary-brief">把汇编代码逐条翻译成机器码的步骤。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p8-05" data-glossary><span class="glossary-term">ifstream</span><span class="glossary-brief">输入文件流，用法像 cin，从文件里读数据。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-inline" data-glossary><span class="glossary-term">inline 函数</span><span class="glossary-brief">给编译器的建议：调用处直接展开函数体；更重要的作用是允许函数定义写进头文件而不重复定义。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-vector" data-glossary><span class="glossary-term">insert</span><span class="glossary-brief">在指定位置插入元素；位置用迭代器表示，插入点后面的元素整体后移。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p1-04" data-glossary><span class="glossary-term">INT_MAX</span><span class="glossary-brief">标准库预先定义的最大 / 最小值常量，如 INT_MAX 是 int 的上限。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-iostream" data-glossary><span class="glossary-term">ios_base</span><span class="glossary-brief">输入输出流家族共同的老祖宗，管格式与状态。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p1-00" data-glossary><span class="glossary-term">iostream</span><span class="glossary-brief">输入输出头文件，提供 cout / cin。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p8-05" data-glossary><span class="glossary-term">is_open</span><span class="glossary-brief">询问流有没有成功打开文件；失败时不要继续读写。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p8-05" data-glossary><span class="glossary-term">istringstream</span><span class="glossary-brief">把一行字符串包装成小输入流，用 &gt;&gt; 按空格拆出各个字段。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-inherit" data-glossary><span class="glossary-term">继承</span><span class="glossary-brief">新类沿用旧类的成员与行为。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-inherit-access" data-glossary><span class="glossary-term">继承方式</span><span class="glossary-brief">public/protected/private 三种继承改变成员的访问权限。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p1-04" data-glossary><span class="glossary-term">基础数据类型</span><span class="glossary-brief">int、double、char、bool 这些最常用的类型；选类型就是选能装下数据的盒子。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-precedence" data-glossary><span class="glossary-term">结合性</span><span class="glossary-brief">同一优先级的运算符按从左到右（或从右到左）的顺序计算。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p2-05" data-glossary><span class="glossary-term">解引用</span><span class="glossary-brief">用 * 按指针保存的地址读出或写回那块内存。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-inherit" data-glossary><span class="glossary-term">基类</span><span class="glossary-brief">被继承的旧类，也叫父类。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-static-member" data-glossary><span class="glossary-term">静态成员</span><span class="glossary-brief">用 static 声明、属于整个类而不是某个对象的成员；所有对象共享一份。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-rtti" data-glossary><span class="glossary-term">静态类型</span><span class="glossary-brief">变量或指针在代码里声明的类型，编译时就能确定。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-range-for" data-glossary><span class="glossary-term">基于范围的 for</span><span class="glossary-brief">for (元素变量 : 数组) 依次取出每个元素，不用自己维护下标。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-localvar" data-glossary><span class="glossary-term">局部变量</span><span class="glossary-brief">在函数或一对 { } 里声明的变量，出块即失效。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p5-02" data-glossary><span class="glossary-term">拷贝赋值</span><span class="glossary-brief">用一个已有对象给另一个对象重新赋值，由 operator= 完成。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p5-02" data-glossary><span class="glossary-term">拷贝构造</span><span class="glossary-brief">用已有对象创建新对象时调用的构造函数。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-variadic-template" data-glossary><span class="glossary-term">可变参数模板</span><span class="glossary-brief">个数不定的模板：typename... Args 表示一组类型，args... 接收对应的一组值。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#deep-p6-02" data-glossary><span class="glossary-term">可调用对象</span><span class="glossary-brief">能写进调用括号后面的东西：普通函数、Lambda、函数对象等。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p1-00" data-glossary><span class="glossary-term">可执行文件</span><span class="glossary-brief">链接完成后能直接运行的程序文件（.exe 等）。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p2-05" data-glossary><span class="glossary-term">空指针</span><span class="glossary-brief">不指向任何对象的指针，写作 nullptr；解引用前要判空。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-block" data-glossary><span class="glossary-term">块语句</span><span class="glossary-brief">单独写一对 { } 也构成一层作用域，块内变量先消失。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-string-capacity" data-glossary><span class="glossary-term">扩容</span><span class="glossary-brief">string/vector 放不下时另申请更大内存并搬过去；旧地址和旧迭代器会失效。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-lambda" data-glossary><span class="glossary-term">Lambda</span><span class="glossary-brief">不写名字、直接写在调用处的函数，捕获列表决定能用哪些外部变量。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-s6-class-template" data-glossary><span class="glossary-term">类模板</span><span class="glossary-brief">把类里的成员类型写成占位符 T，用时在类名后写 &lt;具体类型&gt;。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-s6-deduce" data-glossary><span class="glossary-term">类型推导</span><span class="glossary-brief">调用模板时，编译器从实参类型反推占位符 T 具体是什么。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-static-cast" data-glossary><span class="glossary-term">类型转换</span><span class="glossary-brief">把一种类型的值变成另一种类型；有隐式自动转换，也有显式 static_cast。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-conversion-op" data-glossary><span class="glossary-term">类型转换运算符</span><span class="glossary-brief">operator 目标类型()，让本类对象能被当成另一种类型使用。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-class-scope" data-glossary><span class="glossary-term">类作用域</span><span class="glossary-brief">类里定义的名字归这个类管辖：成员可直接用，外面要带类名限定。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p1-00" data-glossary><span class="glossary-term">链接</span><span class="glossary-brief">把多个目标文件和标准库拼成可执行程序，并补全函数地址。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p8-04" data-glossary><span class="glossary-term">链接错误</span><span class="glossary-brief">链接阶段才发现的问题，如函数只有声明没有定义、符号重复；常没有行号。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-inline" data-glossary><span class="glossary-term">链接器</span><span class="glossary-brief">把多个目标文件拼成可执行程序的工具；负责补全函数地址、检查重复定义。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p8-03" data-glossary><span class="glossary-term">链接性</span><span class="glossary-brief">一个名字能不能被别的编译单元看到；默认外部链接，加 static 变内部链接。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p6-02" data-glossary><span class="glossary-term">limits</span><span class="glossary-brief">提供 std::numeric_limits 类模板的头文件。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p3-00" data-glossary><span class="glossary-term">逻辑运算符</span><span class="glossary-brief">&amp;&amp;、||、! 三个把条件组合起来的运算符。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p1-02" data-glossary><span class="glossary-term">命名空间</span><span class="glossary-brief">给名字加上“姓氏”，避免不同库里的同名冲突。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p4-03" data-glossary><span class="glossary-term">默认参数</span><span class="glossary-brief">调用时不写这个实参，就自动使用备用值。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p6-01" data-glossary><span class="glossary-term">模板</span><span class="glossary-brief">写代码时把类型留成空位，用时再填。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-s6-param" data-glossary><span class="glossary-term">模板参数</span><span class="glossary-brief">尖括号里声明的占位名字，如 &lt;typename T&gt; 里的 T。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#deep-p6-01" data-glossary><span class="glossary-term">模板特化</span><span class="glossary-brief">给某个具体类型单独写一份模板实现；本书只登记、不示范。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p1-00" data-glossary><span class="glossary-term">目标文件</span><span class="glossary-brief">编译器产出的中间文件（.o/.obj），还要经链接器拼成可执行文件。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-const-member" data-glossary><span class="glossary-term">mutable</span><span class="glossary-brief">给成员开一个例外：即使在 const 成员函数里也允许修改它。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p8-03" data-glossary><span class="glossary-term">内部链接</span><span class="glossary-brief">名字只在本编译单元可见，别的 .cpp 链接不到。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p2-00" data-glossary><span class="glossary-term">内存四区</span><span class="glossary-brief">栈区、堆区、全局区、常量区、代码区这几块内存的分工。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-wild" data-glossary><span class="glossary-term">内存泄漏</span><span class="glossary-brief">用 new 申请的内存没有 delete，程序运行时再也拿不回来。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p2-05" data-glossary><span class="glossary-term">new</span><span class="glossary-brief">向堆申请内存的关键字。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p2-05" data-glossary><span class="glossary-term">nullptr</span><span class="glossary-brief">空指针常量，表示“不指向任何对象”。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p8-05" data-glossary><span class="glossary-term">ofstream</span><span class="glossary-brief">输出文件流，用法像 cout，把数据写进文件。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p5-03" data-glossary><span class="glossary-term">operator+</span><span class="glossary-brief">让自定义类型支持 + 的成员/非成员函数。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p5-03" data-glossary><span class="glossary-term">operator&lt;&lt;</span><span class="glossary-brief">让自定义类型能被 cout 输出。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p5-02" data-glossary><span class="glossary-term">operator=</span><span class="glossary-brief">赋值运算符对应的函数名：把右边对象写进左边。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p5-05" data-glossary><span class="glossary-term">override</span><span class="glossary-brief">标记“我在改写基类虚函数”，签名写错会报错。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p7-01" data-glossary><span class="glossary-term">pair / first / second</span><span class="glossary-brief">std::pair 把两个值捆成一个；first / second 分别取第一、第二个。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-inherit" data-glossary><span class="glossary-term">派生类</span><span class="glossary-brief">继承出来的新类，也叫子类。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-s6-throw" data-glossary><span class="glossary-term">抛出</span><span class="glossary-brief">用 throw 把错误情况交给上层，当前函数立即停止。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-access" data-glossary><span class="glossary-term">private</span><span class="glossary-brief">私有访问权限，只有类内部能用。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-protected" data-glossary><span class="glossary-term">protected</span><span class="glossary-brief">受保护访问权限，派生类内部也能用。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-access" data-glossary><span class="glossary-term">public</span><span class="glossary-brief">公开访问权限，类外部也能用。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-vector" data-glossary><span class="glossary-term">push_back</span><span class="glossary-brief">在 vector 末尾追加一个元素，长度加 1；容量不够时整块搬家。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p5-02" data-glossary><span class="glossary-term">浅拷贝</span><span class="glossary-brief">只复制指针地址，两个对象共用同一块内存。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p3-06" data-glossary><span class="glossary-term">嵌套循环</span><span class="glossary-brief">一个循环体里再写一个循环；外层走一轮，内层走完整一轮。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-algorithm" data-glossary><span class="glossary-term">前向迭代器</span><span class="glossary-brief">能单步向前、可重复读写同一位置的迭代器。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-new-preview" data-glossary><span class="glossary-term">全局变量</span><span class="glossary-brief">写在所有函数外面的变量，活到程序结束。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p2-05" data-glossary><span class="glossary-term">取地址</span><span class="glossary-brief">用 &amp; 取一个变量的内存地址，交给指针保存。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p1-04" data-glossary><span class="glossary-term">取值范围</span><span class="glossary-brief">一种类型能装下的最小到最大值；由位宽推出，超出范围会回绕或未定义。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p6-05" data-glossary><span class="glossary-term">RAII</span><span class="glossary-brief">用构造申请资源、用析构释放资源。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-static-cast" data-glossary><span class="glossary-term">reinterpret_cast</span><span class="glossary-brief">把一块内存硬按另一种类型解释；C 风格圆括号在 static_cast 失败时会退到它。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p1-01" data-glossary><span class="glossary-term">return</span><span class="glossary-brief">结束函数并把结果交回调用方。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-container" data-glossary><span class="glossary-term">容器</span><span class="glossary-brief">标准库里现成的“能装一组数据”的类型，如 vector、list、map。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-rtti" data-glossary><span class="glossary-term">RTTI</span><span class="glossary-brief">运行时类型信息：程序运行中查询对象的实际类型。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p8-05" data-glossary><span class="glossary-term">沙箱</span><span class="glossary-brief">临时开给程序用的隔离环境；在线运行写出的文件不落到本机硬盘。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-lifetime" data-glossary><span class="glossary-term">生命周期</span><span class="glossary-brief">从创建拿到内存，到被回收为止的这段时间。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p5-02" data-glossary><span class="glossary-term">深拷贝</span><span class="glossary-brief">另外申请内存，把内容真正复制一份。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p3-05" data-glossary><span class="glossary-term">实参</span><span class="glossary-brief">调用函数时真正传进去的值或变量。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-s6-instantiate" data-glossary><span class="glossary-term">实例化</span><span class="glossary-brief">编译器按具体类型把模板生成一份真正的函数或类。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-algorithm" data-glossary><span class="glossary-term">双向迭代器</span><span class="glossary-brief">能前后移动的迭代器，如 list；不能像数组那样随机跳。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-algorithm" data-glossary><span class="glossary-term">输入迭代器</span><span class="glossary-brief">只能单步向前读、不能回头也不能写的迭代器。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p1-03" data-glossary><span class="glossary-term">输入输出</span><span class="glossary-brief">程序把数据读进来、把结果显示出去；std::cin 负责读，std::cout 负责写。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p2-01" data-glossary><span class="glossary-term">数组</span><span class="glossary-brief">一排连续的同类数据，用下标访问。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p2-02" data-glossary><span class="glossary-term">数组遍历</span><span class="glossary-brief">用循环从下标 0 走到 n-1，逐个访问数组元素。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-array-param" data-glossary><span class="glossary-term">数组参数</span><span class="glossary-brief">数组传进函数只会传首地址，长度必须另传一个 int n；日常写 int* a, int n。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-array-decay" data-glossary><span class="glossary-term">数组退化</span><span class="glossary-brief">数组名在推导或传参时变成首地址指针。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p3-03" data-glossary><span class="glossary-term">死循环</span><span class="glossary-brief">条件永远为真、自己停不下来的循环。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-inherit-access" data-glossary><span class="glossary-term">私有继承</span><span class="glossary-brief">以 private 方式继承：基类的 public 与 protected 成员在派生类里都变成 private。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-vector" data-glossary><span class="glossary-term">size()</span><span class="glossary-brief">返回容器当前元素个数；std::array 与 std::string 早就在用，vector 的 size() 会随增删变化。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p1-04" data-glossary><span class="glossary-term">sizeof</span><span class="glossary-brief">求类型或变量占多少字节，结果是一个无符号整数（std::size_t）。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-static-member" data-glossary><span class="glossary-term">static 成员</span><span class="glossary-brief">属于类而不属于对象、所有对象共享的成员。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-static-cast" data-glossary><span class="glossary-term">static_cast</span><span class="glossary-brief">写明白的类型转换：static_cast&lt;目标类型&gt;(值)。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p7-02" data-glossary><span class="glossary-term">std::accumulate</span><span class="glossary-brief">从初值开始把区间里的元素依次累加或按自定义规则合并。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-std-array" data-glossary><span class="glossary-term">std::array</span><span class="glossary-brief">长度固定的标准库数组，类型和长度写在尖括号里，如 std::array&lt;int, 5&gt;。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p1-04" data-glossary><span class="glossary-term">std::boolalpha</span><span class="glossary-brief">让 bool 输出 true / false 而不是 1 / 0。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p1-03" data-glossary><span class="glossary-term">std::cin</span><span class="glossary-brief">标准输入流，用 &gt;&gt; 从键盘读。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p7-02" data-glossary><span class="glossary-term">std::count</span><span class="glossary-brief">统计区间里某个值出现了多少次。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p1-01" data-glossary><span class="glossary-term">std::cout</span><span class="glossary-brief">标准输出流，用 &lt;&lt; 往屏幕写。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p7-01" data-glossary><span class="glossary-term">std::deque</span><span class="glossary-brief">双端队列容器，头尾插入删除都快。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p1-01" data-glossary><span class="glossary-term">std::endl</span><span class="glossary-brief">换行并刷新输出缓冲。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-s6-catchbase" data-glossary><span class="glossary-term">std::exception</span><span class="glossary-brief">所有标准异常的基类，用它可以接住任意一种标准异常。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p7-02" data-glossary><span class="glossary-term">std::find</span><span class="glossary-brief">在区间里找某个值，返回指向它的迭代器或 end()。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p1-03" data-glossary><span class="glossary-term">std::fixed</span><span class="glossary-brief">让浮点数按固定小数位输出。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p7-02" data-glossary><span class="glossary-term">std::for_each</span><span class="glossary-brief">对区间里每个元素调用同一个函数。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-std-function" data-glossary><span class="glossary-term">std::function</span><span class="glossary-brief">可调用对象的统一容器：std::function&lt;返回类型(参数类型)&gt; 能装函数、Lambda 和函数对象。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p7-01" data-glossary><span class="glossary-term">std::list</span><span class="glossary-brief">双向链表容器，中间插入删除快，不能按下标跳着访问。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p7-04" data-glossary><span class="glossary-term">std::make_shared</span><span class="glossary-brief">一次分配对象和控制块并交给 shared_ptr 的工厂函数。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p7-04" data-glossary><span class="glossary-term">std::make_unique</span><span class="glossary-brief">创建对象并交给 unique_ptr 的工厂函数。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p7-01" data-glossary><span class="glossary-term">std::map</span><span class="glossary-brief">按 key 有序存储的键值容器，查找为对数时间。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p7-05" data-glossary><span class="glossary-term">std::move</span><span class="glossary-brief">把左值转成右值引用的类型转换，本身不搬任何数据；完整讲解见阶段七 05。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-s6-explicit" data-glossary><span class="glossary-term">std::numeric_limits</span><span class="glossary-brief">标准库里的类模板，尖括号里写类型就能查它的取值范围。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p5-03" data-glossary><span class="glossary-term">std::ostream</span><span class="glossary-brief">输出流的类型，cout 就是它的一个对象。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-s6-exception-type" data-glossary><span class="glossary-term">std::runtime_error</span><span class="glossary-brief">标准库的运行时错误异常类型，构造时给一句错误说明。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p7-01" data-glossary><span class="glossary-term">std::set</span><span class="glossary-brief">只存不重复元素并自动排序的容器。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p1-03" data-glossary><span class="glossary-term">std::setprecision</span><span class="glossary-brief">设置浮点输出精度。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p7-04" data-glossary><span class="glossary-term">std::shared_ptr</span><span class="glossary-brief">按引用计数共享同一对象的智能指针，最后一个放手时释放。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-size-t" data-glossary><span class="glossary-term">std::size_t</span><span class="glossary-brief">无符号的大小类型，表示数组下标和 sizeof 结果。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p7-02" data-glossary><span class="glossary-term">std::sort</span><span class="glossary-brief">把迭代器区间按规则排序的算法。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-stoi" data-glossary><span class="glossary-term">std::stoi</span><span class="glossary-brief">文本转整数：std::stoi(&quot;2026&quot;) 得到 2026，遇到非数字字符就停。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p2-04" data-glossary><span class="glossary-term">std::string</span><span class="glossary-brief">C++ 的文本类型，自动记录长度。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p2-04" data-glossary><span class="glossary-term">std::string::npos</span><span class="glossary-brief">find 找不到时返回的“无效位置”常量，不要拿它当下标。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-to-string" data-glossary><span class="glossary-term">std::to_string</span><span class="glossary-brief">数字转文本：std::to_string(2026) 得到 &quot;2026&quot;，用于拼接输出。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p7-04" data-glossary><span class="glossary-term">std::unique_ptr</span><span class="glossary-brief">独占一块堆内存的智能指针，不能拷贝，只能转移。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p7-01" data-glossary><span class="glossary-term">std::unordered_map</span><span class="glossary-brief">用哈希表实现的键值容器，平均查找更快但遍历无序。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p7-01" data-glossary><span class="glossary-term">std::vector</span><span class="glossary-brief">能自动变长的数组；阶段二只提名，阶段七 01 正式讲建法、增删与遍历。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p7-04" data-glossary><span class="glossary-term">std::weak_ptr</span><span class="glossary-brief">只观察 shared_ptr 管理的对象、不增计数的弱引用。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-s6-exception-type" data-glossary><span class="glossary-term">stdexcept</span><span class="glossary-brief">提供 runtime_error 等标准异常类型的头文件。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-stl" data-glossary><span class="glossary-term">STL</span><span class="glossary-brief">C++ 标准库中容器、迭代器、算法三层配合使用的那套组件。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-cstrcmp" data-glossary><span class="glossary-term">strcmp</span><span class="glossary-brief">按内容逐字符比较两个 C 风格字符串，返回 0 表示相同。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-struct" data-glossary><span class="glossary-term">struct</span><span class="glossary-brief">和 class 几乎一样，成员默认 public；适合只把几个数据打包。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-string-substr" data-glossary><span class="glossary-term">substr</span><span class="glossary-brief">截取一段：s.substr(起点, 长度)，返回一段新字符串；只写起点就取到结尾。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-algorithm" data-glossary><span class="glossary-term">随机访问迭代器</span><span class="glossary-brief">能用 +n/-n 直接跳到任意位置的迭代器，vector 提供；std::sort 要求这一档。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-ownership" data-glossary><span class="glossary-term">所有权</span><span class="glossary-brief">谁负责在最后 delete 这块堆内存；同一时刻只该有一个负责人。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-switch-case-scope" data-glossary><span class="glossary-term">switch case 作用域</span><span class="glossary-brief">case 只是标签不是独立作用域；在 case 里定义变量要加一对花括号。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-fallthrough" data-glossary><span class="glossary-term">switch 贯穿</span><span class="glossary-brief">case 没写 break 时继续执行下一个 case。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-this" data-glossary><span class="glossary-term">this 指针</span><span class="glossary-brief">成员函数里指向“当前调用对象”的隐含指针，用 this-&gt; 区分同名形参与成员。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p8-02" data-glossary><span class="glossary-term">条件编译</span><span class="glossary-brief">用 #ifndef / #define / #endif 让一段代码只在条件成立时参与编译。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p8-09" data-glossary><span class="glossary-term">调试</span><span class="glossary-brief">运行程序、定位错误的动作；本书只在阶段七 09 和阶段八 09 指路。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-name-hiding" data-glossary><span class="glossary-term">同名成员隐藏</span><span class="glossary-brief">派生类同名成员会挡住基类版本，不是合并。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p8-02" data-glossary><span class="glossary-term">头文件保护</span><span class="glossary-brief">防止同一个头文件在同一编译单元里被展开两次。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p6-03" data-glossary><span class="glossary-term">try-catch</span><span class="glossary-brief">try 里放可能出错的代码，catch 里处理错误。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-rtti" data-glossary><span class="glossary-term">typeid</span><span class="glossary-brief">取表达式的类型信息，可比较两个对象实际类型是否相同。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-vector" data-glossary><span class="glossary-term">vector::at()</span><span class="glossary-brief">带边界检查的下标访问；越界抛 std::out_of_range，而 v[i] 不检查。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-polymorphism" data-glossary><span class="glossary-term">virtual</span><span class="glossary-brief">标记虚函数，让调用按实际类型分派。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#p8-03" data-glossary><span class="glossary-term">外部链接</span><span class="glossary-brief">没有 static 的函数或全局变量，别的 .cpp 文件也能用。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-overflow" data-glossary><span class="glossary-term">未定义行为</span><span class="glossary-brief">标准没规定结果、换编译器或优化级别就可能变的行为，不能依赖。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#deep-p4-05" data-glossary><span class="glossary-term">委托构造</span><span class="glossary-brief">一个构造函数在冒号后调用同类另一个构造函数，先完成公共初始化。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-precedence" data-glossary><span class="glossary-term">位运算</span><span class="glossary-brief">对二进制位做与、或、异或、取反、移位；本书不讲，需要时查参考书。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p8-05" data-glossary><span class="glossary-term">文本文件</span><span class="glossary-brief">按字符编码存、记事本能打开的文件；成绩、配置、日志常用它。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p8-05" data-glossary><span class="glossary-term">文件流</span><span class="glossary-brief">把文件当成输入/输出流来读写；ofstream 写、ifstream 读。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-s6-exception-type" data-glossary><span class="glossary-term">what()</span><span class="glossary-brief">异常对象的成员函数，返回构造时写的那句错误说明。</span><span class="glossary-kind">名称</span></a>
-        <a class="glossary-item" href="#c-unsigned" data-glossary><span class="glossary-term">无符号 unsigned</span><span class="glossary-brief">只存 0 和正数，把负数范围让给正数。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p2-02" data-glossary><span class="glossary-term">下标越界</span><span class="glossary-brief">访问数组时下标小于 0 或大于等于长度；C++ 不检查，结果可能错甚至崩溃。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p5-06" data-glossary><span class="glossary-term">向上转型</span><span class="glossary-brief">把派生类对象当成基类对象用，只保留基类那部分接口。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-s6-explicit" data-glossary><span class="glossary-term">显式实参</span><span class="glossary-brief">在模板名后的尖括号里直接写具体类型，如 Box&lt;int&gt;。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p5-01" data-glossary><span class="glossary-term">析构函数</span><span class="glossary-brief">对象销毁前自动执行的收尾函数，名字是 ~类名。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p3-05" data-glossary><span class="glossary-term">形参</span><span class="glossary-brief">函数定义里写的参数名，接收调用方传来的值。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-dangling" data-glossary><span class="glossary-term">悬空指针</span><span class="glossary-brief">delete 后仍保存旧地址的指针，再解引用是未定义行为。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-polymorphism" data-glossary><span class="glossary-term">虚函数</span><span class="glossary-brief">基类里用 virtual 标记、可被派生类改写的函数。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-polymorphism" data-glossary><span class="glossary-term">虚函数表</span><span class="glossary-brief">对象里记录“该调哪个虚函数”的表；本书只建立概念，不展开内存布局。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-loop-bound" data-glossary><span class="glossary-term">循环边界</span><span class="glossary-brief">按是否包含终点选择 &lt; 或 &lt;=，用首尾值代入验证。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-loop-scope" data-glossary><span class="glossary-term">循环变量作用域</span><span class="glossary-brief">for 头里声明的变量循环结束即失效。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p3-04" data-glossary><span class="glossary-term">循环控制</span><span class="glossary-brief">用 break 提前结束循环、用 continue 跳过本轮、用 return 离开函数。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-cycle" data-glossary><span class="glossary-term">循环引用</span><span class="glossary-brief">两个对象互相用 shared_ptr 指向对方，计数永远降不到 0。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-wild" data-glossary><span class="glossary-term">野指针</span><span class="glossary-brief">未初始化、指向随机地址的指针。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p6-03" data-glossary><span class="glossary-term">异常</span><span class="glossary-brief">程序运行时遇到的错误情况，可以抛出并在别处统一处理。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-s6-exception-safety" data-glossary><span class="glossary-term">异常安全</span><span class="glossary-brief">出错抛出后，资源仍被释放、对象仍处于可继续使用的状态。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-s6-exception" data-glossary><span class="glossary-term">异常对象</span><span class="glossary-brief">throw 后面那个值会被复制成一个对象，沿调用链向上传递。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-move" data-glossary><span class="glossary-term">移动赋值</span><span class="glossary-brief">把源对象的资源直接接管过来，源对象随后变成空壳。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-move" data-glossary><span class="glossary-term">移动构造</span><span class="glossary-brief">用即将销毁的对象创建新对象，直接接管它的资源而不是拷贝。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-move" data-glossary><span class="glossary-term">移动语义</span><span class="glossary-brief">把资源直接转交给新对象，而不是复制一份再销毁旧的。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-implicit" data-glossary><span class="glossary-term">隐式转换与截断</span><span class="glossary-brief">赋值时自动换类型；double 转 int 只留整数部分。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-ref-bind" data-glossary><span class="glossary-term">引用必须初始化</span><span class="glossary-brief">引用声明时绑定，之后不能改绑，也没有空引用。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-pass" data-glossary><span class="glossary-term">引用传递</span><span class="glossary-brief">形参就是实参的别名，改形参等于改外面。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-refcount" data-glossary><span class="glossary-term">引用计数</span><span class="glossary-brief">记录有多少个 shared_ptr 指向同一对象，减到 0 才 delete。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p4-01" data-glossary><span class="glossary-term">引用（别名）</span><span class="glossary-brief">给已存在的变量起另一个名字，改别名就是改变量。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-precedence" data-glossary><span class="glossary-term">优先级</span><span class="glossary-brief">决定同一表达式里先算哪个运算符。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-friend" data-glossary><span class="glossary-term">友元</span><span class="glossary-brief">被类授予访问私有成员权限的外部函数或类；友元不是成员。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-move" data-glossary><span class="glossary-term">右值</span><span class="glossary-brief">临时对象、字面量、马上就要销毁的对象。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-rvalue-ref" data-glossary><span class="glossary-term">右值引用</span><span class="glossary-brief">用 &amp;&amp; 声明的引用，只绑定临时对象或 std::move 之后的左值。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p8-00" data-glossary><span class="glossary-term">源文件</span><span class="glossary-brief">.cpp 文件，放函数定义；编译后变成目标文件。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p1-00" data-glossary><span class="glossary-term">预处理</span><span class="glossary-brief">编译前展开 #include、#define 等指令的步骤。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p8-02" data-glossary><span class="glossary-term">预处理指令</span><span class="glossary-brief">以 # 开头、在编译前由预处理器处理的指令，如 #include、#define。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-statement" data-glossary><span class="glossary-term">语句</span><span class="glossary-brief">程序里会执行的一步操作，以分号结尾。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p4-02" data-glossary><span class="glossary-term">运算符</span><span class="glossary-brief">+ - * / 这类对数据做运算的符号。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p5-03" data-glossary><span class="glossary-term">运算符重载</span><span class="glossary-brief">让 + 等运算符作用于自己定义的类。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-function-preview" data-glossary><span class="glossary-term">运行错误</span><span class="glossary-brief">程序跑起来后才出现的问题，如越界、除以 0、空指针。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p2-00" data-glossary><span class="glossary-term">栈与堆</span><span class="glossary-brief">栈自动分配回收；堆要手动 new / delete。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-s6-unwind" data-glossary><span class="glossary-term">栈展开</span><span class="glossary-brief">异常向上传递时，逐层退出函数并销毁这一层的局部对象。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-stackframe" data-glossary><span class="glossary-term">栈帧</span><span class="glossary-brief">每次函数调用在栈上划出的那块内存，放形参和局部变量。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-variadic-template" data-glossary><span class="glossary-term">折叠表达式</span><span class="glossary-brief">C++17 把一包参数用一个运算符依次合并的写法，如 (args + ...)。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-overflow" data-glossary><span class="glossary-term">整数溢出</span><span class="glossary-brief">无符号按 2^n 取模回绕；有符号溢出是未定义行为，结果不可依赖。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-valuepass" data-glossary><span class="glossary-term">值传递</span><span class="glossary-brief">函数拿到实参的副本，改形参不影响外面。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-smart-ptr" data-glossary><span class="glossary-term">智能指针</span><span class="glossary-brief">用对象管理堆内存的指针，离开作用域自动 delete。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p2-05" data-glossary><span class="glossary-term">指针</span><span class="glossary-brief">保存内存地址的变量，可以通过它读写别处的数据。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-pointer-pointer" data-glossary><span class="glossary-term">指针的指针</span><span class="glossary-brief">保存另一个指针地址的指针，例如 int**。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-pointer-array" data-glossary><span class="glossary-term">指针数组</span><span class="glossary-brief">装多个指针的数组，例如 int* a[3]。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-overload-default" data-glossary><span class="glossary-term">重载二义</span><span class="glossary-brief">多个重载版本都能匹配同一次调用，编译器无法选择。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-conversion" data-glossary><span class="glossary-term">转换构造函数</span><span class="glossary-brief">只收一个参数的构造函数，可把别的类型自动变成本类对象。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p1-06" data-glossary><span class="glossary-term">注释</span><span class="glossary-brief">用 // 或 /* */ 写给人的说明，编译器会跳过不执行。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p8-05" data-glossary><span class="glossary-term">逐行读文件</span><span class="glossary-brief">用 while (getline(in, line)) 一次读一行，读到文件末尾自动结束。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p1-02" data-glossary><span class="glossary-term">自定义命名空间</span><span class="glossary-brief">用 namespace 自己划一个名字区域，把同项目的函数和类型放进去。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#deep-p7-04" data-glossary><span class="glossary-term">自定义删除器</span><span class="glossary-brief">给智能指针指定一个替代 delete 的清理函数，资源不是 new 出来时用。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p2-04" data-glossary><span class="glossary-term">字符串</span><span class="glossary-brief">一串字符；C++ 里常用 std::string 表示。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#p2-03" data-glossary><span class="glossary-term">字符数组</span><span class="glossary-brief">用 char 存一串字符，末尾用 \0 标记结束；std::string 的底层思路。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-suffix" data-glossary><span class="glossary-term">字面量</span><span class="glossary-brief">代码里直接写出来的值，如 42、3.14、&#x27;A&#x27;、true。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-suffix" data-glossary><span class="glossary-term">字面量后缀</span><span class="glossary-brief">数字后加 L/f 等字母，明确它的类型。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-s6-raii" data-glossary><span class="glossary-term">资源守卫</span><span class="glossary-brief">把资源交给一个栈对象保管，离开作用域时由析构函数自动释放。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-incdec" data-glossary><span class="glossary-term">自增前后缀</span><span class="glossary-brief">后置返回旧值，前置返回新值。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-composition" data-glossary><span class="glossary-term">组合</span><span class="glossary-brief">一个类把另一个类的对象作为成员，表示“包含”关系。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-scope" data-glossary><span class="glossary-term">作用域</span><span class="glossary-brief">变量能用的范围：从声明处到所在的那对 { } 结束。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-scope-lifetime" data-glossary><span class="glossary-term">作用域与生命周期</span><span class="glossary-brief">栈对象随作用域结束销毁，堆对象要等 delete。</span><span class="glossary-kind">概念</span></a>
-        <a class="glossary-item" href="#c-move" data-glossary><span class="glossary-term">左值</span><span class="glossary-brief">有名字、能取地址、之后还会用的对象。</span><span class="glossary-kind">概念</span></a>
-        <!-- GLOSSARY:LIST:END -->
-      </div>
+      <div id="glossary-list" class="mt-2"></div>
       </div>
       <div id="kp-graphs-panel" class="kp-scroll" role="tabpanel" aria-labelledby="kp-tab-graphs" hidden>
         <div id="kp-graph-host"></div>
@@ -25776,6 +25477,7 @@ flowchart LR
           themeFilter = item.name;
           syncChips();
           renderPoints();
+          renderTerms();
           // 脉络共用同一排胶囊：切换主题时丢弃旧图，下次进入「脉络」按当前主题重绘
           graphTheme = (item.name === '全部' || !GRAPH_GROUPS[item.name]) ? '' : item.name;
           if (graphsHost) graphsHost.innerHTML = '';
@@ -25829,6 +25531,59 @@ flowchart LR
           order: i
         };
       });
+
+      /* ---------- 概念 tab：直接渲染派生的 329 条数据，按五大主题折叠 ---------- */
+      function renderTerms() {
+        var host = document.getElementById('glossary-list');
+        if (!host) return;
+        host.innerHTML = '';
+        var all = Array.isArray(data.concepts) ? data.concepts : [];
+        (data.themes || []).forEach(function (th) {
+          if (themeFilter !== '全部' && th.name !== themeFilter) return;
+          var items = all.filter(function (c) { return c.theme === th.name; });
+          if (!items.length) return;
+          items.sort(function (a, b) { return String(a.name).localeCompare(String(b.name), 'zh-Hans-CN'); });
+
+          var fold = document.createElement('details');
+          fold.className = 'kp-stage';
+          fold.open = themeFilter !== '全部';
+          var summary = document.createElement('summary');
+          var title = document.createElement('span');
+          title.className = 'kp-stage-title';
+          title.textContent = th.name;
+          var count = document.createElement('span');
+          count.className = 'kp-stage-count';
+          count.textContent = items.length + ' 个';
+          summary.appendChild(title);
+          summary.appendChild(count);
+          fold.appendChild(summary);
+
+          items.forEach(function (c) {
+            var item = c.anchor ? document.createElement('a') : document.createElement('div');
+            item.className = 'glossary-item';
+            if (c.anchor) {
+              item.href = '#' + c.anchor;
+              item.setAttribute('data-glossary', '');
+            }
+            var term = document.createElement('span');
+            term.className = 'glossary-term';
+            term.textContent = c.name;
+            item.appendChild(term);
+            if (c.brief) {
+              var brief = document.createElement('span');
+              brief.className = 'glossary-brief';
+              brief.textContent = c.brief;
+              item.appendChild(brief);
+            }
+            var kind = document.createElement('span');
+            kind.className = 'glossary-kind';
+            kind.textContent = TYPE_LABEL[c.type] || '概念';
+            item.appendChild(kind);
+            fold.appendChild(item);
+          });
+          host.appendChild(fold);
+        });
+      }
 
       function norm(s) { return (s || '').toLowerCase().trim(); }
       function startsWith(s, q) { return norm(s).indexOf(q) === 0; }
@@ -26644,7 +26399,7 @@ flowchart LR
           leaveSearch();
           setTab(btn.dataset.indexTab);
           var first = currentTab === 'terms'
-            ? termsPanel.querySelector('.glossary-item')
+            ? termsPanel.querySelector('.kp-stage > summary')
             : chipsBox.querySelector('.kp-chip[aria-pressed="true"]');
           if (first) first.focus();
         });
@@ -26676,6 +26431,7 @@ flowchart LR
           resetDetail();
           syncChips();
           renderPoints();
+          renderTerms();
         } else {
           resetDetail();
         }
@@ -26688,7 +26444,7 @@ flowchart LR
         window.requestAnimationFrame(function () {
           updateChipFade();
           var target = currentTab === 'terms'
-            ? (termsPanel.querySelector('.glossary-item') || closeBtn)
+            ? (termsPanel.querySelector('.kp-stage > summary') || closeBtn)
             : (chipsBox.querySelector('.kp-chip[aria-pressed="true"]') || closeBtn);
           if (target && target.focus) target.focus();
         });
@@ -26766,6 +26522,7 @@ flowchart LR
       });
 
       renderPoints();
+      renderTerms();
       syncChips();
       updateTabCounts();
       setTab(readSavedTab(), false);
