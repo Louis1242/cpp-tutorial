@@ -18325,6 +18325,11 @@ flowchart LR
                   </div>
                 </div>
 
+                <p class="mt-5 text-sm leading-7 text-slate-600">
+                  前六个阶段，你已经把语法、内存、对象、模板和异常依次走完；这一阶段换一个角度：不再什么都自己写，而是学会用现成的库把数据存好、走完、加工完。
+                  你会先看清这套库分成哪几层、每层各管什么，再逐个认识里面的常用部件。
+                </p>
+
                 <p class="mt-4 text-[13.5px] leading-7 text-slate-600">
                   前面写程序时，存数据、遍历数据、排序查找常常混在同一段循环里：数组自己开、下标自己数、排序自己写。
                   <b id="c-stl" class="concept-anchor text-slate-800">STL</b>（标准模板库，Standard Template Library）把这三件事拆成
@@ -18460,6 +18465,11 @@ flowchart TB
                     <p class="text-[11px] text-slate-400">同样是存一堆数据，查找和插入的速度会差很多</p>
                   </div>
                 </div>
+
+                <p class="mt-5 text-sm leading-7 text-slate-600">
+                  同样是存一堆数据，选错存放方式，查找和插入的速度会差出一个数量级。
+                  这一节你会按“最常做的操作”把几种常见容器对上号，再用两段对比程序看清差别，最后拿一张选型表做判断。
+                </p>
 
                 <p class="mt-4 text-[13.5px] leading-7 text-slate-600">
                   容器不是“更高级的数组”这么简单。数据放在一起之后，接下来要做什么操作，才决定该用哪个容器：
@@ -18813,6 +18823,11 @@ unordered_map: apple=2, size=3</pre>
                   </div>
                 </div>
 
+                <p class="mt-5 text-sm leading-7 text-slate-600">
+                  容器选好之后，接下来的问题是：怎么把元素从头走到尾，又怎么把排序、查找、统计这些通用操作套上去。
+                  你会看到一个起点和一个终点怎样把一段元素框起来，以及这些操作为什么只认范围、不认容器。
+                </p>
+
                 <p class="mt-4 text-[13.5px] leading-7 text-slate-600">
                   上一 Part 挑好了容器，这一 Part 解决“怎么走”和“怎么加工”。容器提供
                   <code class="inline-code">begin()</code> 和 <code class="inline-code">end()</code> 两个位置：前者指向第一个元素，
@@ -19165,6 +19180,11 @@ std::cout &lt;&lt; *it &lt;&lt; "\n";              // 错在哪：it 已失效�
                   </div>
                 </div>
 
+                <p class="mt-5 text-sm leading-7 text-slate-600">
+                  算法常常需要一条“怎么比”的规则，可这条规则往往只用一次。为它单独写一个函数，要起名字、写参数，还得把定义挪到调用处之外。
+                  这一节你会学会把规则直接写在调用的地方，并让它看到外面需要的变量。
+                </p>
+
                 <p class="mt-4 text-[13.5px] leading-7 text-slate-600">
                   有些规则只用一次，比如“分数高的排前面”。为它单独写一个函数，要起名字、写参数、还要把定义挪到调用处之外。
                   <b id="c-lambda" class="concept-anchor text-slate-800">Lambda</b> 是写在表达式里的匿名函数：
@@ -19447,6 +19467,11 @@ std::function: 95 88 79 72 60
                     <p class="text-[11px] text-slate-400">独占、共享、弱引用，三种所有权对应三种场景</p>
                   </div>
                 </div>
+
+                <p class="mt-5 text-sm leading-7 text-slate-600">
+                  手动管理堆对象，最怕的不是忘记写 <code class="inline-code">delete</code>，而是它被异常、提前 <code class="inline-code">return</code> 或多指针悄悄绕过。
+                  这一节你会把“释放”交给对象自己：对象离开作用域就自动收尾，并分清独占、共享、只观察不插手三种分工。
+                </p>
 
                 <p class="mt-4 text-[13.5px] leading-7 text-slate-600">
                   堆上的对象用 <code class="inline-code">new</code> 创建，就必须有人负责 <code class="inline-code">delete</code>。
@@ -19965,6 +19990,11 @@ flowchart TB
                   </div>
                 </div>
 
+                <p class="mt-5 text-sm leading-7 text-slate-600">
+                  有些复制其实是白做的：源对象马上就要销毁，内容却还要逐字抄进新对象。
+                  这一节你会看到怎样把内部缓冲区直接交给目标对象，让它接管资源、源对象只留一个空壳，从源头省掉这次复制。
+                </p>
+
                 <p class="mt-4 text-[13.5px] leading-7 text-slate-600">
                   拷贝一个装着一万字文章的字符串，要把这一万字重新分配内存、逐字复制；如果这个源对象马上就要销毁，这次复制就是白做的。
                   解决思路是让目标对象直接接管源对象的内部缓冲区，源对象改拿一个空壳。
@@ -20176,6 +20206,11 @@ target 内容: hello，copy_made 长度: 0
                   </div>
                 </div>
 
+                <p class="mt-5 text-sm leading-7 text-slate-600">
+                  这一节不再讲新规则，而是把前两节的机制落到一段能跑的代码上。
+                  你会写一个资源包装类，把“构造时拿到、析构时还回”固定下来，再故意在中途提前 <code class="inline-code">return</code>、抛异常，验证清理一次都不会漏。
+                </p>
+
                 <p class="mt-4 text-[13.5px] leading-7 text-slate-600">
                   阶段五讲过构造函数和析构函数，阶段六讲过异常抛出后栈上的对象会被依次析构。
                   把这两件事接起来，就是 RAII：<b>资源在构造时获取，在析构时释放</b>。
@@ -20348,6 +20383,11 @@ int main() {
                     <p class="text-[11px] text-slate-400">每条都给出错法、现象和改法</p>
                   </div>
                 </div>
+
+                <p class="mt-5 text-sm leading-7 text-slate-600">
+                  接口看着都会用，真正卡住人的往往是细节：容器和算法配错、找不到还照取、规则比变量活得久、独占的东西被复制、两个对象互相持有。
+                  这一节把这七个坑摆在一起，每条都给出现象、原因和一行改法，你对照自己的代码过一遍就能避开大半。
+                </p>
 
                 <p class="mt-4 text-[13.5px] leading-7 text-slate-600">
                   下面七段都是错误写法，统一标了“不要运行”。先看现象，再对照原因，最后看一行修法。
@@ -20533,6 +20573,11 @@ std::cout &lt;&lt; "标题长度: " &lt;&lt; title.size();   // 错在哪：titl
                     <p class="text-[11px] text-slate-400">两道题，一道偏数据加工，一道偏资源管理</p>
                   </div>
                 </div>
+
+                <p class="mt-5 text-sm leading-7 text-slate-600">
+                  这一节不引入新语法，只把前面学的东西拼起来用。
+                  你会拿一批学生数据，挑合适的容器装好，用算法完成排序和统计，再用合适的指针管住对象的所有权——三个部分在一次练习里各就各位。
+                </p>
 
                 <p class="mt-4 text-[13.5px] leading-7 text-slate-600">
                   第一题练“存、排、算”：用 <code class="inline-code">vector</code> 存学生，Lambda 定排序规则，
@@ -20941,6 +20986,11 @@ int main() {
                     <p class="text-[11px] text-slate-400">五条结论、一份自检表，以及两个明确不讲的边界</p>
                   </div>
                 </div>
+
+                <p class="mt-5 text-sm leading-7 text-slate-600">
+                  这一阶段结束时，你已经能把两条线接到同一个落点：数据用现成的容器装、用现成的算法加工；资源交给对象自己管，不再靠手写 <code class="inline-code">delete</code>。
+                  下面用五条结论收束，再用一份自检表定位薄弱点，最后划出两处先不用追的边界，并交接到阶段八。
+                </p>
 
                 <h4 class="mt-5 flex items-center gap-2 text-sm font-bold text-slate-800">
                   <span class="w-1 h-3.5 rounded-full bg-indigo-500"></span>
