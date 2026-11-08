@@ -1588,8 +1588,8 @@ flowchart LR
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                你写下的 <code class="inline-code">hello.cpp</code> 是给人看的文本，CPU 只认识由 0 和 1 组成的机器指令。
-                从源代码到能双击运行的程序，中间要经过四个步骤。先记住“先后顺序”和“每一步大概做什么”就够了。
+                你写下的 <code class="inline-code">hello.cpp</code> 是给人看的文本，CPU 只认识由 0 和 1 组成的机器指令；
+                从源代码到能双击运行的程序要经过四个步骤，你先记住“先后顺序”和“每一步大概做什么”就够了。
               </p>
 
               <div class="mt-5 rounded-2xl border border-slate-200 bg-slate-50/60 p-4 sm:p-6" data-diagram>
@@ -1810,8 +1810,8 @@ g++ hello.cpp -o hello.exe -std=c++17 -Wall -Wextra
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                新建一个文件，命名为 <code class="inline-code">hello.cpp</code>，把下面的代码一字不差地敲进去。
-                第一次不要复制，手敲能帮你记住结构。
+                新建一个文件，命名为 <code class="inline-code">hello.cpp</code>，把下面的代码一字不差地敲进去；
+                第一次别复制，手敲过一遍，结构就记住了。
               </p>
 
               <div class="code-wrap mt-3 rounded-xl overflow-hidden border border-slate-800">
@@ -2010,8 +2010,7 @@ g++ hello.cpp -o hello.exe -std=c++17 -Wall -Wextra
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
                 写 <code class="inline-code">std::cout</code> 的时候，<code class="inline-code">std</code> 是“标准库”的命名空间，
-                <code class="inline-code">::</code> 读作“的”，<code class="inline-code">cout</code> 是里面的一个名字。
-                命名空间的作用，就是避免不同地方的同名东西互相打架。
+                <code class="inline-code">::</code> 读作“的”，<code class="inline-code">cout</code> 是里面的一个名字；有了它，不同地方的同名东西就不会互相打架。
               </p>
 
               <div class="mt-4 flex gap-3 rounded-xl bg-amber-50/80 border border-amber-100 p-4">
@@ -2140,8 +2139,8 @@ int main() {
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                C++ 把输入输出叫“流”。数据从键盘流进 <code class="inline-code">cin</code>，再流进变量；
-                变量里的数据通过 <code class="inline-code">cout</code> 流到屏幕。箭头方向就是数据流动的方向。
+                C++ 把输入输出叫“流”：数据从键盘流进 <code class="inline-code">cin</code>，再流进变量；
+                变量里的数据通过 <code class="inline-code">cout</code> 流到屏幕，箭头方向就是数据流动的方向。
               </p>
 
               <div class="mt-4 flex flex-col sm:flex-row items-stretch gap-2">
@@ -2745,7 +2744,7 @@ getline 读到 [def]</pre>
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                类型决定三件事：能装多大的数、能不能装小数、能做什么运算。
+                类型决定三件事：能装多大的数、能不能装小数、能做什么运算；
                 选得太小会“装不下”，选错了类型会出现除法丢小数、精度不对等问题。
               </p>
 
@@ -3617,8 +3616,8 @@ std::cout &lt;&lt; c &lt;&lt; "\n"; // 常见输出 0.30000000000000004</code></
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                类型名写起来麻烦，或者一眼就能从右边看出来时，可以用 <code class="inline-code">auto</code>。
-                编译器会根据等号右边的值，推断左边应该是什么类型。注意：<b class="text-slate-800">必须有初始值</b>。
+                类型名写起来麻烦，或者一眼就能从右边看出来时，你可以用 <code class="inline-code">auto</code>：
+                编译器会根据等号右边的值推断左边应该是什么类型——注意，<b class="text-slate-800">必须有初始值</b>。
               </p>
 
               <div class="code-wrap mt-3 rounded-xl overflow-hidden border border-slate-800">
@@ -4967,8 +4966,8 @@ flowchart LR
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                程序运行时，操作系统会分给它一块内存。C++ 习惯把这块内存按用途分成四个区域。
-                你不需要背地址，只要先记住三件事：<b class="text-slate-800">每个区域放什么、谁负责回收、能活多久</b>。
+                程序运行时，操作系统会分给它一块内存，C++ 习惯按用途把这块内存分成四个区域；
+                你不用背地址，先记住三件事就行：<b class="text-slate-800">每个区域放什么、谁负责回收、能活多久</b>。
               </p>
 
               <p id="c-new-preview" class="mt-3 text-[13px] leading-6 text-slate-500">
@@ -5131,9 +5130,8 @@ flowchart TB
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                如果要保存 5 个成绩，写 <code class="inline-code">score1</code> 到 <code class="inline-code">score5</code> 也能用，
-                但数据一多就管不过来。数组把<b class="text-slate-800">同类型的多个数据排成一排连续存放</b>，
-                共用一个名字，靠“下标”区分第几个。
+                如果要保存 5 个成绩，写 <code class="inline-code">score1</code> 到 <code class="inline-code">score5</code> 也能用，但数据一多就管不过来；
+                数组把<b class="text-slate-800">同类型的多个数据排成一排连续存放</b>，共用一个名字，靠“下标”区分第几个。
               </p>
 
               <div class="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
@@ -5428,7 +5426,7 @@ std::array 元素个数：5
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                数组的优势是“能批量处理”。一个人一个人地写 <code class="inline-code">scores[0]</code>、<code class="inline-code">scores[1]</code> 太笨，
+                数组的优势是“能批量处理”：一个个写 <code class="inline-code">scores[0]</code>、<code class="inline-code">scores[1]</code> 太笨，
                 让下标自己从 0 变到 4，就是<b class="text-slate-800">遍历</b>。
               </p>
 
@@ -5662,9 +5660,8 @@ std::cout &lt;&lt; grid[1][2] &lt;&lt; "\n"; // 第二行第三列，结果是 6
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                文本本质上是一串字符。C++ 里最小的文本单位是 <code class="inline-code">char</code>，一个 <code class="inline-code">char</code> 存一个字符。
-                把多个 <code class="inline-code">char</code> 连续排成数组，再在末尾放一个特殊字符 <code class="inline-code">'\0'</code>，
-                就是 C 风格字符串。
+                文本本质上是一串字符：C++ 里最小的文本单位是 <code class="inline-code">char</code>，一个 <code class="inline-code">char</code> 存一个字符；
+                把多个 <code class="inline-code">char</code> 连续排成数组，再在末尾放一个特殊字符 <code class="inline-code">'\0'</code>，就是 C 风格字符串。
               </p>
 
               <div class="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
@@ -5798,9 +5795,8 @@ std::cin &gt;&gt; name;   // 如果输入 Alexander（9 个字符），会写到
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                <code class="inline-code">char</code> 数组需要你提前决定容量、自己保证 <code class="inline-code">'\0'</code>，还不能直接拼接。
-                <code class="inline-code">std::string</code> 把这些麻烦都接管了：它会自己记录长度，也能随着内容自动变长。
-                阶段一已经用它读过姓名，这一节把它常用的一面认全。
+                <code class="inline-code">char</code> 数组需要你提前决定容量、自己保证 <code class="inline-code">'\0'</code>，还不能直接拼接；<code class="inline-code">std::string</code> 把这些麻烦全接管了：它自己记录长度，也能随内容自动变长。
+                阶段一你已经用它读过姓名，这一节就把它常用的一面认全。
               </p>
 
               <div class="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
@@ -6132,9 +6128,8 @@ std::cout &lt;&lt; s.capacity() &lt;&lt; "\n"; // capacity 是已分配空间，
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                数组的长度必须提前写死，可现实中经常要“先问用户几个人，再决定开多大”。
-                要解决这个问题，需要先理解<b class="text-slate-800">地址</b>：变量在内存里都有一个门牌号，
-                把门牌号存下来，就能在需要的时候按地址找到它。保存地址的变量，就叫<b class="text-slate-800">指针</b>。
+                数组的长度必须提前写死，可现实中经常要“先问用户几个人，再决定开多大”；
+                要解决这个问题，你需要先理解<b class="text-slate-800">地址</b>——变量在内存里都有一个门牌号，把门牌号存下来，就能按地址找到它，而保存地址的变量就叫<b class="text-slate-800">指针</b>。
               </p>
 
               <div class="mt-6">
@@ -7597,12 +7592,9 @@ flowchart LR
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                到目前为止，程序都是从第一行顺序执行到最后一行。可现实任务常常需要
-                <b class="text-slate-800">“看情况”</b>和<b class="text-slate-800">“重复做”</b>：
-                成绩够 60 才算及格，5 个成绩要一个个处理。
-                C++ 用两类语句改变执行顺序：<b class="text-slate-800">分支</b>（<code class="inline-code">if</code> / <code class="inline-code">switch</code>）
-                和<b class="text-slate-800">循环</b>（<code class="inline-code">for</code> / <code class="inline-code">while</code>）。
-                它们都依赖同一个东西：<b class="text-slate-800">条件表达式</b>。
+                到目前为止，程序都是从第一行顺序执行到最后一行，可现实任务常常需要
+                <b class="text-slate-800">“看情况”</b>和<b class="text-slate-800">“重复做”</b>：成绩够 60 才算及格，5 个成绩要一个个处理。
+                C++ 用两类语句改变执行顺序——<b class="text-slate-800">分支</b>（<code class="inline-code">if</code> / <code class="inline-code">switch</code>）和<b class="text-slate-800">循环</b>（<code class="inline-code">for</code> / <code class="inline-code">while</code>），它们都依赖同一个东西：<b class="text-slate-800">条件表达式</b>。
               </p>
 
               <div class="mt-5 rounded-2xl border border-slate-200 bg-slate-50/60 p-4 sm:p-6" data-diagram>
@@ -7774,8 +7766,7 @@ int b = ++i; // 前置：先把 i 加到 3，再把新值 3 给 b</code></pre>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
                 生活里最常见的判断就是分流：护照有效就走快速通道，否则去人工窗口；成绩达到某一档就发对应等级证。
-                代码里的 <code class="inline-code">if</code> 也一样：条件为真，执行它后面的大括号；条件为假，整段跳过。
-                需要“否则”时接 <code class="inline-code">else</code>，需要多档时继续接 <code class="inline-code">else if</code>。
+                代码里的 <code class="inline-code">if</code> 也一样——条件为真，执行它后面的大括号，条件为假就整段跳过；需要“否则”时接 <code class="inline-code">else</code>，需要多档时继续接 <code class="inline-code">else if</code>。
               </p>
 
               <div class="mt-5 table-wrap">
@@ -7888,10 +7879,8 @@ int main() {
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
                 电梯按钮是最直观的例子：按 1 去 1 楼，按 2 去 2 楼，按其他楼层去别的层。
-                这种“按某个固定值选一段代码”的场景，用 <code class="inline-code">switch</code> 比写五六个
-                <code class="inline-code">else if</code> 更整齐。它的骨架只有三样东西：
-                <code class="inline-code">case</code>（候选值）、<code class="inline-code">break</code>（结束这个分支）、
-                <code class="inline-code">default</code>（所有 case 都不匹配时的兜底）。
+                这种“按某个固定值选一段代码”的场景，用 <code class="inline-code">switch</code> 比写五六个 <code class="inline-code">else if</code> 更整齐，骨架只有三样东西：
+                <code class="inline-code">case</code>（候选值）、<code class="inline-code">break</code>（结束这个分支）、<code class="inline-code">default</code>（所有 case 都不匹配时的兜底）。
               </p>
 
               <div class="code-wrap mt-3 rounded-xl overflow-hidden border border-slate-800" data-no-run="1">
@@ -8159,10 +8148,8 @@ int main() {
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
                 跑步可以“跑 5 圈”，也可以“跑到累为止”，还可以“先跑一圈，再看要不要继续”。
-                这三种说法正好对应 C++ 的三种循环：
-                <code class="inline-code">for</code> 适合次数已知，
-                <code class="inline-code">while</code> 适合次数未知、先判断再执行，
-                <code class="inline-code">do-while</code> 适合至少要执行一次、执行完再判断。
+                这三种说法正好对应 C++ 的三种循环：<code class="inline-code">for</code> 适合次数已知，
+                <code class="inline-code">while</code> 适合次数未知、先判断再执行，<code class="inline-code">do-while</code> 适合至少要执行一次、执行完再判断。
               </p>
 
               <div class="mt-5 table-wrap">
@@ -8487,10 +8474,8 @@ int main() {
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                循环的条件只决定“要不要继续下一轮”，但有时我们想在循环中途直接走人，
-                或者跳过这一轮剩下的代码。C++ 给了两个关键字：
-                <code class="inline-code">break</code> 和 <code class="inline-code">continue</code>。
-                它们都只作用于<b class="text-slate-800">当前这一层</b>循环。
+                循环的条件只决定“要不要继续下一轮”，但你有时会想在中途直接走人，或者跳过这一轮剩下的代码；
+                C++ 给了两个关键字——<code class="inline-code">break</code> 和 <code class="inline-code">continue</code>，它们都只作用于<b class="text-slate-800">当前这一层</b>循环。
               </p>
 
               <div class="mt-5 table-wrap">
@@ -8614,8 +8599,7 @@ int main() {
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                如果“求平均分”这段逻辑在程序里出现三次，改规则时就要改三处，漏一处就出 bug。
-                函数就是给这段逻辑起个名字，写一次、调用多次。
+                如果“求平均分”这段逻辑在程序里出现三次，改规则时就要改三处，漏一处就出 bug；函数就是给这段逻辑起个名字，写一次、调用多次。
                 它像一台自动售货机：投币（传入实参）→ 内部处理（执行函数体）→ 出货（返回值）。
               </p>
 
@@ -8966,10 +8950,8 @@ int factorial(int n) {
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                第一个程序是一份“成绩单”：用 <code class="inline-code">while</code> 反复读成绩，
-                读到 -1 用 <code class="inline-code">break</code> 结束；非法成绩用 <code class="inline-code">continue</code> 跳过；
-                成绩存进阶段二学过的数组，最后用 <code class="inline-code">for</code> 统计平均分和最高分，
-                等级判断则抽成函数 <code class="inline-code">gradeOf</code>。
+                你会先写一份“成绩单”：用 <code class="inline-code">while</code> 反复读成绩，读到 -1 用 <code class="inline-code">break</code> 结束，非法成绩用 <code class="inline-code">continue</code> 跳过；
+                成绩存进阶段二学过的数组，最后用 <code class="inline-code">for</code> 统计平均分和最高分，等级判断则抽成函数 <code class="inline-code">gradeOf</code>。
               </p>
 
               <div class="code-wrap mt-3 rounded-xl overflow-hidden border border-slate-800">
@@ -9161,8 +9143,8 @@ int main() {
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                下面这些问题，编译器大多只会给“警告”，程序照样能跑，所以更值得单独记一遍。
-                建议每写完一段分支或循环，都对照这里扫一眼。
+                下面这些问题，编译器大多只会给“警告”，程序照样能跑，所以更值得你单独记一遍；
+                每写完一段分支或循环，回来对照这里扫一眼就行。
               </p>
 
               <div class="mt-4 space-y-3">
@@ -9991,9 +9973,9 @@ flowchart LR
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                下面的程序让三个函数分别用三种方式给变量加 1。三个函数内部都打印 11，
+                下面的程序让三个函数分别用三种方式给变量加 1：三个函数内部都打印 11，
                 但调用结束后只有 <code class="inline-code">a</code> 还是 10——因为值传递改的是副本。
-                先把这张输出对照看明白，再进入引用参数。
+                你会先对照这张输出看明白，再进入引用参数。
               </p>
 
               <div class="code-wrap mt-3 rounded-xl overflow-hidden border border-slate-800">
@@ -10086,10 +10068,8 @@ int main() {
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
                 一个人可以有本名，也可以有外号；叫本名和叫外号，指的都是同一个人。
-                C++ 的<b class="text-slate-800">引用</b>就是给变量起外号：
-                <code class="inline-code">int&amp; r = a;</code> 之后，<code class="inline-code">r</code> 和
-                <code class="inline-code">a</code> 指的是同一块内存，改 <code class="inline-code">r</code>
-                就是改 <code class="inline-code">a</code>，不会产生副本。
+                C++ 的<b class="text-slate-800">引用</b>就是给变量起外号：<code class="inline-code">int&amp; r = a;</code> 之后，<code class="inline-code">r</code> 和
+                <code class="inline-code">a</code> 指的是同一块内存，改 <code class="inline-code">r</code> 就是改 <code class="inline-code">a</code>，不会产生副本。
               </p>
 
               <div class="code-wrap mt-3 rounded-xl overflow-hidden border border-slate-800" data-no-run="1">
@@ -10278,10 +10258,8 @@ void printName(const std::string&amp; name) {
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                现实里“打开”这个词可以打开门、打开文件、打开瓶子，做什么取决于对象。
-                C++ 允许一组函数用<b class="text-slate-800">同一个名字</b>，
-                只要<b class="text-slate-800">参数列表</b>不同，编译器就会根据你传的参数自动挑对应版本，
-                这叫<b class="text-slate-800">函数重载</b>。
+                现实里“打开”这个词可以打开门、打开文件、打开瓶子，做什么取决于对象；
+                C++ 也允许一组函数用<b class="text-slate-800">同一个名字</b>，只要<b class="text-slate-800">参数列表</b>不同，编译器就会根据你传的参数自动挑对应版本，这叫<b class="text-slate-800">函数重载</b>。
               </p>
 
               <div class="mt-5 table-wrap">
@@ -10435,12 +10413,9 @@ void show(int a, int b = 0); // 版本二：第二个参数有默认值
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                打印文档时，纸张、双面、黑白都有默认设置；不特别指定，打印机就按默认来。
-                C++ 的<b class="text-slate-800">默认参数</b>也一样：声明函数时给某个参数一个备用值，
-                调用时可以不写它，编译器自动补上。
-                例如 <code class="inline-code">printLine(12)</code> 只给宽度，填充字符默认用
-                <code class="inline-code">'-'</code>；写 <code class="inline-code">printLine(12, '*')</code>
-                就临时换成星号。
+                打印文档时，纸张、双面、黑白都有默认设置，不特别指定打印机就按默认来；
+                C++ 的<b class="text-slate-800">默认参数</b>也一样：声明函数时给某个参数一个备用值，调用时可以不写它，编译器自动补上。
+                例如 <code class="inline-code">printLine(12)</code> 只给宽度，填充字符默认用 <code class="inline-code">'-'</code>；写 <code class="inline-code">printLine(12, '*')</code> 就临时换成星号。
               </p>
 
               <div class="mt-5 table-wrap">
@@ -10782,11 +10757,9 @@ int main() {
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                成员函数最大的好处是<b class="text-slate-800">不用再显式传数据</b>：
-                <code class="inline-code">show()</code> 里直接就能用 <code class="inline-code">id</code> 和
+                成员函数最大的好处是<b class="text-slate-800">不用再显式传数据</b>：<code class="inline-code">show()</code> 里直接就能用 <code class="inline-code">id</code> 和
                 <code class="inline-code">score</code>，它们属于调用它的那个对象。
-                <code class="inline-code">s1.show()</code> 用的是 s1 的数据，
-                <code class="inline-code">s2.show()</code> 用的是 s2 的数据，互不干扰。
+                <code class="inline-code">s1.show()</code> 用的是 s1 的数据，<code class="inline-code">s2.show()</code> 用的是 s2 的数据，互不干扰。
               </p>
 
               <div class="code-wrap mt-3 rounded-xl overflow-hidden border border-slate-800">
@@ -11185,12 +11158,9 @@ Grid::Cell Grid::at(int index) const { return Cell{index}; }
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                上一节的 <code class="inline-code">Student s1;</code> 创建出来时，成员是没有被赋值的；
-                如果忘了写 <code class="inline-code">s1.score = 88.5;</code>，打印出来的就是不确定的垃圾值。
-                更麻烦的是，成员写成 <code class="inline-code">public</code> 后，任何人都能直接改，
-                合法范围完全靠自觉。
-                <b id="c-construct" class="concept-anchor text-slate-800">构造函数</b>和<b id="c-enclosure" class="concept-anchor text-slate-800">封装</b>就是来解决这两件事的。
-                构造函数是“对象出生时自动执行、用来备好初始数据”的函数；封装是“把数据藏进 private、只留 public 接口给外面用”。
+                上一节的 <code class="inline-code">Student s1;</code> 创建出来时，成员是没有被赋值的，如果忘了写 <code class="inline-code">s1.score = 88.5;</code>，打印出来的就是不确定的垃圾值；
+                更麻烦的是，成员写成 <code class="inline-code">public</code> 后，任何人都能直接改，合法范围完全靠自觉。
+                <b id="c-construct" class="concept-anchor text-slate-800">构造函数</b>和<b id="c-enclosure" class="concept-anchor text-slate-800">封装</b>就是来解决这两件事的——构造函数是“对象出生时自动执行、用来备好初始数据”的函数，封装是“把数据藏进 private、只留 public 接口给外面用”。
               </p>
 
               <div class="mt-5 grid gap-3 lg:grid-cols-2">
@@ -11606,9 +11576,8 @@ Student group[3] = {Student(1), Student(2), Student(3)}; // 三个元素各自�
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                阶段二用数组和循环做过成绩统计，但数据在 main 里，统计逻辑也在 main 里。
-                这次把成绩和统计操作都交给一个 <code class="inline-code">GradeBook</code> 对象：
-                main 只负责读输入、调用接口、打印结果，具体怎么存、怎么算，由类自己负责。
+                阶段二你用数组和循环做过成绩统计，但数据在 main 里，统计逻辑也在 main 里。
+                这次你会把成绩和统计操作都交给一个 <code class="inline-code">GradeBook</code> 对象：main 只负责读输入、调用接口、打印结果，具体怎么存、怎么算，由类自己负责。
               </p>
 
               <div class="mt-5 table-wrap">
@@ -11822,7 +11791,7 @@ int main() {
               </div>
 
               <p class="mt-5 text-sm leading-7 text-slate-600">
-                下面的错误都来自本章刚讲的内容。先看现象，自己猜一下原因，再展开对照。
+                下面的错误都来自本章刚讲的内容：先看现象，自己猜一下原因，再展开对照；
                 带“编译报错”的片段是故意写错的，不要直接复制去运行。
               </p>
 
