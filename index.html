@@ -55,6 +55,43 @@
       --header-h: 68px;
       /* 判断“当前阶段 / 当前 Part”的探测线，桌面端保持原来的 120px */
       --active-line: 120px;
+
+      /* ===== P3 视觉 token：第一阶段只定义，暂不替换任何现有写法 ===== */
+      /* 颜色 · 品牌 */
+      --c-brand: #4f46e5;             /* #4f46e5 品牌主色：导航竖条、链接、进度条、主按钮 */
+      --c-brand-dark: #312e81;        /* #312e81 品牌深色：选中导航标题、选中标签文字 */
+      --c-brand-light: #eef2ff;       /* #eef2ff 品牌浅底：选中导航背景、链接浅底 */
+      /* 颜色 · 文字 */
+      --c-text: #1e293b;              /* #1e293b 正文：卡片正文、输入值、详情标题 */
+      --c-text-secondary: #334155;    /* #334155 次级文字：分组标题、条目正文、状态强文字 */
+      --c-text-muted: #64748b;        /* #64748b 弱化文字：说明、标签、表头 */
+      --c-text-faint: #94a3b8;        /* #94a3b8 更弱文字：提示、元信息、计数 */
+      /* 颜色 · 边框与底色 */
+      --c-border: #e2e8f0;            /* #e2e8f0 边框：卡片外框、分隔线、表格线 */
+      --c-border-strong: #cbd5e1;     /* #cbd5e1 强边框：输入框、面板外框 */
+      --c-surface: #fff;              /* #fff 卡片底：卡片、表格、输入框背景 */
+      --c-surface-soft: #f8fafc;      /* #f8fafc 浅底：表头、悬停行、次要面板 */
+      --c-surface-muted: #f1f5f9;     /* #f1f5f9 浅底：徽章、标签、分段控件 */
+      /* 颜色 · 代码底 */
+      --c-code-bg: #0f172a;           /* #0f172a 代码底：代码块、运行输出、深色面板 */
+      /* 颜色 · 语义 */
+      --c-success: #047857;           /* #047857 成功：运行成功文字、成功按钮悬停 */
+      --c-warning: #92400e;           /* #92400e 警告：警告提示文字 */
+      --c-error: #b91c1c;             /* #b91c1c 错误：运行失败文字 */
+      /* 字号 */
+      --fs-body: 14px;                /* 14px 正文 */
+      --fs-secondary: 13px;           /* 13px 次级 */
+      --fs-meta: 11px;                /* 11px 元信息 */
+      --fs-code: .8125rem;            /* .8125rem（13px）代码块 */
+      --fs-micro: 10px;               /* 10px 微标签 */
+      /* 圆角 */
+      --radius-sm: .4rem;             /* .4rem（6.4px）小圆角：按钮、重置键 */
+      --radius-md: .5rem;             /* .5rem（8px）中圆角：输入框、分段控件 */
+      --radius-lg: .9rem;             /* .9rem（14.4px）大圆角：表格、面板 */
+      --radius-pill: 999px;           /* 999px 胶囊：标签、进度条、圆点 */
+      /* 阴影 */
+      --shadow-card: 0 12px 32px rgba(15, 23, 42, .18);          /* 卡片阴影：iOS 安装引导卡 */
+      --shadow-float: 0 12px 28px -12px rgba(15, 23, 42, .35);   /* 浮层阴影：窄屏底部操作条 */
     }
 
     html { scroll-behavior: smooth; }
