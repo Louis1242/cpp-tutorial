@@ -7,7 +7,7 @@
     "index.html"
   ],
   "_note": "派生数据，勿手改；改两份清单后重跑 tools/build_index.py",
-  "_generated": "2026-11-07",
+  "_generated": "2026-11-08",
   "themes": [
     {
       "name": "语言基础",

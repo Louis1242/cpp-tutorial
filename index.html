@@ -6,8 +6,8 @@
   <meta name="color-scheme" content="light" />
   <title>C++ 零基础学习平台 —— 从入门到入土 · 图解 + 在线运行</title>
   <meta name="description" content="面向零基础学习者的 C++ 可视化教程：支持在线编译运行示例代码，从编译链接、内存模型、调用栈到继承多态与现代标准库，以及多文件编译与文件流。" />
-  <meta name="theme-color" content="#4f46e5" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%234f46e5'/%3E%3Ctext x='32' y='45' font-size='30' font-family='monospace' font-weight='bold' text-anchor='middle' fill='white'%3EC%2B%2B%3C/text%3E%3C/svg%3E" />
+  <meta name="theme-color" content="#2F50A9" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%232F50A9'/%3E%3Ctext x='32' y='45' font-size='30' font-family='monospace' font-weight='bold' text-anchor='middle' fill='white'%3EC%2B%2B%3C/text%3E%3C/svg%3E" />
 
   <!-- 轻量安装态：manifest + iOS 专用图标（iOS 不读 manifest 里的 icons） -->
   <link rel="manifest" href="manifest.webmanifest" />
@@ -33,6 +33,20 @@
             fontFamily: {
               sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', '"Microsoft YaHei"', '"PingFang SC"', '"Noto Sans SC"', 'sans-serif'],
               mono: ['"JetBrains Mono"', '"Cascadia Code"', 'Consolas', '"Courier New"', 'monospace']
+            },
+            borderColor: { DEFAULT: '#DCE6F5' },
+            colors: {
+            slate: { '50': '#F6F9FF', '100': '#EDF2FB', '200': '#DCE6F5', '300': '#C2D2E8', '400': '#76829B', '500': '#5B6883', '600': '#34405C', '700': '#2B3750', '800': '#1D2740', '900': '#131C33', '950': '#0B1222' },
+            indigo: { '50': '#ECF2FD', '100': '#D9E5FA', '200': '#B7CDF4', '300': '#8CAEEA', '400': '#6287DC', '500': '#4568C8', '600': '#2F50A9', '700': '#24408C', '800': '#1B316E', '900': '#152657', '950': '#0C1836' },
+            emerald: { '50': '#ECF9F0', '100': '#D6F2E0', '200': '#A9E4BF', '300': '#75D09A', '400': '#46B676', '500': '#1E9455', '600': '#16703A', '700': '#125C31', '800': '#0E4A29', '900': '#0B3B21', '950': '#062614' },
+            amber: { '50': '#FFF8E6', '100': '#FDEEC4', '200': '#FADF95', '300': '#F2C75B', '400': '#E0A92F', '500': '#C58A18', '600': '#A66E0E', '700': '#85570C', '800': '#69450D', '900': '#52360C', '950': '#32200A' },
+            rose: { '50': '#FEF1F3', '100': '#FCE1E5', '200': '#F8C6CD', '300': '#EF9CA8', '400': '#E06F80', '500': '#CB4358', '600': '#B12B42', '700': '#942235', '800': '#7A1E2D', '900': '#641B26', '950': '#3D0F17' },
+            sky: { '50': '#EFF7FF', '100': '#DCEEFE', '200': '#BCE0FD', '300': '#92CBF8', '400': '#63B2EF', '500': '#3D93DE', '600': '#2878C4', '700': '#2063A5', '800': '#1C5186', '900': '#1A446E', '950': '#10293F' },
+            blue: { '50': '#EEF5FF', '100': '#DCEBFE', '200': '#BFDAFC', '300': '#96C0F7', '400': '#66A2EF', '500': '#3B84E0', '600': '#266BC4', '700': '#1E58A4', '800': '#1C497F', '900': '#1B3F6B', '950': '#112640' },
+            cyan: { '50': '#EDFAFC', '100': '#D5F3F8', '200': '#ABE6F0', '300': '#77D2E3', '400': '#46B6CD', '500': '#2298B2', '600': '#157C96', '700': '#12657B', '800': '#105163', '900': '#0F4252', '950': '#0A2A36' },
+            teal: { '50': '#EBFAF5', '100': '#D1F4E8', '200': '#A4E8D3', '300': '#6CD4B6', '400': '#3AB896', '500': '#1D9B7C', '600': '#147F66', '700': '#116852', '800': '#0F5544', '900': '#0E4639', '950': '#082C25' },
+            orange: { '50': '#FFF4EA', '100': '#FDE6D2', '200': '#FACDA8', '300': '#F3AC74', '400': '#E88A44', '500': '#D06B22', '600': '#B25514', '700': '#92450F', '800': '#78390F', '900': '#63300D', '950': '#3D1D07' },
+            pink: { '50': '#FEF2F5', '100': '#FDE3EA', '200': '#FAC8D6', '300': '#F2A4BB', '400': '#E57B98', '500': '#D05373', '600': '#B53A57', '700': '#972D47', '800': '#7C283C', '900': '#682334', '950': '#41121D' }
             }
           }
         }
@@ -58,26 +72,26 @@
 
       /* ===== P3 视觉 token：第一阶段只定义，暂不替换任何现有写法 ===== */
       /* 颜色 · 品牌 */
-      --c-brand: #4f46e5;             /* #4f46e5 品牌主色：导航竖条、链接、进度条、主按钮 */
-      --c-brand-dark: #312e81;        /* #312e81 品牌深色：选中导航标题、选中标签文字 */
-      --c-brand-light: #eef2ff;       /* #eef2ff 品牌浅底：选中导航背景、链接浅底 */
+      --c-brand: #2F50A9;             /* #4f46e5 品牌主色：导航竖条、链接、进度条、主按钮 */
+      --c-brand-dark: #17275A;        /* #312e81 品牌深色：选中导航标题、选中标签文字 */
+      --c-brand-light: #ECF2FC;       /* #eef2ff 品牌浅底：选中导航背景、链接浅底 */
       /* 颜色 · 文字 */
-      --c-text: #1e293b;              /* #1e293b 正文：卡片正文、输入值、详情标题 */
-      --c-text-secondary: #334155;    /* #334155 次级文字：分组标题、条目正文、状态强文字 */
-      --c-text-muted: #64748b;        /* #64748b 弱化文字：说明、标签、表头 */
-      --c-text-faint: #94a3b8;        /* #94a3b8 更弱文字：提示、元信息、计数 */
+      --c-text: #1C2740;              /* #1e293b 正文：卡片正文、输入值、详情标题 */
+      --c-text-secondary: #34405C;    /* #334155 次级文字：分组标题、条目正文、状态强文字 */
+      --c-text-muted: #5B6883;        /* #64748b 弱化文字：说明、标签、表头 */
+      --c-text-faint: #76829B;        /* #94a3b8 更弱文字：提示、元信息、计数 */
       /* 颜色 · 边框与底色 */
-      --c-border: #e2e8f0;            /* #e2e8f0 边框：卡片外框、分隔线、表格线 */
-      --c-border-strong: #cbd5e1;     /* #cbd5e1 强边框：输入框、面板外框 */
-      --c-surface: #fff;              /* #fff 卡片底：卡片、表格、输入框背景 */
-      --c-surface-soft: #f8fafc;      /* #f8fafc 浅底：表头、悬停行、次要面板 */
-      --c-surface-muted: #f1f5f9;     /* #f1f5f9 浅底：徽章、标签、分段控件 */
+      --c-border: #DCE6F5;            /* #e2e8f0 边框：卡片外框、分隔线、表格线 */
+      --c-border-strong: #C2D2E8;     /* #cbd5e1 强边框：输入框、面板外框 */
+      --c-surface: #FFFFFF;              /* #fff 卡片底：卡片、表格、输入框背景 */
+      --c-surface-soft: #F6F9FF;      /* #f8fafc 浅底：表头、悬停行、次要面板 */
+      --c-surface-muted: #EDF2FB;     /* #f1f5f9 浅底：徽章、标签、分段控件 */
       /* 颜色 · 代码底 */
       --c-code-bg: #0f172a;           /* #0f172a 代码底：代码块、运行输出、深色面板 */
       /* 颜色 · 语义 */
-      --c-success: #047857;           /* #047857 成功：运行成功文字、成功按钮悬停 */
-      --c-warning: #92400e;           /* #92400e 警告：警告提示文字 */
-      --c-error: #b91c1c;             /* #b91c1c 错误：运行失败文字 */
+      --c-success: #16703A;           /* #047857 成功：运行成功文字、成功按钮悬停 */
+      --c-warning: #A66E0E;           /* #92400e 警告：警告提示文字 */
+      --c-error: #B12B42;             /* #b91c1c 错误：运行失败文字 */
       /* 字号 */
       --fs-body: 14px;                /* 14px 正文 */
       --fs-secondary: 13px;           /* 13px 次级 */
@@ -96,22 +110,22 @@
 
       /* ===== P3-2 视觉 token：补齐内联样式里其余在用色（按语义命名） ===== */
       /* 颜色 · 品牌变体 */
-      --c-brand-hover: #4338ca;       /* #4338ca 品牌悬停：悬停/按下态文字与底 */
-      --c-brand-accent: #6366f1;      /* #6366f1 品牌强调：选中导航副标题、选中文件标签边 */
-      --c-brand-border: #a5b4fc;      /* #a5b4fc 品牌边框：悬停边框、聚焦 outline */
-      --c-brand-border-soft: #c7d2fe; /* #c7d2fe 品牌浅边框：悬停/聚焦时的柔和描边 */
-      --c-brand-tint: #e0e7ff;        /* #e0e7ff 品牌浅调：步骤序号底、次级按钮底 */
-      --c-brand-deep: #3730a3;        /* #3730a3 品牌深字：选中导航链接、下一步按钮 */
-      --c-brand-focus: #818cf8;       /* #818cf8 品牌聚焦：编辑器 focus outline、分支标记 */
+      --c-brand-hover: #24408C;       /* #4338ca 品牌悬停：悬停/按下态文字与底 */
+      --c-brand-accent: #5A7FD8;      /* #6366f1 品牌强调：选中导航副标题、选中文件标签边 */
+      --c-brand-border: #96B5EA;      /* #a5b4fc 品牌边框：悬停边框、聚焦 outline */
+      --c-brand-border-soft: #BBD2F2; /* #c7d2fe 品牌浅边框：悬停/聚焦时的柔和描边 */
+      --c-brand-tint: #D9E5FA;        /* #e0e7ff 品牌浅调：步骤序号底、次级按钮底 */
+      --c-brand-deep: #1B316E;        /* #3730a3 品牌深字：选中导航链接、下一步按钮 */
+      --c-brand-focus: #7C99E0;       /* #818cf8 品牌聚焦：编辑器 focus outline、分支标记 */
       --c-link-on-dark: #93c5fd;      /* #93c5fd 深底链接：运行输出里的错误跳转链接 */
       --c-link-on-dark-hover: #c7d2fe;/* #c7d2fe 深底链接悬停：同上悬停态 */
-      --c-brand-grid: rgba(79, 70, 229, .14); /* 品牌网格点：首屏 hero 背景网格 */
+      --c-brand-grid: rgba(47, 80, 169, .10); /* 品牌网格点：首屏 hero 背景网格 */
       /* 颜色 · 中性补充 */
-      --c-text-strong: #475569;       /* #475569 强次级文字：状态、表格正文、按钮文字 */
-      --c-text-heading: #0f172a;      /* #0f172a 标题文字：详情标题、统计数字（不是代码底） */
-      --c-border-soft: #f1f5f9;       /* #f1f5f9 柔和分隔线：表格行、条目之间的浅线 */
-      --c-border-faint: rgba(148, 163, 184, .45); /* 极弱边框：重置按钮外框 */
-      --c-surface-tint: #fcfdff;      /* #fcfdff 近白底：知识图谱卡片 */
+      --c-text-strong: #2B3750;       /* #475569 强次级文字：状态、表格正文、按钮文字 */
+      --c-text-heading: #101A33;      /* #0f172a 标题文字：详情标题、统计数字（不是代码底） */
+      --c-border-soft: #EDF3FB;       /* #f1f5f9 柔和分隔线：表格行、条目之间的浅线 */
+      --c-border-faint: rgba(126, 138, 163, .40); /* 极弱边框：重置按钮外框 */
+      --c-surface-tint: #FCFDFF;      /* #fcfdff 近白底：知识图谱卡片 */
       --c-code-scrollbar: #475569;    /* #475569 代码滚动条：代码块横向滚动滑块 */
       --c-surface-fade: rgba(255, 255, 255, 0); /* 白色渐隐：移动端表格右侧遮罩起点 */
       /* 颜色 · 深色面板 */
@@ -124,30 +138,30 @@
       --c-code-bg-deep: #0b1220;      /* #0b1220 更深的代码底：文件标签条 */
       --c-code-bg-fade: rgba(15, 23, 42, 0); /* 代码底渐隐：代码块左右遮罩起点 */
       /* 颜色 · 成功 */
-      --c-success-strong: #059669;    /* #059669 成功强调：运行按钮描边与底 */
-      --c-success-accent: #34d399;    /* #34d399 成功亮色：完成态图标/文字 */
-      --c-success-text: #6ee7b7;      /* #6ee7b7 成功文字：深底上的运行按钮 */
-      --c-success-text-hover: #ecfdf5;/* #ecfdf5 成功文字悬停：运行按钮悬停 */
-      --c-success-bg: rgba(52, 211, 153, .08);        /* 成功浅底：运行/复制按钮 */
-      --c-success-bg-hover: rgba(52, 211, 153, .18);  /* 成功浅底悬停 */
-      --c-success-border: rgba(52, 211, 153, .38);    /* 成功描边：运行按钮 */
-      --c-success-border-done: rgba(52, 211, 153, .45); /* 成功描边：复制完成 */
-      --c-success-border-hover: rgba(52, 211, 153, .7); /* 成功描边悬停 */
+      --c-success-strong: #1E9455;    /* #059669 成功强调：运行按钮描边与底 */
+      --c-success-accent: #46B676;    /* #34d399 成功亮色：完成态图标/文字 */
+      --c-success-text: #A7DDB6;      /* #6ee7b7 成功文字：深底上的运行按钮 */
+      --c-success-text-hover: #ECFDF3;/* #ecfdf5 成功文字悬停：运行按钮悬停 */
+      --c-success-bg: rgba(70, 182, 118, .10);        /* 成功浅底：运行/复制按钮 */
+      --c-success-bg-hover: rgba(70, 182, 118, .18);  /* 成功浅底悬停 */
+      --c-success-border: rgba(70, 182, 118, .35);    /* 成功描边：运行按钮 */
+      --c-success-border-done: rgba(70, 182, 118, .45); /* 成功描边：复制完成 */
+      --c-success-border-hover: rgba(70, 182, 118, .65); /* 成功描边悬停 */
       /* 颜色 · 警告 */
-      --c-warning-strong: #78350f;    /* #78350f 警告文字：桌面模式提示 */
-      --c-warning-border: #fcd34d;    /* #fcd34d 警告描边：提示卡外框 */
-      --c-warning-border-strong: #d97706; /* #d97706 警告描边强调：提示关闭按钮 */
-      --c-warning-bg: #fffbeb;        /* #fffbeb 警告浅底：提示卡 */
+      --c-warning-strong: #85570C;    /* #78350f 警告文字：桌面模式提示 */
+      --c-warning-border: #F2C75B;    /* #fcd34d 警告描边：提示卡外框 */
+      --c-warning-border-strong: #C58A18; /* #d97706 警告描边强调：提示关闭按钮 */
+      --c-warning-bg: #FFF8E6;        /* #fffbeb 警告浅底：提示卡 */
       /* 颜色 · 遮罩、阴影与叠加 */
       --c-mask: #000;                 /* #000 遮罩色：横向标签条的渐隐 mask */
-      --c-scrim: rgba(15, 23, 42, .35);   /* 抽屉遮罩：术语抽屉背景 */
-      --c-shadow-soft: rgba(15, 23, 42, .08);   /* 轻阴影：术语按钮 */
-      --c-shadow-chip: rgba(15, 23, 42, .12);   /* 药丸阴影：选中标签 */
-      --c-shadow-hairline: rgba(15, 23, 42, .04); /* 发丝阴影：卡片 1px 细影 */
-      --c-shadow-card: rgba(15, 23, 42, .18);   /* 卡片阴影色：iOS 安装卡 */
-      --c-shadow-dock: rgba(15, 23, 42, .35);   /* 浮动条阴影色：移动端底部操作条 */
-      --c-shadow-panel: rgba(15, 23, 42, .45);  /* 面板阴影色：术语面板 */
-      --c-brand-shadow: rgba(79, 70, 229, .55); /* 品牌阴影：移动端悬浮按钮 */
+      --c-scrim: rgba(18, 30, 58, .35);   /* 抽屉遮罩：术语抽屉背景 */
+      --c-shadow-soft: rgba(22, 38, 72, .08);   /* 轻阴影：术语按钮 */
+      --c-shadow-chip: rgba(22, 38, 72, .12);   /* 药丸阴影：选中标签 */
+      --c-shadow-hairline: rgba(22, 38, 72, .04); /* 发丝阴影：卡片 1px 细影 */
+      --c-shadow-card: rgba(18, 30, 58, .18);   /* 卡片阴影色：iOS 安装卡 */
+      --c-shadow-dock: rgba(18, 30, 58, .35);   /* 浮动条阴影色：移动端底部操作条 */
+      --c-shadow-panel: rgba(18, 30, 58, .45);  /* 面板阴影色：术语面板 */
+      --c-brand-shadow: rgba(47, 80, 169, .45); /* 品牌阴影：移动端悬浮按钮 */
       --c-overlay-bg: rgba(255, 255, 255, .04);        /* 深底叠加底：复制按钮 */
       --c-overlay-bg-hover: rgba(255, 255, 255, .09);  /* 深底叠加底悬停 */
       --c-overlay-border: rgba(255, 255, 255, .14);    /* 深底叠加描边 */
@@ -1238,6 +1252,11 @@
       border-top: 1px dashed var(--c-border); font-size: var(--fs-dense); line-height: 1.6; color: var(--c-text-muted);
     }
   </style>
+<style id="theme-preview-bridge">
+.bg-white{background-color:var(--c-surface)!important}
+[class*="bg-white/"]{background-color:var(--c-surface)!important}
+.code-wrap{border-color:var(--c-border-strong)!important}
+</style>
 </head>
 
 <body class="bg-slate-50 text-slate-800 font-sans antialiased">
@@ -1669,9 +1688,9 @@ flowchart LR
     b5 --> l17["auto：让编译器从初始值推类型"]
     b5 --> l18["auto& 与 const auto&：要改原变量就得引用"]
     b5 --> l19["auto 遇上数组：退化成指针"]
-    classDef root fill:#312e81,stroke:#312e81,color:#ffffff;
-    classDef block fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
-    classDef leaf fill:#f8fafc,stroke:#cbd5e1,stroke-width:1px,color:#0f172a;
+    classDef root fill:#17275A,stroke:#17275A,color:#FFFFFF;
+    classDef block fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
+    classDef leaf fill:#F6F9FF,stroke:#C2D2E8,stroke-width:1px,color:#101A33;
     class root1 root;
     class b1,b2,b3,b4,b5 block;
     class l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17,l18,l19 leaf;
@@ -1753,9 +1772,9 @@ flowchart TD
     C -->|3 汇编| D["hello.obj 目标文件"]
     D -->|4 链接| E["hello.exe 可执行程序"]
     LIB["标准库与启动代码"] --> E
-    classDef file fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
-    classDef exe fill:#ecfdf5,stroke:#10b981,stroke-width:1.5px,color:#065f46;
-    classDef lib fill:#f8fafc,stroke:#cbd5e1,color:#334155;
+    classDef file fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
+    classDef exe fill:#ECF9F0,stroke:#46B676,stroke-width:1.5px,color:#125C31;
+    classDef lib fill:#F6F9FF,stroke:#C2D2E8,color:#34405C;
     class A,B,C,D file;
     class E exe;
     class LIB lib;
@@ -2448,10 +2467,10 @@ flowchart TD
     OUT --> COUT["cout：屏幕输出"]
     IN --> FIN["ifstream：文件输入（阶段八）"]
     OUT --> FOUT["ofstream：文件输出（阶段八）"]
-    classDef base fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
-    classDef stream fill:#e0f2fe,stroke:#0284c7,stroke-width:1.5px,color:#0c4a6e;
-    classDef inst fill:#ecfdf5,stroke:#10b981,stroke-width:1.5px,color:#065f46;
-    classDef file fill:#f8fafc,stroke:#cbd5e1,color:#64748b;
+    classDef base fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
+    classDef stream fill:#EFF7FF,stroke:#2878C4,stroke-width:1.5px,color:#1C5186;
+    classDef inst fill:#ECF9F0,stroke:#46B676,stroke-width:1.5px,color:#125C31;
+    classDef file fill:#F6F9FF,stroke:#C2D2E8,color:#5B6883;
     class BASE base;
     class IN,OUT stream;
     class CIN,COUT inst;
@@ -4877,11 +4896,11 @@ flowchart LR
     b4 -.->|阶段二再练| n2
     b5 -.->|阶段二学指针| n2
     b3 -.->|阶段二学 string| n2
-    classDef block fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
-    classDef done fill:#ecfdf5,stroke:#10b981,stroke-width:1.5px,color:#065f46;
-    classDef seen fill:#fff7ed,stroke:#f59e0b,stroke-width:1.5px,color:#92400e;
-    classDef later fill:#f1f5f9,stroke:#94a3b8,stroke-width:1.5px,color:#475569;
-    classDef next fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
+    classDef block fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
+    classDef done fill:#ECF9F0,stroke:#46B676,stroke-width:1.5px,color:#125C31;
+    classDef seen fill:#FFF4EA,stroke:#E0A92F,stroke-width:1.5px,color:#85570C;
+    classDef later fill:#EDF2FB,stroke:#76829B,stroke-width:1.5px,color:#2B3750;
+    classDef next fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
     class b1,b2,b3,b4,b5 block;
     class s1,s2 done;
     class s3 seen;
@@ -5047,9 +5066,9 @@ flowchart LR
     b4 --> l11["nullptr、野指针、悬空指针：三种“不指向有效对象”"]
     b4 --> l12["指针数组、指针的指针、const 与指针：三种进阶声明"]
     b5 --> l13["new / delete：向堆申请、用完归还，别留内存泄漏"]
-    classDef root fill:#312e81,stroke:#312e81,color:#ffffff;
-    classDef block fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
-    classDef leaf fill:#f8fafc,stroke:#cbd5e1,stroke-width:1px,color:#0f172a;
+    classDef root fill:#17275A,stroke:#17275A,color:#FFFFFF;
+    classDef block fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
+    classDef leaf fill:#F6F9FF,stroke:#C2D2E8,stroke-width:1px,color:#101A33;
     class root2 root;
     class b1,b2,b3,b4,b5 block;
     class l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13 leaf;
@@ -5140,10 +5159,10 @@ flowchart TB
         C["栈区 Stack<br/>局部变量、函数参数<br/>自动分配 · 自动回收"]
         D["堆区 Heap<br/>new 申请的内存<br/>手动申请 · 手动释放"]
     end
-    classDef code fill:#f1f5f9,stroke:#cbd5e1,color:#334155;
-    classDef global fill:#eff6ff,stroke:#93c5fd,color:#1e3a8a;
-    classDef stack fill:#eef2ff,stroke:#818cf8,color:#312e81;
-    classDef heap fill:#ecfdf5,stroke:#34d399,color:#065f46;
+    classDef code fill:#EDF2FB,stroke:#C2D2E8,color:#34405C;
+    classDef global fill:#ECF2FC,stroke:#96B5EA,color:#17275A;
+    classDef stack fill:#ECF2FC,stroke:#7C99E0,color:#17275A;
+    classDef heap fill:#ECF9F0,stroke:#34d399,color:#125C31;
     class A code;
     class B global;
     class C stack;
@@ -6556,8 +6575,8 @@ flowchart LR
         H3["scores[3] = 95"]
     end
     P -->|"0x5a10 指向首元素"| H0
-    classDef stackNode fill:#eef2ff,stroke:#818cf8,color:#312e81;
-    classDef heapNode fill:#ecfdf5,stroke:#34d399,color:#065f46;
+    classDef stackNode fill:#ECF2FC,stroke:#7C99E0,color:#17275A;
+    classDef heapNode fill:#ECF9F0,stroke:#34d399,color:#125C31;
     class P,N stackNode;
     class H0,H1,H2,H3 heapNode;
                 </script>
@@ -7503,11 +7522,11 @@ flowchart LR
     s5 --> n3
     n7["阶段七 · 智能指针"]
     b5 -.->|阶段七学指针| n7
-    classDef block fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
-    classDef done fill:#ecfdf5,stroke:#10b981,stroke-width:1.5px,color:#065f46;
-    classDef seen fill:#fff7ed,stroke:#f59e0b,stroke-width:1.5px,color:#92400e;
-    classDef later fill:#f1f5f9,stroke:#94a3b8,stroke-width:1.5px,color:#475569;
-    classDef next fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
+    classDef block fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
+    classDef done fill:#ECF9F0,stroke:#46B676,stroke-width:1.5px,color:#125C31;
+    classDef seen fill:#FFF4EA,stroke:#E0A92F,stroke-width:1.5px,color:#85570C;
+    classDef later fill:#EDF2FB,stroke:#76829B,stroke-width:1.5px,color:#2B3750;
+    classDef next fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
     class b1,b2,b3,b4,b5 block;
     class s1 done;
     class s2 done;
@@ -7673,9 +7692,9 @@ flowchart LR
     b4 --> l12["栈帧：每次函数调用在栈上划一块，放形参与局部变量"]
     b4 --> l13["数组传参退化成首地址，长度必须另传"]
     b4 --> l14["返回引用不能返回局部变量；递归必须有终止条件"]
-    classDef root fill:#312e81,stroke:#312e81,color:#ffffff;
-    classDef block fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
-    classDef leaf fill:#f8fafc,stroke:#cbd5e1,stroke-width:1px,color:#0f172a;
+    classDef root fill:#17275A,stroke:#17275A,color:#FFFFFF;
+    classDef block fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
+    classDef leaf fill:#F6F9FF,stroke:#C2D2E8,stroke-width:1px,color:#101A33;
     class root3 root;
     class b1,b2,b3,b4 block;
     class l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14 leaf;
@@ -7750,9 +7769,9 @@ flowchart TB
     C -- "是" --> D["输出 n<br/>然后 n = n - 1"]
     D --> C
     C -- "否" --> E["结束"]
-    classDef start fill:#eef2ff,stroke:#818cf8,color:#312e81;
-    classDef branch fill:#fef3c7,stroke:#f59e0b,color:#92400e;
-    classDef work fill:#ecfdf5,stroke:#34d399,color:#065f46;
+    classDef start fill:#ECF2FC,stroke:#7C99E0,color:#17275A;
+    classDef branch fill:#FFF8E6,stroke:#E0A92F,color:#85570C;
+    classDef work fill:#ECF9F0,stroke:#34d399,color:#125C31;
     class A,E start;
     class C branch;
     class B,D work;
@@ -8785,7 +8804,7 @@ flowchart TB
     B["isEven 栈帧<br/>形参 number = 8"]
     A -- "调用 isEven(8)" --> B
     B -- "return true 后弹出" --> A
-    classDef frame fill:#eef2ff,stroke:#818cf8,color:#312e81;
+    classDef frame fill:#ECF2FC,stroke:#7C99E0,color:#17275A;
     class A,B frame;
                 </script>
               </div>
@@ -9777,11 +9796,11 @@ flowchart LR
     s3 --> n4
     s4 --> n4
     n4["阶段四 · 引用与类"]
-    classDef block fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
-    classDef done fill:#ecfdf5,stroke:#10b981,stroke-width:1.5px,color:#065f46;
-    classDef seen fill:#fff7ed,stroke:#f59e0b,stroke-width:1.5px,color:#92400e;
-    classDef later fill:#f1f5f9,stroke:#94a3b8,stroke-width:1.5px,color:#475569;
-    classDef next fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
+    classDef block fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
+    classDef done fill:#ECF9F0,stroke:#46B676,stroke-width:1.5px,color:#125C31;
+    classDef seen fill:#FFF4EA,stroke:#E0A92F,stroke-width:1.5px,color:#85570C;
+    classDef later fill:#EDF2FB,stroke:#76829B,stroke-width:1.5px,color:#2B3750;
+    classDef next fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
     class b1,b2,b3,b4 block;
     class s1 seen;
     class s2 done;
@@ -9948,9 +9967,9 @@ flowchart LR
     b4 --> l12["构造函数与成员初始化列表：const / 引用成员必须用它"]
     b4 --> l13["对象数组：每个元素各自构造、各自析构"]
     b4 --> l14["mutable 与委托构造：两个特殊写法"]
-    classDef root fill:#312e81,stroke:#312e81,color:#ffffff;
-    classDef block fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
-    classDef leaf fill:#f8fafc,stroke:#cbd5e1,stroke-width:1px,color:#0f172a;
+    classDef root fill:#17275A,stroke:#17275A,color:#FFFFFF;
+    classDef block fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
+    classDef leaf fill:#F6F9FF,stroke:#C2D2E8,stroke-width:1px,color:#101A33;
     class root4 root;
     class b1,b2,b3,b4 block;
     class l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14 leaf;
@@ -10069,8 +10088,8 @@ flowchart LR
     A -- "引用传递：绑定" --> D
     C -- "*p 修改" --> A
     D -- "写 r 就是写 a" --> A
-    classDef origin fill:#eef2ff,stroke:#818cf8,color:#312e81;
-    classDef copy fill:#f8fafc,stroke:#cbd5e1,color:#475569;
+    classDef origin fill:#ECF2FC,stroke:#7C99E0,color:#17275A;
+    classDef copy fill:#F6F9FF,stroke:#C2D2E8,color:#2B3750;
     class A origin;
     class B,C,D copy;
                 </script>
@@ -11476,9 +11495,9 @@ flowchart LR
     D -- "检查后修改" --> P
     M -- "调用" --> G
     G -- "只读" --> P
-    classDef pub fill:#ecfdf5,stroke:#34d399,color:#065f46;
-    classDef priv fill:#eef2ff,stroke:#818cf8,color:#312e81;
-    classDef main fill:#f8fafc,stroke:#94a3b8,color:#334155;
+    classDef pub fill:#ECF9F0,stroke:#34d399,color:#125C31;
+    classDef priv fill:#ECF2FC,stroke:#7C99E0,color:#17275A;
+    classDef main fill:#F6F9FF,stroke:#76829B,color:#34405C;
     class M main;
     class C,D,G pub;
     class P priv;
@@ -12543,11 +12562,11 @@ flowchart LR
     s3 --> n5
     s4 --> n5
     n5["阶段五 · 对象、继承与多态"]
-    classDef block fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
-    classDef done fill:#ecfdf5,stroke:#10b981,stroke-width:1.5px,color:#065f46;
-    classDef seen fill:#fff7ed,stroke:#f59e0b,stroke-width:1.5px,color:#92400e;
-    classDef later fill:#f1f5f9,stroke:#94a3b8,stroke-width:1.5px,color:#475569;
-    classDef next fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
+    classDef block fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
+    classDef done fill:#ECF9F0,stroke:#46B676,stroke-width:1.5px,color:#125C31;
+    classDef seen fill:#FFF4EA,stroke:#E0A92F,stroke-width:1.5px,color:#85570C;
+    classDef later fill:#EDF2FB,stroke:#76829B,stroke-width:1.5px,color:#2B3750;
+    classDef next fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
     class b1,b2,b3,b4 block;
     class s1 done;
     class s2 done;
@@ -12723,9 +12742,9 @@ flowchart LR
     b4 --> l15["对象切片与向上转型：按值传给基类会切掉派生部分"]
     b4 --> l16["静态类型 vs 动态类型：编译时类型和运行时类型"]
     b5 --> l17["typeid 与 dynamic_cast：运行时认类型、安全转换"]
-    classDef root fill:#312e81,stroke:#312e81,color:#ffffff;
-    classDef block fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
-    classDef leaf fill:#f8fafc,stroke:#cbd5e1,stroke-width:1px,color:#0f172a;
+    classDef root fill:#17275A,stroke:#17275A,color:#FFFFFF;
+    classDef block fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
+    classDef leaf fill:#F6F9FF,stroke:#C2D2E8,stroke-width:1px,color:#101A33;
     class root5 root;
     class b1,b2,b3,b4,b5 block;
     class l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17 leaf;
@@ -13028,8 +13047,8 @@ flowchart TD
     D --> E["析构 inner"]
     E --> F["main 结束"]
     F --> G["析构 outer"]
-    classDef born fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
-    classDef die fill:#fef2f2,stroke:#ef4444,stroke-width:1.5px,color:#991b1b;
+    classDef born fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
+    classDef die fill:#FEF1F3,stroke:#E06F80,stroke-width:1.5px,color:#7A1E2D;
     class A,C born;
     class E,G die;
                 </script>
@@ -13286,8 +13305,8 @@ flowchart TD
     F --> T{"this 指向谁？"}
     T -->|"a 调用时"| A2["this 指向 a，改 a 的 name"]
     T -->|"b 调用时"| B2["this 指向 b，改 b 的 name"]
-    classDef obj fill:#ecfdf5,stroke:#10b981,stroke-width:1.5px,color:#065f46;
-    classDef code fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
+    classDef obj fill:#ECF9F0,stroke:#46B676,stroke-width:1.5px,color:#125C31;
+    classDef code fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
     class A,B obj;
     class F code;
                   </script>
@@ -13720,8 +13739,8 @@ a + b = (4, 6)</pre>
 flowchart LR
     P["Point 类"] -->|"friend 声明授权"| F["operator<<（非成员函数）"]
     F -->|"直接读 private x、y"| P
-    classDef cls fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
-    classDef fn fill:#ecfdf5,stroke:#10b981,stroke-width:1.5px,color:#065f46;
+    classDef cls fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
+    classDef fn fill:#ECF9F0,stroke:#46B676,stroke-width:1.5px,color:#125C31;
     class P cls;
     class F fn;
                   </script>
@@ -14344,9 +14363,9 @@ flowchart TB
     C --> S["seatCount（int 成员）"]
     E --> B["Car 构造函数体"]
     S --> B
-    classDef car fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
-    classDef mem fill:#ecfdf5,stroke:#10b981,stroke-width:1.5px,color:#065f46;
-    classDef body fill:#f8fafc,stroke:#cbd5e1,color:#334155;
+    classDef car fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
+    classDef mem fill:#ECF9F0,stroke:#46B676,stroke-width:1.5px,color:#125C31;
+    classDef body fill:#F6F9FF,stroke:#C2D2E8,color:#34405C;
     class C car;
     class E,S mem;
     class B body;
@@ -14632,9 +14651,9 @@ flowchart LR
     V --> S["Dog::speak"]
     V --> N["Dog::name"]
     P -.->|"同一句 p-&gt;speak()"| S
-    classDef ptr fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
-    classDef obj fill:#ecfdf5,stroke:#10b981,stroke-width:1.5px,color:#065f46;
-    classDef vt fill:#f8fafc,stroke:#cbd5e1,color:#334155;
+    classDef ptr fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
+    classDef obj fill:#ECF9F0,stroke:#46B676,stroke-width:1.5px,color:#125C31;
+    classDef vt fill:#F6F9FF,stroke:#C2D2E8,color:#34405C;
     class P ptr;
     class O obj;
     class V,S,N vt;
@@ -14814,9 +14833,9 @@ flowchart TB
     S -.->|"派生类实现"| R["Rectangle"]
     C --> M["通过 Shape* 统一调用"]
     R --> M
-    classDef base fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
-    classDef dev fill:#ecfdf5,stroke:#10b981,stroke-width:1.5px,color:#065f46;
-    classDef use fill:#f8fafc,stroke:#cbd5e1,color:#334155;
+    classDef base fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
+    classDef dev fill:#ECF9F0,stroke:#46B676,stroke-width:1.5px,color:#125C31;
+    classDef use fill:#F6F9FF,stroke:#C2D2E8,color:#34405C;
     class S base;
     class C,R dev;
     class M use;
@@ -15892,11 +15911,11 @@ flowchart LR
     s4 --> n6
     s5 --> n6
     n6["阶段六 · 模板、异常与 RAII"]
-    classDef block fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
-    classDef done fill:#ecfdf5,stroke:#10b981,stroke-width:1.5px,color:#065f46;
-    classDef seen fill:#fff7ed,stroke:#f59e0b,stroke-width:1.5px,color:#92400e;
-    classDef later fill:#f1f5f9,stroke:#94a3b8,stroke-width:1.5px,color:#475569;
-    classDef next fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
+    classDef block fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
+    classDef done fill:#ECF9F0,stroke:#46B676,stroke-width:1.5px,color:#125C31;
+    classDef seen fill:#FFF4EA,stroke:#E0A92F,stroke-width:1.5px,color:#85570C;
+    classDef later fill:#EDF2FB,stroke:#76829B,stroke-width:1.5px,color:#2B3750;
+    classDef next fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
     class b1,b2,b3,b4,b5 block;
     class s1 done;
     class s2 done;
@@ -16065,9 +16084,9 @@ flowchart LR
     b3 --> l14["多 catch 顺序与按引用捕获；std::exception 接住其余"]
     b4 --> l15["RAII：构造申请、析构释放，异常路径也不漏"]
     b4 --> l16["异常安全与综合练习：模板 + 异常 + RAII"]
-    classDef root fill:#312e81,stroke:#312e81,color:#ffffff;
-    classDef block fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
-    classDef leaf fill:#f8fafc,stroke:#cbd5e1,stroke-width:1px,color:#0f172a;
+    classDef root fill:#17275A,stroke:#17275A,color:#FFFFFF;
+    classDef block fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
+    classDef leaf fill:#F6F9FF,stroke:#C2D2E8,stroke-width:1px,color:#101A33;
     class root6 root;
     class b1,b2,b3,b4 block;
     class l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16 leaf;
@@ -18222,11 +18241,11 @@ flowchart LR
     s4 --> n7
     n7["阶段七 · 标准库与智能指针"]
     b2 -.->|阶段七换 Lambda| n7
-    classDef block fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
-    classDef done fill:#ecfdf5,stroke:#10b981,stroke-width:1.5px,color:#065f46;
-    classDef seen fill:#fff7ed,stroke:#f59e0b,stroke-width:1.5px,color:#92400e;
-    classDef later fill:#f1f5f9,stroke:#94a3b8,stroke-width:1.5px,color:#475569;
-    classDef next fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
+    classDef block fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
+    classDef done fill:#ECF9F0,stroke:#46B676,stroke-width:1.5px,color:#125C31;
+    classDef seen fill:#FFF4EA,stroke:#E0A92F,stroke-width:1.5px,color:#85570C;
+    classDef later fill:#EDF2FB,stroke:#76829B,stroke-width:1.5px,color:#2B3750;
+    classDef next fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
     class b1,b2,b3,b4 block;
     class s1 done;
     class s2 done;
@@ -18408,9 +18427,9 @@ flowchart LR
     b5 --> l15["RAII 小结：构造申请、析构释放"]
     b6 --> l16["回看阶段六：可变参数模板与折叠表达式"]
     b6 --> l17["并发与并行：第 18 章再学"]
-    classDef root fill:#312e81,stroke:#312e81,color:#ffffff;
-    classDef block fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
-    classDef leaf fill:#f8fafc,stroke:#cbd5e1,stroke-width:1px,color:#0f172a;
+    classDef root fill:#17275A,stroke:#17275A,color:#FFFFFF;
+    classDef block fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
+    classDef leaf fill:#F6F9FF,stroke:#C2D2E8,stroke-width:1px,color:#101A33;
     class root7 root;
     class b1,b2,b3,b4,b5,b6 block;
     class l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17 leaf;
@@ -18491,9 +18510,9 @@ flowchart TB
     A["算法层：加工数据<br/>sort · find · count · accumulate · for_each"]
     C -->|"给出区间"| I
     I -->|"交给算法"| A
-    classDef container fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
-    classDef iter fill:#e0f2fe,stroke:#0284c7,stroke-width:1.5px,color:#0c4a6e;
-    classDef algo fill:#ecfdf5,stroke:#10b981,stroke-width:1.5px,color:#065f46;
+    classDef container fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
+    classDef iter fill:#EFF7FF,stroke:#2878C4,stroke-width:1.5px,color:#1C5186;
+    classDef algo fill:#ECF9F0,stroke:#46B676,stroke-width:1.5px,color:#125C31;
     class C container;
     class I iter;
     class A algo;
@@ -19762,9 +19781,9 @@ flowchart LR
     A["first：unique_ptr<br/>独占 Task"] -->|"std::move"| B["second：unique_ptr<br/>接管 Task"]
     A -.->|"转移后"| A2["first = nullptr"]
     B -->|"离开作用域"| C["自动 delete Task"]
-    classDef own fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
-    classDef empty fill:#f1f5f9,stroke:#94a3b8,stroke-width:1.5px,color:#475569;
-    classDef free fill:#ecfdf5,stroke:#10b981,stroke-width:1.5px,color:#065f46;
+    classDef own fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
+    classDef empty fill:#EDF2FB,stroke:#76829B,stroke-width:1.5px,color:#2B3750;
+    classDef free fill:#ECF9F0,stroke:#46B676,stroke-width:1.5px,color:#125C31;
     class A own;
     class B own;
     class A2 empty;
@@ -20021,9 +20040,9 @@ flowchart TB
         B -.->|"weak 弱引用 不计数"| A
     end
     O -.->|"最后一个持有者放手"| D["析构对象"]
-    classDef count fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
-    classDef weak fill:#fef3c7,stroke:#d97706,stroke-width:1.5px,color:#78350f;
-    classDef free fill:#ecfdf5,stroke:#10b981,stroke-width:1.5px,color:#065f46;
+    classDef count fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
+    classDef weak fill:#FFF8E6,stroke:#C58A18,stroke-width:1.5px,color:#85570C;
+    classDef free fill:#ECF9F0,stroke:#46B676,stroke-width:1.5px,color:#125C31;
     class O,C,C2 count;
     class A,B weak;
     class D free;
@@ -21245,11 +21264,11 @@ flowchart LR
     s6 --> n8
     n8["阶段八 · 多文件与文件流"]
     b6 -.->|见第18章| n8
-    classDef block fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
-    classDef done fill:#ecfdf5,stroke:#10b981,stroke-width:1.5px,color:#065f46;
-    classDef seen fill:#fff7ed,stroke:#f59e0b,stroke-width:1.5px,color:#92400e;
-    classDef later fill:#f1f5f9,stroke:#94a3b8,stroke-width:1.5px,color:#475569;
-    classDef next fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
+    classDef block fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
+    classDef done fill:#ECF9F0,stroke:#46B676,stroke-width:1.5px,color:#125C31;
+    classDef seen fill:#FFF4EA,stroke:#E0A92F,stroke-width:1.5px,color:#85570C;
+    classDef later fill:#EDF2FB,stroke:#76829B,stroke-width:1.5px,color:#2B3750;
+    classDef next fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
     class b1,b2,b3,b4,b5,b6 block;
     class s1 done;
     class s2 done;
@@ -21354,9 +21373,9 @@ flowchart LR
     b5 --> l14["ios::app / ios::trunc 与按位或组合打开模式"]
     b5 --> l15["istringstream：把一行拆成多个字段"]
     b5 --> l16["沙箱：在线运行写出的文件不落到本机硬盘"]
-    classDef root fill:#312e81,stroke:#312e81,color:#ffffff;
-    classDef block fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
-    classDef leaf fill:#f8fafc,stroke:#cbd5e1,stroke-width:1px,color:#0f172a;
+    classDef root fill:#17275A,stroke:#17275A,color:#FFFFFF;
+    classDef block fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
+    classDef leaf fill:#F6F9FF,stroke:#C2D2E8,stroke-width:1px,color:#101A33;
     class root8 root;
     class b1,b2,b3,b4,b5 block;
     class l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16 leaf;
@@ -23874,11 +23893,11 @@ flowchart LR
     s3 --> n9
     s4 --> n9
     s5 --> n9
-    classDef block fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
-    classDef done fill:#ecfdf5,stroke:#10b981,stroke-width:1.5px,color:#065f46;
-    classDef seen fill:#fff7ed,stroke:#f59e0b,stroke-width:1.5px,color:#92400e;
-    classDef later fill:#f1f5f9,stroke:#94a3b8,stroke-width:1.5px,color:#475569;
-    classDef next fill:#eef2ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
+    classDef block fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
+    classDef done fill:#ECF9F0,stroke:#46B676,stroke-width:1.5px,color:#125C31;
+    classDef seen fill:#FFF4EA,stroke:#E0A92F,stroke-width:1.5px,color:#85570C;
+    classDef later fill:#EDF2FB,stroke:#76829B,stroke-width:1.5px,color:#2B3750;
+    classDef next fill:#ECF2FC,stroke:#5A7FD8,stroke-width:1.5px,color:#17275A;
     class b1,b2,b3,b4,b5 block;
     class s1 done;
     class s2 done;
@@ -25218,15 +25237,15 @@ flowchart LR
           themeVariables: {
             fontFamily: '-apple-system, "Segoe UI", "Microsoft YaHei", sans-serif',
             fontSize: '14px',
-            primaryColor: '#eef2ff',
-            primaryTextColor: '#1e1b4b',
-            primaryBorderColor: '#818cf8',
-            lineColor: '#64748b',
-            secondaryColor: '#f8fafc',
-            tertiaryColor: '#ffffff',
-            edgeLabelBackground: '#f8fafc',
-            clusterBkg: '#ffffff',
-            clusterBorder: '#e2e8f0'
+            primaryColor: '#ECF2FC',
+            primaryTextColor: '#101A33',
+            primaryBorderColor: '#7C99E0',
+            lineColor: '#5B6883',
+            secondaryColor: '#F6F9FF',
+            tertiaryColor: '#FFFFFF',
+            edgeLabelBackground: '#F6F9FF',
+            clusterBkg: '#FFFFFF',
+            clusterBorder: '#DCE6F5'
           },
           flowchart: {
             htmlLabels: true,
@@ -26106,7 +26125,7 @@ flowchart LR
 
       /* ---------- 主题脉络：五张图，只渲染当前的一张 ---------- */
       var THEME_COLORS = {
-        '语言基础': '#4f46e5',
+        '语言基础': '#2F50A9',
         '内存与对象': '#0ea5e9',
         '抽象与复用': '#7c3aed',
         '标准库': '#059669',
@@ -26163,7 +26182,7 @@ flowchart LR
           { label: '打开模式与检查', ids: ['kp-60'] }
         ]
       };
-      function themeColor(name) { return THEME_COLORS[name] || '#64748b'; }
+      function themeColor(name) { return THEME_COLORS[name] || '#5B6883'; }
       function graphPointCount(theme) {
         return data.points.filter(function (p) { return p.theme === theme; }).length;
       }
@@ -26176,8 +26195,8 @@ flowchart LR
           lines.push('  g' + (i + 1) + '["' + g.label + '<br/>' + g.ids.length + ' 个"]');
         });
         groups.forEach(function (g, i) { lines.push('  root --> g' + (i + 1)); });
-        lines.push('  classDef rootNode fill:' + color + ',color:#ffffff,stroke:' + color + ';');
-        lines.push('  classDef groupNode fill:#f8fafc,color:#334155,stroke:#e2e8f0;');
+        lines.push('  classDef rootNode fill:' + color + ',color:#FFFFFF,stroke:' + color + ';');
+        lines.push('  classDef groupNode fill:#F6F9FF,color:#34405C,stroke:#DCE6F5;');
         lines.push('  class root rootNode;');
         lines.push('  class ' + groups.map(function (g, i) { return 'g' + (i + 1); }).join(',') + ' groupNode;');
         return lines.join('\n');
@@ -26316,7 +26335,7 @@ flowchart LR
 
         var legend = document.createElement('div');
         legend.className = 'cov-legend';
-        [['正文必讲', '#4f46e5'], ['折叠区讲', '#a5b4fc'], ['明确不讲', '#cbd5e1']].forEach(function (item) {
+        [['正文必讲', '#2F50A9'], ['折叠区讲', '#96B5EA'], ['明确不讲', '#C2D2E8']].forEach(function (item) {
           var span = document.createElement('span');
           var i = document.createElement('i');
           i.style.background = item[1];
@@ -26370,7 +26389,7 @@ flowchart LR
 
             var bar = document.createElement('span');
             bar.className = 'cov-cell-bar';
-            [['#4f46e5', p.body], [hexToRgba(color, .55), p.fold], ['#cbd5e1', p.exclude]].forEach(function (seg) {
+            [['#2F50A9', p.body], [hexToRgba(color, .55), p.fold], ['#C2D2E8', p.exclude]].forEach(function (seg) {
               if (!seg[1] || !p.forms) return;
               var i = document.createElement('i');
               i.style.width = (seg[1] / p.forms * 100) + '%';
